@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Mi página personal</title>
+    <style>
+        /* --- El armario de la ropa (estilos) --- */
+        body {
+            margin: 0;
+            font-family: sans-serif;
+            background: #f5f5f5;
+            color: #333;
+        }
+        .cabecera {
+            background: #1e293b;
+            color: white;
+            text-align: center;
+            padding: 60px 20px;
+        }
+        .cabecera img {
+            width: 100px;
+            border-radius: 50%;
+        }
+        .cabecera h1 {
+            margin: 20px 0 10px;
+        }
+        .bloque {
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .bloque h2 {
+            font-size: 2em;
+            margin-bottom: 20px;
+        }
+        .grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 20px;
+        }
+        .card {
+            background: white;
+            border-radius: 12px;
+            padding: 20px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            text-align: center;
+        }
+        .card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 15px;
+        }
+        .btn {
+            display: inline-block;
+            padding: 10px 20px;
+            border-radius: 8px;
+            color: white;
+            text-decoration: none;
+            font-weight: bold;
+            margin: 5px;
+        }
+        .btn-escuchar { background: #3b82f6; }  /* azul */
+        .btn-comprar  { background: #10b981; }  /* verde */
+        .btn-amazon   { background: #f90; }      /* naranja */
+        footer {
+            text-align: center;
+            padding: 30px;
+            background: #1e293b;
+            color: white;
+            margin-top: 60px;
+        }
+    </style>
+</head>
+<body>
+
+    <!-- Bloque 1: Recepción -->
+    <div class="cabecera">
+        <img src="https://via.placeholder.com/100" alt="Logo">
+        <h1>Tu Nombre</h1>
+        <p>Tu frase inspiradora aquí</p>
+    </div>
+
+    <!-- Bloque 2: Biblioteca -->
+    <div class="bloque">
+        <h2>📖 Mis Libros</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x180?text=Libro+1" alt="Libro 1">
+                <h3>Mi primer libro</h3>
+                <p>Una descripción breve.</p>
+                <a href="https://amazon.com" class="btn btn-amazon">Comprar en Amazon</a>
+            </div>
+            <div class="card">
+                <img src="https://via.placeholder.com/300x180?text=Libro+2" alt="Libro 2">
+                <h3>Mi segundo libro</h3>
+                <p>Otra descripción breve.</p>
+                <a href="https://amazon.com" class="btn btn-amazon">Comprar en Amazon</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloque 3: Sala de Música -->
+    <div class="bloque">
+        <h2>🎼 Mis Partituras</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x180?text=Partitura+1" alt="Partitura 1">
+                <h3>Nocturno en Mi♭ Mayor</h3>
+                <p>Duración: 4:20</p>
+                <!-- Botón escuchar: hay que poner un archivo de audio -->
+                <button class="btn btn-escuchar" onclick="document.getElementById('audio1').play()">▶ Escuchar</button>
+                <audio id="audio1" src="audio/nocturno.mp3" preload="none"></audio>
+                <a href="https://gumroad.com" class="btn btn-comprar">Comprar partitura</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloque 4: Arcade -->
+    <div class="bloque">
+        <h2>🎮 Mis Juegos</h2>
+        <div class="grid">
+            <div class="card">
+                <img src="https://via.placeholder.com/300x180?text=Juego+1" alt="Juego 1">
+                <h3>Aventura Espacial</h3>
+                <p>Un juego de plataformas.</p>
+                <a href="https://store.steampowered.com" class="btn btn-comprar">Ver en Steam</a>
+            </div>
+        </div>
+    </div>
+
+    <!-- Bloque 5: Pie de Página -->
+    <footer>
+        <p>© 2026 Tu Nombre. Todos los derechos reservados.</p>
+    </footer>
+
+</body>
+</html>
