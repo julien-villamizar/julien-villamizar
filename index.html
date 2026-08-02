@@ -3,20 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi página personal</title>
+    <title>Julien Villamizar Arriaga</title>
     <style>
-        /* --- El armario de la ropa (estilos) --- */
         body {
             margin: 0;
             font-family: sans-serif;
             background: #f5f5f5;
             color: #333;
+            padding-top: 70px;
         }
+
+        /* Barra de navegación fija */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            background: #1e293b;
+            padding: 10px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 30px;
+            flex-wrap: wrap;
+            z-index: 1000;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+        }
+
+        /* Botones de navegación con imagen */
+        .nav-img {
+            height: 36px;          /* Ajusta según el tamaño de tus imágenes */
+            cursor: pointer;
+            transition: transform 0.2s;
+            vertical-align: middle;
+        }
+        .nav-img:hover {
+            transform: scale(1.1);  /* Efecto sutil al pasar el ratón */
+        }
+
+        /* Contenedor del traductor de Google */
+        #google_translate_element {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            z-index: 1100;
+            background: white;
+            padding: 6px 10px;
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
+        }
+
+        .seccion {
+            display: none;
+            max-width: 1000px;
+            margin: 40px auto;
+            padding: 0 20px;
+        }
+        .seccion.activa {
+            display: block;
+        }
+
         .cabecera {
+            text-align: center;
             background: #1e293b;
             color: white;
-            text-align: center;
             padding: 60px 20px;
+            border-radius: 12px;
+            margin-bottom: 20px;
         }
         .cabecera img {
             width: 100px;
@@ -25,11 +78,7 @@
         .cabecera h1 {
             margin: 20px 0 10px;
         }
-        .bloque {
-            max-width: 1000px;
-            margin: 40px auto;
-            padding: 0 20px;
-        }
+
         .bloque h2 {
             font-size: 2em;
             margin-bottom: 20px;
@@ -61,10 +110,13 @@
             text-decoration: none;
             font-weight: bold;
             margin: 5px;
+            border: none;
+            cursor: pointer;
+            font-size: 1rem;
         }
-        .btn-escuchar { background: #3b82f6; }  /* azul */
-        .btn-comprar  { background: #10b981; }  /* verde */
-        .btn-amazon   { background: #f90; }      /* naranja */
+        .btn-amazon   { background: #f90; }
+        .btn-goodreads { background: #3b1e0b; }
+
         footer {
             text-align: center;
             padding: 30px;
@@ -76,65 +128,76 @@
 </head>
 <body>
 
-    <!-- Bloque 1: Recepción -->
-    <div class="cabecera">
-        <img src="https://via.placeholder.com/100" alt="Logo">
-        <h1>Tu Nombre</h1>
-        <p>Tu frase inspiradora aquí</p>
+    <!-- Barra de navegación con imágenes -->
+    <nav>
+        <img src="img/home.png" alt="Inicio" class="nav-img" onclick="mostrarSeccion('home')" title="Inicio">
+        <img src="img/books.png" alt="Libros" class="nav-img" onclick="mostrarSeccion('books')" title="Libros">
+    </nav>
+
+    <!-- Sección Home (Inicio) visible por defecto -->
+    <div id="home" class="seccion activa">
+        <div class="cabecera">
+            <img src="https://via.placeholder.com/100" alt="Logo">
+            <h1>Julien Villamizar Arriaga</h1>
+            <p>Escribe aquí tu frase inspiradora</p>
+        </div>
     </div>
 
-    <!-- Bloque 2: Biblioteca -->
-    <div class="bloque">
-        <h2>📖 Mis Libros</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x180?text=Libro+1" alt="Libro 1">
-                <h3>Mi primer libro</h3>
-                <p>Una descripción breve.</p>
-                <a href="https://amazon.com" class="btn btn-amazon">Comprar en Amazon</a>
-            </div>
-            <div class="card">
-                <img src="https://via.placeholder.com/300x180?text=Libro+2" alt="Libro 2">
-                <h3>Mi segundo libro</h3>
-                <p>Otra descripción breve.</p>
-                <a href="https://amazon.com" class="btn btn-amazon">Comprar en Amazon</a>
+    <!-- Sección Libros -->
+    <div id="books" class="seccion">
+        <div class="bloque">
+            <h2>📖 Mis libros</h2>
+            <div class="grid">
+                <!-- Libro 1 -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x180?text=Herencias+Invisibles" alt="Herencias Invisibles">
+                    <h3>Herencias Invisibles</h3>
+                    <p>Una historia cautivadora sobre el legado familiar.</p>
+                    <a href="https://www.amazon.com/dp/B0GV43M42V" target="_blank" class="btn btn-amazon">Amazon</a>
+                    <a href="https://www.goodreads.com/book/show/250305084-herencias-invisibles" target="_blank" class="btn btn-goodreads">Goodreads</a>
+                </div>
+                <!-- Libro 2 -->
+                <div class="card">
+                    <img src="https://via.placeholder.com/300x180?text=Cuando+nadie+est%C3%A1+mirando" alt="Cuando nadie está mirando">
+                    <h3>Cuando nadie está mirando</h3>
+                    <p>Un thriller psicológico que no podrás soltar.</p>
+                    <a href="https://www.amazon.com/dp/B0GV41NDQN" target="_blank" class="btn btn-amazon">Amazon</a>
+                    <a href="https://www.goodreads.com/book/show/250305118-cuando-nadie-est-mirando" target="_blank" class="btn btn-goodreads">Goodreads</a>
+                </div>
             </div>
         </div>
     </div>
 
-    <!-- Bloque 3: Sala de Música -->
-    <div class="bloque">
-        <h2>🎼 Mis Partituras</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x180?text=Partitura+1" alt="Partitura 1">
-                <h3>Nocturno en Mi♭ Mayor</h3>
-                <p>Duración: 4:20</p>
-                <!-- Botón escuchar: hay que poner un archivo de audio -->
-                <button class="btn btn-escuchar" onclick="document.getElementById('audio1').play()">▶ Escuchar</button>
-                <audio id="audio1" src="audio/nocturno.mp3" preload="none"></audio>
-                <a href="https://gumroad.com" class="btn btn-comprar">Comprar partitura</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bloque 4: Arcade -->
-    <div class="bloque">
-        <h2>🎮 Mis Juegos</h2>
-        <div class="grid">
-            <div class="card">
-                <img src="https://via.placeholder.com/300x180?text=Juego+1" alt="Juego 1">
-                <h3>Aventura Espacial</h3>
-                <p>Un juego de plataformas.</p>
-                <a href="https://store.steampowered.com" class="btn btn-comprar">Ver en Steam</a>
-            </div>
-        </div>
-    </div>
-
-    <!-- Bloque 5: Pie de Página -->
+    <!-- Pie de página -->
     <footer>
-        <p>© 2026 Tu Nombre. Todos los derechos reservados.</p>
+        <p>© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.</p>
     </footer>
+
+    <!-- Widget de Google Translate -->
+    <div id="google_translate_element"></div>
+    <script type="text/javascript">
+        function googleTranslateElementInit() {
+            new google.translate.TranslateElement({
+                pageLanguage: 'es',               // Idioma original de la página
+                includedLanguages: 'all',         // Traducir a cualquier idioma
+                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
+            }, 'google_translate_element');
+        }
+    </script>
+    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+
+    <!-- Lógica para cambiar de sección -->
+    <script>
+        function mostrarSeccion(id) {
+            document.querySelectorAll('.seccion').forEach(seccion => {
+                seccion.classList.remove('activa');
+            });
+            const seccionActiva = document.getElementById(id);
+            if (seccionActiva) {
+                seccionActiva.classList.add('activa');
+            }
+        }
+    </script>
 
 </body>
 </html>
