@@ -13,7 +13,6 @@
             padding-top: 70px;
         }
 
-        /* Barra de navegación fija */
         nav {
             position: fixed;
             top: 0;
@@ -30,18 +29,16 @@
             box-shadow: 0 2px 8px rgba(0,0,0,0.3);
         }
 
-        /* Botones de navegación con imagen */
         .nav-img {
-            height: 36px;          /* Ajusta según el tamaño de tus imágenes */
+            height: 36px;
             cursor: pointer;
             transition: transform 0.2s;
             vertical-align: middle;
         }
         .nav-img:hover {
-            transform: scale(1.1);  /* Efecto sutil al pasar el ratón */
+            transform: scale(1.1);
         }
 
-        /* Contenedor del traductor de Google */
         #google_translate_element {
             position: fixed;
             bottom: 20px;
@@ -128,13 +125,13 @@
 </head>
 <body>
 
-    <!-- Barra de navegación con imágenes -->
+    <!-- Navegación con imágenes (los nombres base son "Home" y "Books") -->
     <nav>
-        <img src="img/home.png" alt="Inicio" class="nav-img" onclick="mostrarSeccion('home')" title="Inicio">
-        <img src="img/books.png" alt="Libros" class="nav-img" onclick="mostrarSeccion('books')" title="Libros">
+        <img id="img-home" alt="Inicio" class="nav-img" onclick="mostrarSeccion('home')" title="Inicio">
+        <img id="img-books" alt="Libros" class="nav-img" onclick="mostrarSeccion('books')" title="Libros">
     </nav>
 
-    <!-- Sección Home (Inicio) visible por defecto -->
+    <!-- Sección Home -->
     <div id="home" class="seccion activa">
         <div class="cabecera">
             <img src="https://via.placeholder.com/100" alt="Logo">
@@ -168,25 +165,23 @@
         </div>
     </div>
 
-    <!-- Pie de página -->
     <footer>
         <p>© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Widget de Google Translate -->
+    <!-- Google Translate -->
     <div id="google_translate_element"></div>
     <script type="text/javascript">
         function googleTranslateElementInit() {
             new google.translate.TranslateElement({
-                pageLanguage: 'es',               // Idioma original de la página
-                includedLanguages: 'all',         // Traducir a cualquier idioma
+                pageLanguage: 'es',
+                includedLanguages: 'all',
                 layout: google.translate.TranslateElement.InlineLayout.SIMPLE
             }, 'google_translate_element');
         }
     </script>
     <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
-    <!-- Lógica para cambiar de sección -->
     <script>
         function mostrarSeccion(id) {
             document.querySelectorAll('.seccion').forEach(seccion => {
@@ -197,6 +192,35 @@
                 seccionActiva.classList.add('activa');
             }
         }
+
+        // Carga inteligente: prueba .png, .jpg, .jpeg
+        function cargarImagen(idImg, nombre) {
+            const img = document.getElementById(idImg);
+            const extensiones = ['.png', '.jpg', '.jpeg'];
+            let i = 0;
+
+            function intentar() {
+                if (i >= extensiones.length) {
+                    console.warn('No se encontró imagen para ' + nombre);
+                    return;
+                }
+                img.src = 'img/' + nombre + extensiones[i];
+                img.onerror = function() {
+                    i++;
+                    intentar();
+                };
+                img.onload = function() {
+                    // Imagen cargada exitosamente
+                };
+            }
+            intentar();
+        }
+
+        window.addEventListener('DOMContentLoaded', function() {
+            // Los archivos deben llamarse Home.png (o Home.jpg) y Books.png (o Books.jpg)
+            cargarImagen('img-home', 'Home');
+            cargarImagen('img-books', 'Books');
+        });
     </script>
 
 </body>
