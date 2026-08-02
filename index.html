@@ -8,51 +8,59 @@
         body {
             margin: 0;
             font-family: sans-serif;
-            background: #f5f5f5;
-            color: #333;
+            background: #000000;
+            color: #ffffff;
             padding-top: 70px;
         }
 
+        /* Barra de navegación fija */
         nav {
             position: fixed;
             top: 0;
             left: 0;
             width: 100%;
-            background: #1e293b;
+            background: #000000;
             padding: 10px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 30px;
-            flex-wrap: wrap;
+            gap: 40px;
             z-index: 1000;
-            box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+            border-bottom: 1px solid #222;
         }
 
-        .nav-img {
-            height: 36px;
+        /* Botones de navegación con texto */
+        .nav-text {
+            background: none;
+            border: none;
+            color: #ffffff;
+            font-size: 1.2rem;
+            font-weight: bold;
             cursor: pointer;
-            transition: transform 0.2s;
-            vertical-align: middle;
+            transition: color 0.3s;
+            padding: 5px 0;
+            font-family: inherit;
         }
-        .nav-img:hover {
-            transform: scale(1.1);
+        .nav-text:hover,
+        .nav-text.activo {
+            color: #F5C84C;
         }
 
+        /* Traductor de Google */
         #google_translate_element {
             position: fixed;
             bottom: 20px;
             right: 20px;
             z-index: 1100;
-            background: white;
+            background: #000;
             padding: 6px 10px;
+            border: 1px solid #333;
             border-radius: 8px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.15);
         }
 
         .seccion {
             display: none;
-            max-width: 1000px;
+            max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
         }
@@ -60,106 +68,179 @@
             display: block;
         }
 
+        /* Home */
         .cabecera {
             text-align: center;
-            background: #1e293b;
-            color: white;
-            padding: 60px 20px;
-            border-radius: 12px;
-            margin-bottom: 20px;
         }
         .cabecera img {
-            width: 100px;
+            width: 120px;
             border-radius: 50%;
-        }
-        .cabecera h1 {
-            margin: 20px 0 10px;
-        }
-
-        .bloque h2 {
-            font-size: 2em;
             margin-bottom: 20px;
         }
-        .grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
-            gap: 20px;
+        .cabecera h1 {
+            margin: 0 0 10px;
+            font-size: 2.5em;
         }
-        .card {
-            background: white;
-            border-radius: 12px;
-            padding: 20px;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        .cabecera .bio {
+            margin-top: 30px;
+            text-align: left;
+            line-height: 1.8;
+            white-space: pre-line;
+        }
+
+        /* Libros */
+        .bloque h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
             text-align: center;
         }
-        .card img {
-            width: 100%;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 8px;
-            margin-bottom: 15px;
+        .imagen-libros {
+            text-align: center;
+            margin-bottom: 40px;
         }
-        .btn {
+        .imagen-libros img {
+            max-width: 300px;
+            border-radius: 12px;
+        }
+        .grid {
+            display: flex;
+            flex-direction: column;
+            gap: 50px;
+            align-items: center;
+        }
+        .card {
+            text-align: center;
+            max-width: 600px;
+            width: 100%;
+        }
+        .card h3 {
+            font-size: 1.8em;
+            margin-bottom: 5px;
+        }
+        .card .subtitulo {
+            font-size: 1.1em;
+            margin-bottom: 20px;
+            color: #ccc;
+        }
+        .card .sinopsis {
+            white-space: pre-line;
+            line-height: 1.7;
+            margin-bottom: 15px;
+            font-style: italic;
+        }
+        .card .pagina {
+            font-weight: bold;
+            margin-bottom: 20px;
+            color: #F5C84C;
+        }
+
+        /* Botones como texto puro */
+        .btn-amazon {
             display: inline-block;
-            padding: 10px 20px;
-            border-radius: 8px;
-            color: white;
+            color: #ffffff;
             text-decoration: none;
             font-weight: bold;
-            margin: 5px;
+            font-size: 1.2rem;
+            transition: color 0.3s;
             border: none;
-            cursor: pointer;
-            font-size: 1rem;
+            background: none;
+            padding: 0;
         }
-        .btn-amazon   { background: #f90; }
-        .btn-goodreads { background: #3b1e0b; }
+        .btn-amazon:hover {
+            color: #F5C84C;
+        }
 
         footer {
             text-align: center;
             padding: 30px;
-            background: #1e293b;
-            color: white;
+            background: #000000;
+            color: #ffffff;
             margin-top: 60px;
+            border-top: 1px solid #222;
         }
     </style>
 </head>
 <body>
 
-    <!-- Navegación con imágenes (los nombres base son "Home" y "Books") -->
+    <!-- Navegación con texto -->
     <nav>
-        <img id="img-home" alt="Inicio" class="nav-img" onclick="mostrarSeccion('home')" title="Inicio">
-        <img id="img-books" alt="Libros" class="nav-img" onclick="mostrarSeccion('books')" title="Libros">
+        <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')">Home</button>
+        <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')">Books</button>
     </nav>
 
     <!-- Sección Home -->
     <div id="home" class="seccion activa">
         <div class="cabecera">
-            <img src="https://via.placeholder.com/100" alt="Logo">
+            <img id="logo-home" alt="Logo" src="">
             <h1>Julien Villamizar Arriaga</h1>
-            <p>Escribe aquí tu frase inspiradora</p>
+            <div class="bio">
+Nací en Colombia, donde el trópico no solo es clima, sino un modo de sentir el tiempo.
+Crecí entre montañas verdes, calles ruidosas y una lengua que baila al hablar.
+De niño, el olor a tierra mojada me enseñó más que cualquier aula.
+No me gustaba leer: los libros me parecían jaulas de letras que no me pertenecían.
+Hasta que un cómic cayó en mis manos como cae un rayo en tierra fértil.
+Sus viñetas me mostraron que una historia podía respirar, sudar, gritar.
+Empecé a leer sin parar, primero tebeos, luego novelas delgadas, después ladrillos de páginas.
+Cada lectura era una ventana rota a un mundo que yo necesitaba habitar.
+A los doce años, en una noche de insomnio, soñé despierto con escribir mi propio libro.
+Ese sueño no se marchó al amanecer; se quedó a vivir conmigo.
+A los catorce años tomé la decisión más seria de mi vida: ser escritor.
+No fue una fantasía adolescente, sino un pacto íntimo con mi voz.
+Empecé a escribir en cuadernos, en servilletas, en los márgenes del colegio.
+Cada frase torpe era un ensayo, cada error una lección que sabía a victoria.
+Hoy, a los dieciocho, soy un colombiano que escribe desde la honestidad radical.
+Mi país no es solo un escenario, es el latido que le pongo a cada personaje.
+Escribo para tender puentes donde antes solo había silencio y distancia.
+Escribo para que otros, al leerme, sientan que alguien los entiende sin juzgarlos.
+No busco la perfección, busco la verdad que se esconde bajo la piel de las palabras.
+Cada historia que empiezo es una forma de abrazar el caos y convertirlo en algo bello.
+Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div>
         </div>
     </div>
 
     <!-- Sección Libros -->
     <div id="books" class="seccion">
         <div class="bloque">
+            <div class="imagen-libros">
+                <img id="img-books-header" alt="Libros" src="">
+            </div>
             <h2>📖 Mis libros</h2>
             <div class="grid">
-                <!-- Libro 1 -->
+                <!-- Libro 1: Herencias Invisibles -->
                 <div class="card">
-                    <img src="https://via.placeholder.com/300x180?text=Herencias+Invisibles" alt="Herencias Invisibles">
                     <h3>Herencias Invisibles</h3>
-                    <p>Una historia cautivadora sobre el legado familiar.</p>
-                    <a href="https://www.amazon.com/dp/B0GV43M42V" target="_blank" class="btn btn-amazon">Amazon</a>
-                    <a href="https://www.goodreads.com/book/show/250305084-herencias-invisibles" target="_blank" class="btn btn-goodreads">Goodreads</a>
+                    <p class="subtitulo">Libro antológico.</p>
+                    <p class="sinopsis">Una mujer despierta del barro y halla a su lado un reflejo perfecto.
+La armonía se rompe cuando un paso se adelanta y el cuidado se vuelve dominio.
+Ella se niega a la sumisión y pronuncia su propio nombre.
+El paraíso la expulsa, pero no suplica el regreso.
+Sobrevive al desierto, al fuego y a la noche.
+Mensajeros del cielo le ofrecen paz a cambio de obediencia.
+Ella responde con un no definitivo.
+Asiste oculta a la creación de otra mujer, nacida no de tierra libre sino de hueso prestado.
+La muerte le arrebata a sus hijos, uno tras otro, como un tributo por su insurrección.
+El mito la sepulta bajo la calumnia.
+Pero bajo el demonio que inventaron alienta la primera conciencia que eligió la intemperie a la jaula.</p>
+                    <p class="pagina">Página 154</p>
+                    <a href="https://www.amazon.com/dp/B0GV43M42V" target="_blank" class="btn-amazon">Comprar en Amazon</a>
                 </div>
-                <!-- Libro 2 -->
+                <!-- Libro 2: Cuando nadie está mirando -->
                 <div class="card">
-                    <img src="https://via.placeholder.com/300x180?text=Cuando+nadie+est%C3%A1+mirando" alt="Cuando nadie está mirando">
                     <h3>Cuando nadie está mirando</h3>
-                    <p>Un thriller psicológico que no podrás soltar.</p>
-                    <a href="https://www.amazon.com/dp/B0GV41NDQN" target="_blank" class="btn btn-amazon">Amazon</a>
-                    <a href="https://www.goodreads.com/book/show/250305118-cuando-nadie-est-mirando" target="_blank" class="btn btn-goodreads">Goodreads</a>
+                    <p class="subtitulo">Libro antológico.</p>
+                    <p class="sinopsis">Una mujer despierta del barro y halla a su lado un reflejo perfecto.
+La armonía se rompe cuando un paso se adelanta y el cuidado se vuelve dominio.
+Ella se niega a la sumisión y pronuncia su propio nombre.
+El paraíso la expulsa, pero no suplica el regreso.
+Sobrevive al desierto, al fuego y a la noche.
+Mensajeros del cielo le ofrecen paz a cambio de obediencia.
+Ella responde con un no definitivo.
+Asiste oculta a la creación de otra mujer, nacida no de tierra libre sino de hueso prestado.
+La muerte le arrebata a sus hijos, uno tras otro, como un tributo por su insurrección.
+El mito la sepulta bajo la calumnia.
+Pero bajo el demonio que inventaron alienta la primera conciencia que eligió la intemperie a la jaula.</p>
+                    <p class="pagina">Página 147</p>
+                    <a href="https://www.amazon.com/dp/B0GV41NDQN" target="_blank" class="btn-amazon">Comprar en Amazon</a>
                 </div>
             </div>
         </div>
@@ -184,21 +265,26 @@
 
     <script>
         function mostrarSeccion(id) {
+            // Ocultar todas las secciones
             document.querySelectorAll('.seccion').forEach(seccion => {
                 seccion.classList.remove('activa');
             });
+            // Mostrar la sección elegida
             const seccionActiva = document.getElementById(id);
             if (seccionActiva) {
                 seccionActiva.classList.add('activa');
             }
+            // Actualizar botones del menú
+            document.querySelectorAll('.nav-text').forEach(btn => btn.classList.remove('activo'));
+            document.getElementById('btn-' + id).classList.add('activo');
         }
 
-        // Carga inteligente: prueba .png, .jpg, .jpeg
+        // Carga inteligente de imágenes (prueba .png, .jpg, .jpeg)
         function cargarImagen(idImg, nombre) {
             const img = document.getElementById(idImg);
+            if (!img) return;
             const extensiones = ['.png', '.jpg', '.jpeg'];
             let i = 0;
-
             function intentar() {
                 if (i >= extensiones.length) {
                     console.warn('No se encontró imagen para ' + nombre);
@@ -209,17 +295,16 @@
                     i++;
                     intentar();
                 };
-                img.onload = function() {
-                    // Imagen cargada exitosamente
-                };
+                img.onload = function() { /* cargada */ };
             }
             intentar();
         }
 
         window.addEventListener('DOMContentLoaded', function() {
-            // Los archivos deben llamarse Home.png (o Home.jpg) y Books.png (o Books.jpg)
-            cargarImagen('img-home', 'Home');
-            cargarImagen('img-books', 'Books');
+            // Logo del Home (usa Home.png o Home.jpg)
+            cargarImagen('logo-home', 'Home');
+            // Imagen cabecera de libros (usa Books.png o Books.jpg)
+            cargarImagen('img-books-header', 'Books');
         });
     </script>
 
