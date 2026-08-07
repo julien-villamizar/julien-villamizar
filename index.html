@@ -4,6 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Julien Villamizar Arriaga</title>
+    <meta name="description" content="Sitio oficial del escritor colombiano Julien Villamizar Arriaga. Descubre sus libros Herencias Invisibles y Cuando nadie está mirando.">
+    <meta property="og:title" content="Julien Villamizar Arriaga - Escritor">
+    <meta property="og:description" content="Sitio oficial del escritor colombiano Julien Villamizar Arriaga.">
+    <meta property="og:type" content="website">
+    <link rel="icon" type="image/png" href="img/favicon.png">
     <style>
         body {
             margin: 0;
@@ -27,6 +32,7 @@
             gap: 40px;
             z-index: 1000;
             border-bottom: 1px solid #222;
+            box-sizing: border-box;
         }
 
         /* Botones de navegación con texto */
@@ -46,16 +52,20 @@
             color: #F5C84C;
         }
 
-        /* Traductor de Google */
-        #google_translate_element {
-            position: fixed;
-            bottom: 20px;
-            right: 20px;
-            z-index: 1100;
+        /* Selector de idioma */
+        .lang-select {
             background: #000;
-            padding: 6px 10px;
+            color: #fff;
             border: 1px solid #333;
             border-radius: 8px;
+            padding: 6px 10px;
+            font-size: 0.9rem;
+            margin-left: auto;
+            position: absolute;
+            right: 20px;
+            top: 50%;
+            transform: translateY(-50%);
+            cursor: pointer;
         }
 
         .seccion {
@@ -63,6 +73,7 @@
             max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
+            text-align: center; /* Centra todo el contenido dentro de cada sección */
         }
         .seccion.activa {
             display: block;
@@ -83,9 +94,10 @@
         }
         .cabecera .bio {
             margin-top: 30px;
-            text-align: left;
-            line-height: 1.8;
             white-space: pre-line;
+            line-height: 1.8;
+            display: inline-block; /* para que el centrado funcione correctamente con pre-line */
+            text-align: center;    /* centra las líneas en el bloque */
         }
 
         /* Libros */
@@ -109,7 +121,6 @@
             align-items: center;
         }
         .card {
-            text-align: center;
             max-width: 600px;
             width: 100%;
         }
@@ -127,6 +138,7 @@
             line-height: 1.7;
             margin-bottom: 15px;
             font-style: italic;
+            text-align: center;
         }
         .card .pagina {
             font-weight: bold;
@@ -162,10 +174,18 @@
 </head>
 <body>
 
-    <!-- Navegación con texto en español neutro -->
+    <!-- Navegación con selector de idioma -->
     <nav>
         <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')">Inicio</button>
         <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')">Libros</button>
+        <select class="lang-select" onchange="cambiarIdioma(this.value)">
+            <option value="es" selected>Español</option>
+            <option value="en">English</option>
+            <option value="fr">Français</option>
+            <option value="de">Deutsch</option>
+            <option value="it">Italiano</option>
+            <option value="pt">Português</option>
+        </select>
     </nav>
 
     <!-- Sección Home -->
@@ -210,7 +230,13 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
                 <div class="card">
                     <h3>Herencias Invisibles</h3>
                     <p class="subtitulo">Libro antológico.</p>
-                    <p class="sinopsis">Creada del barro, ella despierta junto a su reflejo. La armonía se quiebra cuando él la somete. Se niega, pronuncia su nombre y es expulsada. Sobrevive al desierto, rechaza mensajeros celestiales y presencia la creación de otra mujer nacida de hueso. Pierde a sus hijos, mas el mito no logra encadenar su libertad.</p>
+                    <p class="sinopsis">
+Creada del barro, ella despierta junto a su reflejo.
+La armonía se quiebra cuando él la somete.
+Se niega, pronuncia su nombre y es expulsada.
+Sobrevive al desierto, rechaza mensajeros celestiales y presencia la creación de otra mujer nacida de hueso.
+Pierde a sus hijos, mas el mito no logra encadenar su libertad.
+                    </p>
                     <p class="pagina">Página 154</p>
                     <a href="https://www.amazon.com/dp/B0GV43M42V" target="_blank" class="btn-amazon">Comprar en Amazon</a>
                 </div>
@@ -218,7 +244,12 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
                 <div class="card">
                     <h3>Cuando nadie está mirando</h3>
                     <p class="subtitulo">Libro antológico.</p>
-                    <p class="sinopsis">Creada del barro, ella despierta junto a su reflejo. La armonía se quiebra cuando él la somete. Se niega, pronuncia su nombre y es expulsada. Sobrevive al desierto, rechaza mensajeros celestiales y presencia la creación de otra mujer nacida de hueso. Pierde a sus hijos, mas el mito no logra encadenar su libertad.</p>
+                    <p class="sinopsis">
+En la soledad del anonimato, los secretos afloran sin permiso.
+Siete relatos exploran lo que hacemos cuando creemos que nadie observa.
+El deseo, la culpa, la rebeldía silenciosa quedan al descubierto.
+Una antología que desnuda la intimidad humana con crudeza y poesía.
+                    </p>
                     <p class="pagina">Página 147</p>
                     <a href="https://www.amazon.com/dp/B0GV41NDQN" target="_blank" class="btn-amazon">Comprar en Amazon</a>
                 </div>
@@ -230,60 +261,74 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
         <p>© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Google Translate (carga segura por HTTPS) -->
-    <div id="google_translate_element"></div>
+    <!-- Google Translate (carga del motor) -->
     <script type="text/javascript">
+        // Solo necesitamos cargar el motor, sin interfaz automática
         function googleTranslateElementInit() {
-            new google.translate.TranslateElement({
-                pageLanguage: 'es',
-                includedLanguages: 'all',
-                layout: google.translate.TranslateElement.InlineLayout.SIMPLE
-            }, 'google_translate_element');
+            // No creamos ningún elemento; la traducción se activa por cookie.
         }
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
+        // Cambio de sección
         function mostrarSeccion(id) {
-            // Ocultar todas las secciones
             document.querySelectorAll('.seccion').forEach(seccion => {
                 seccion.classList.remove('activa');
             });
-            // Mostrar la sección elegida
             const seccionActiva = document.getElementById(id);
             if (seccionActiva) {
                 seccionActiva.classList.add('activa');
             }
-            // Actualizar botones del menú
             document.querySelectorAll('.nav-text').forEach(btn => btn.classList.remove('activo'));
             document.getElementById('btn-' + id).classList.add('activo');
         }
 
-        // Carga inteligente de imágenes (prueba .png, .jpg, .jpeg)
-        function cargarImagen(idImg, nombre) {
-            const img = document.getElementById(idImg);
-            if (!img) return;
-            const extensiones = ['.png', '.jpg', '.jpeg'];
-            let i = 0;
-            function intentar() {
-                if (i >= extensiones.length) {
-                    console.warn('No se encontró imagen para ' + nombre);
-                    return;
-                }
-                img.src = 'img/' + nombre + extensiones[i];
-                img.onerror = function() {
-                    i++;
-                    intentar();
-                };
-                img.onload = function() { /* cargada */ };
+        // Selector de idioma con recarga
+        function cambiarIdioma(lang) {
+            // Si es español (idioma original), eliminamos la cookie y recargamos
+            if (lang === 'es') {
+                document.cookie = 'googtrans=; path=/; domain=' + location.hostname + '; expires=Thu, 01 Jan 1970 00:00:01 GMT';
+            } else {
+                // Establecemos la cookie googtrans=/es/[lang]
+                document.cookie = 'googtrans=/es/' + lang + '; path=/; domain=' + location.hostname;
             }
-            intentar();
+            location.reload();
         }
 
+        // Al cargar la página, si hay traducción activa, seleccionamos el idioma en el dropdown
         window.addEventListener('DOMContentLoaded', function() {
-            // Logo del Home
+            const match = document.cookie.match(/googtrans=\/es\/([^;]+)/);
+            if (match) {
+                const lang = match[1];
+                const select = document.querySelector('.lang-select');
+                if (select) {
+                    select.value = lang;
+                }
+            }
+
+            // Carga de imágenes (prueba .png, .jpg, .jpeg)
+            function cargarImagen(idImg, nombre) {
+                const img = document.getElementById(idImg);
+                if (!img) return;
+                const extensiones = ['.png', '.jpg', '.jpeg'];
+                let i = 0;
+                function intentar() {
+                    if (i >= extensiones.length) {
+                        img.alt = 'Imagen no disponible: ' + nombre;
+                        return;
+                    }
+                    img.src = 'img/' + nombre + extensiones[i];
+                    img.onerror = function() {
+                        i++;
+                        intentar();
+                    };
+                    img.onload = function() { /* cargada */ };
+                }
+                intentar();
+            }
+
             cargarImagen('logo-home', 'Home');
-            // Imagen cabecera de libros
             cargarImagen('img-books-header', 'Books');
         });
     </script>
