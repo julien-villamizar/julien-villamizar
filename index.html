@@ -162,16 +162,16 @@
 </head>
 <body>
 
-    <!-- Navegación con texto -->
+    <!-- Navegación con texto en español neutro -->
     <nav>
-        <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')">Home</button>
-        <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')">Books</button>
+        <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')">Inicio</button>
+        <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')">Libros</button>
     </nav>
 
     <!-- Sección Home -->
     <div id="home" class="seccion activa">
         <div class="cabecera">
-            <img id="logo-home" alt="Logo" src="">
+            <img id="logo-home" alt="Logo de Julien Villamizar" src="">
             <h1>Julien Villamizar Arriaga</h1>
             <div class="bio">
 Nací en Colombia, donde el trópico no solo es clima, sino un modo de sentir el tiempo.
@@ -202,25 +202,15 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
     <div id="books" class="seccion">
         <div class="bloque">
             <div class="imagen-libros">
-                <img id="img-books-header" alt="Libros" src="">
+                <img id="img-books-header" alt="Portada de libros" src="">
             </div>
-            <h2>📖 Mis libros</h2>
+            <h2>Mis libros</h2>
             <div class="grid">
                 <!-- Libro 1: Herencias Invisibles -->
                 <div class="card">
                     <h3>Herencias Invisibles</h3>
                     <p class="subtitulo">Libro antológico.</p>
-                    <p class="sinopsis">Una mujer despierta del barro y halla a su lado un reflejo perfecto.
-La armonía se rompe cuando un paso se adelanta y el cuidado se vuelve dominio.
-Ella se niega a la sumisión y pronuncia su propio nombre.
-El paraíso la expulsa, pero no suplica el regreso.
-Sobrevive al desierto, al fuego y a la noche.
-Mensajeros del cielo le ofrecen paz a cambio de obediencia.
-Ella responde con un no definitivo.
-Asiste oculta a la creación de otra mujer, nacida no de tierra libre sino de hueso prestado.
-La muerte le arrebata a sus hijos, uno tras otro, como un tributo por su insurrección.
-El mito la sepulta bajo la calumnia.
-Pero bajo el demonio que inventaron alienta la primera conciencia que eligió la intemperie a la jaula.</p>
+                    <p class="sinopsis">Creada del barro, ella despierta junto a su reflejo. La armonía se quiebra cuando él la somete. Se niega, pronuncia su nombre y es expulsada. Sobrevive al desierto, rechaza mensajeros celestiales y presencia la creación de otra mujer nacida de hueso. Pierde a sus hijos, mas el mito no logra encadenar su libertad.</p>
                     <p class="pagina">Página 154</p>
                     <a href="https://www.amazon.com/dp/B0GV43M42V" target="_blank" class="btn-amazon">Comprar en Amazon</a>
                 </div>
@@ -228,17 +218,7 @@ Pero bajo el demonio que inventaron alienta la primera conciencia que eligió la
                 <div class="card">
                     <h3>Cuando nadie está mirando</h3>
                     <p class="subtitulo">Libro antológico.</p>
-                    <p class="sinopsis">Una mujer despierta del barro y halla a su lado un reflejo perfecto.
-La armonía se rompe cuando un paso se adelanta y el cuidado se vuelve dominio.
-Ella se niega a la sumisión y pronuncia su propio nombre.
-El paraíso la expulsa, pero no suplica el regreso.
-Sobrevive al desierto, al fuego y a la noche.
-Mensajeros del cielo le ofrecen paz a cambio de obediencia.
-Ella responde con un no definitivo.
-Asiste oculta a la creación de otra mujer, nacida no de tierra libre sino de hueso prestado.
-La muerte le arrebata a sus hijos, uno tras otro, como un tributo por su insurrección.
-El mito la sepulta bajo la calumnia.
-Pero bajo el demonio que inventaron alienta la primera conciencia que eligió la intemperie a la jaula.</p>
+                    <p class="sinopsis">Creada del barro, ella despierta junto a su reflejo. La armonía se quiebra cuando él la somete. Se niega, pronuncia su nombre y es expulsada. Sobrevive al desierto, rechaza mensajeros celestiales y presencia la creación de otra mujer nacida de hueso. Pierde a sus hijos, mas el mito no logra encadenar su libertad.</p>
                     <p class="pagina">Página 147</p>
                     <a href="https://www.amazon.com/dp/B0GV41NDQN" target="_blank" class="btn-amazon">Comprar en Amazon</a>
                 </div>
@@ -250,7 +230,7 @@ Pero bajo el demonio que inventaron alienta la primera conciencia que eligió la
         <p>© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Google Translate -->
+    <!-- Google Translate (carga segura por HTTPS) -->
     <div id="google_translate_element"></div>
     <script type="text/javascript">
         function googleTranslateElementInit() {
@@ -261,7 +241,7 @@ Pero bajo el demonio que inventaron alienta la primera conciencia que eligió la
             }, 'google_translate_element');
         }
     </script>
-    <script type="text/javascript" src="//translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
+    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
 
     <script>
         function mostrarSeccion(id) {
@@ -301,9 +281,9 @@ Pero bajo el demonio que inventaron alienta la primera conciencia que eligió la
         }
 
         window.addEventListener('DOMContentLoaded', function() {
-            // Logo del Home (usa Home.png o Home.jpg)
+            // Logo del Home
             cargarImagen('logo-home', 'Home');
-            // Imagen cabecera de libros (usa Books.png o Books.jpg)
+            // Imagen cabecera de libros
             cargarImagen('img-books-header', 'Books');
         });
     </script>
