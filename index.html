@@ -5,12 +5,10 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Mi portafolio personal como artista: 🎹 Música | 🎮 Videojuegos | 📚 Libros</title>
     <meta name="description" content="Te doy la bienvenida a mi portafolio personal, donde comparto mi música, mis videojuegos y mis libros.">
-    <meta property="og:title" content="Julien Villamizar Arriaga - Escritor">
-    <meta property="og:description" content="Sitio oficial del escritor colombiano Julien Villamizar Arriaga.">
+    <meta property="og:title" content="Mi portafolio personal como artista: 🎹 Música | 🎮 Videojuegos | 📚 Libros">
+    <meta property="og:description" content="Te doy la bienvenida a mi portafolio personal, donde comparto mi música, mis videojuegos y mis libros.">
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="img/favicon.png">
-
-    <!-- ✅ Google tag (gtag.js) - AHORA SÍ, FUERA DE <style> -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-76HJ6GQSB8"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -18,7 +16,6 @@
         gtag('js', new Date());
         gtag('config', 'G-76HJ6GQSB8');
     </script>
-
     <style>
         body {
             margin: 0;
@@ -27,8 +24,6 @@
             color: #ffffff;
             padding-top: 70px;
         }
-
-        /* Barra de navegación fija */
         nav {
             position: fixed;
             top: 0;
@@ -44,8 +39,6 @@
             border-bottom: 1px solid #222;
             box-sizing: border-box;
         }
-
-        /* Botones de navegación con texto */
         .nav-text {
             background: none;
             border: none;
@@ -61,8 +54,6 @@
         .nav-text.activo {
             color: #F5C84C;
         }
-
-        /* Selector de idioma */
         .lang-select {
             background: #000;
             color: #fff;
@@ -77,7 +68,6 @@
             transform: translateY(-50%);
             cursor: pointer;
         }
-
         .seccion {
             display: none;
             max-width: 800px;
@@ -88,8 +78,6 @@
         .seccion.activa {
             display: block;
         }
-
-        /* Home */
         .cabecera {
             text-align: center;
         }
@@ -109,8 +97,6 @@
             display: inline-block;
             text-align: center;
         }
-
-        /* Libros */
         .bloque h2 {
             font-size: 2em;
             margin-bottom: 30px;
@@ -155,8 +141,6 @@
             margin-bottom: 20px;
             color: #F5C84C;
         }
-
-        /* Botones como texto puro */
         .btn-amazon {
             display: inline-block;
             color: #ffffff;
@@ -171,7 +155,6 @@
         .btn-amazon:hover {
             color: #F5C84C;
         }
-
         footer {
             text-align: center;
             padding: 30px;
@@ -183,8 +166,6 @@
     </style>
 </head>
 <body>
-
-    <!-- Navegación con selector de idioma -->
     <nav>
         <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')">Inicio</button>
         <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')">Libros</button>
@@ -197,8 +178,6 @@
             <option value="pt">Português</option>
         </select>
     </nav>
-
-    <!-- Sección Home -->
     <div id="home" class="seccion activa">
         <div class="cabecera">
             <img id="logo-home" alt="Logo de Julien Villamizar" src="">
@@ -227,8 +206,6 @@ Cada historia que empiezo es una forma de abrazar el caos y convertirlo en algo 
 Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div>
         </div>
     </div>
-
-    <!-- Sección Libros -->
     <div id="books" class="seccion">
         <div class="bloque">
             <div class="imagen-libros">
@@ -236,29 +213,22 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
             </div>
             <h2>Mis libros</h2>
             <div class="grid">
-                <!-- Libro 1: Herencias Invisibles -->
                 <div class="card">
                     <h3>Herencias Invisibles</h3>
                     <p class="subtitulo">Libro antológico.</p>
                     <p class="sinopsis">
-Creada del barro, ella despierta junto a su reflejo.
-La armonía se quiebra cuando él la somete.
-Se niega, pronuncia su nombre y es expulsada.
-Sobrevive al desierto, rechaza mensajeros celestiales y presencia la creación de otra mujer nacida de hueso.
-Pierde a sus hijos, mas el mito no logra encadenar su libertad.
+¿Qué ocurre cuando la única respuesta posible es la negativa?
+¿Es la desobediencia el ruido de la conciencia o el susurro del caos?
                     </p>
                     <p class="pagina">Página 154</p>
                     <a href="https://www.amazon.com/dp/B0GV43M42V" target="_blank" class="btn-amazon">Comprar en Amazon</a>
                 </div>
-                <!-- Libro 2: Cuando nadie está mirando -->
                 <div class="card">
                     <h3>Cuando nadie está mirando</h3>
                     <p class="subtitulo">Libro antológico.</p>
                     <p class="sinopsis">
-En la soledad del anonimato, los secretos afloran sin permiso.
-Siete relatos exploran lo que hacemos cuando creemos que nadie observa.
-El deseo, la culpa, la rebeldía silenciosa quedan al descubierto.
-Una antología que desnuda la intimidad humana con crudeza y poesía.
+¿Qué ocurre cuando la única respuesta posible es la negativa?
+¿Es la desobediencia el ruido de la conciencia o el susurro del caos?
                     </p>
                     <p class="pagina">Página 147</p>
                     <a href="https://www.amazon.com/dp/B0GV41NDQN" target="_blank" class="btn-amazon">Comprar en Amazon</a>
@@ -266,21 +236,14 @@ Una antología que desnuda la intimidad humana con crudeza y poesía.
             </div>
         </div>
     </div>
-
     <footer>
         <p>© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.</p>
     </footer>
-
-    <!-- Google Translate (carga del motor) -->
     <script type="text/javascript">
-        function googleTranslateElementInit() {
-            // No creamos ningún elemento; la traducción se activa por cookie.
-        }
+        function googleTranslateElementInit() {}
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
-
     <script>
-        // Cambio de sección
         function mostrarSeccion(id) {
             document.querySelectorAll('.seccion').forEach(seccion => {
                 seccion.classList.remove('activa');
@@ -293,7 +256,6 @@ Una antología que desnuda la intimidad humana con crudeza y poesía.
             document.getElementById('btn-' + id).classList.add('activo');
         }
 
-        // Selector de idioma con recarga
         function cambiarIdioma(lang) {
             if (lang === 'es') {
                 document.cookie = 'googtrans=; path=/; domain=' + location.hostname + '; expires=Thu, 01 Jan 1970 00:00:01 GMT';
@@ -303,7 +265,6 @@ Una antología que desnuda la intimidad humana con crudeza y poesía.
             location.reload();
         }
 
-        // Al cargar la página, si hay traducción activa, seleccionamos el idioma en el dropdown
         window.addEventListener('DOMContentLoaded', function() {
             const match = document.cookie.match(/googtrans=\/es\/([^;]+)/);
             if (match) {
@@ -314,7 +275,6 @@ Una antología que desnuda la intimidad humana con crudeza y poesía.
                 }
             }
 
-            // Carga de imágenes (prueba .png, .jpg, .jpeg)
             function cargarImagen(idImg, nombre) {
                 const img = document.getElementById(idImg);
                 if (!img) return;
@@ -330,7 +290,7 @@ Una antología que desnuda la intimidad humana con crudeza y poesía.
                         i++;
                         intentar();
                     };
-                    img.onload = function() { /* cargada */ };
+                    img.onload = function() {};
                 }
                 intentar();
             }
@@ -339,6 +299,5 @@ Una antología que desnuda la intimidad humana con crudeza y poesía.
             cargarImagen('img-books-header', 'Books');
         });
     </script>
-
 </body>
 </html>
