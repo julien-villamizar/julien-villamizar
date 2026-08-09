@@ -9,17 +9,17 @@
     <meta property="og:description" content="Sitio oficial del escritor colombiano Julien Villamizar Arriaga.">
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <!-- ✅ Google tag (gtag.js) - AHORA SÍ, FUERA DE <style> -->
+    <script async src="https://www.googletagmanager.com/gtag/js?id=G-76HJ6GQSB8"></script>
+    <script>
+        window.dataLayer = window.dataLayer || [];
+        function gtag(){dataLayer.push(arguments);}
+        gtag('js', new Date());
+        gtag('config', 'G-76HJ6GQSB8');
+    </script>
+
     <style>
-        <!-- Google tag (gtag.js) -->
-<script async src="https://www.googletagmanager.com/gtag/js?id=G-76HJ6GQSB8"></script>
-<script>
-  window.dataLayer = window.dataLayer || [];
-  function gtag(){dataLayer.push(arguments);}
-  gtag('js', new Date());
-
-  gtag('config', 'G-76HJ6GQSB8');
-</script>
-
         body {
             margin: 0;
             font-family: sans-serif;
@@ -83,7 +83,7 @@
             max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
-            text-align: center; /* Centra todo el contenido dentro de cada sección */
+            text-align: center;
         }
         .seccion.activa {
             display: block;
@@ -106,8 +106,8 @@
             margin-top: 30px;
             white-space: pre-line;
             line-height: 1.8;
-            display: inline-block; /* para que el centrado funcione correctamente con pre-line */
-            text-align: center;    /* centra las líneas en el bloque */
+            display: inline-block;
+            text-align: center;
         }
 
         /* Libros */
@@ -273,7 +273,6 @@ Una antología que desnuda la intimidad humana con crudeza y poesía.
 
     <!-- Google Translate (carga del motor) -->
     <script type="text/javascript">
-        // Solo necesitamos cargar el motor, sin interfaz automática
         function googleTranslateElementInit() {
             // No creamos ningún elemento; la traducción se activa por cookie.
         }
@@ -296,11 +295,9 @@ Una antología que desnuda la intimidad humana con crudeza y poesía.
 
         // Selector de idioma con recarga
         function cambiarIdioma(lang) {
-            // Si es español (idioma original), eliminamos la cookie y recargamos
             if (lang === 'es') {
                 document.cookie = 'googtrans=; path=/; domain=' + location.hostname + '; expires=Thu, 01 Jan 1970 00:00:01 GMT';
             } else {
-                // Establecemos la cookie googtrans=/es/[lang]
                 document.cookie = 'googtrans=/es/' + lang + '; path=/; domain=' + location.hostname;
             }
             location.reload();
