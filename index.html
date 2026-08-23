@@ -21,11 +21,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        /* Estilos base */
         body {
             margin: 0;
             font-family: 'Lora', serif;
-            background: #1a1410; /* fondo oscuro con tono tierra */
+            background: #1a1410;
             color: #e8dcc8;
             padding-top: 70px;
         }
@@ -125,7 +124,7 @@
             font-size: 0.9rem;
         }
 
-        /* ===== ESTILOS PARA EL MARCO ARCANO ===== */
+        /* ===== ESTILOS ARCANOS ===== */
         .libros-arcaicos {
             padding: 10px 0;
         }
@@ -166,7 +165,6 @@
                 0 10px 40px rgba(0,0,0,0.8);
         }
 
-        /* Decoración de esquinas con símbolos rúnicos (sin emojis) */
         .marco-antiguo::before,
         .marco-antiguo::after {
             content: "ᛉ";
@@ -186,7 +184,6 @@
             right: 15px;
         }
 
-        /* Pequeñas runas en las esquinas internas */
         .marco-antiguo .runas {
             position: absolute;
             font-family: 'MedievalSharp', cursive;
@@ -257,7 +254,6 @@
             font-weight: 700;
         }
 
-        /* Botón antiguo (sin emoji) */
         .btn-pdf {
             display: inline-block;
             background: #3a2e24;
@@ -301,7 +297,6 @@
             opacity: 0.8;
         }
 
-        /* Responsive */
         @media (max-width: 600px) {
             .obra-titulo {
                 font-size: 2.2rem;
@@ -370,16 +365,17 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
         </div>
     </div>
 
-    <!-- SECCIÓN LIBROS (ESTILO ARCANO, SIN EMOJIS, CON IMAGEN) -->
+    <!-- SECCIÓN LIBROS -->
     <div id="books" class="seccion">
+        <!-- LÍNEA DE PRUEBA PARA VERIFICAR QUE EL CÓDIGO NUEVO ESTÁ CARGADO -->
+        <p style="color: red; font-size: 2rem; font-weight: bold; background: #000; padding: 10px;">¡CÓDIGO NUEVO ACTIVO!</p>
+
         <div class="libros-arcaicos">
-            <!-- Imagen de libros (restaurada) -->
             <div class="imagen-libros">
                 <img id="img-books-header" alt="Portada de libros" src="">
             </div>
 
             <div class="marco-antiguo">
-                <!-- Runas decorativas (sin emojis) -->
                 <span class="runas r1">ᛉ ᚨ</span>
                 <span class="runas r2">ᚠ ᛗ</span>
                 <span class="runas r3">ᚢ</span>
@@ -401,7 +397,6 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
                     <p style="margin-top: 10px; font-style: italic; color: #a09080;">Cualquier comentario o sugerencia es bienvenido.</p>
                 </div>
 
-                <!-- Botón para acceder al PDF (sin emoji) -->
                 <a href="pdf/Desobediencia.pdf" target="_blank" class="btn-pdf">
                     Leer la historia
                 </a>
@@ -413,7 +408,6 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
         <p>© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.</p>
     </footer>
 
-    <!-- Scripts -->
     <script type="text/javascript">
         function googleTranslateElementInit() {}
     </script>
@@ -471,7 +465,7 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
             }
 
             cargarImagen('logo-home', 'Home');
-            cargarImagen('img-books-header', 'Books');  // Restaurada
+            cargarImagen('img-books-header', 'Books');
         });
     </script>
 </body>
