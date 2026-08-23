@@ -21,10 +21,10 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
-        /* Mantengo la paleta original: negro, blanco, dorado #F5C84C */
+        /* === ESTILOS BASE (PALETA ORIGINAL) === */
         body {
             margin: 0;
-            font-family: 'Lora', sans-serif;
+            font-family: 'Lora', serif;
             background: #000000;
             color: #ffffff;
             padding-top: 70px;
@@ -123,12 +123,12 @@
             font-size: 0.9rem;
         }
 
-        /* ===== ESTILOS PARA LA SECCIÓN LIBROS (ARCAICO, CON PALETA ORIGINAL) ===== */
-        .libros-arcaicos {
+        /* === SECCIÓN LIBROS: IMAGEN + LISTA === */
+        .libros-lista {
             padding: 10px 0;
         }
 
-        /* Imagen de libros: exactamente como en el original, fuera del marco */
+        /* Imagen de libros: exactamente como en el original */
         .imagen-libros {
             text-align: center;
             margin-bottom: 40px;
@@ -140,15 +140,58 @@
             box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
 
-        /* Marco antiguo con bordes dobles y runas, sin neones */
+        /* Estilo del botón de la lista (obra individual) */
+        .obra-item {
+            display: block;
+            width: 100%;
+            max-width: 500px;
+            margin: 20px auto;
+            padding: 18px 25px;
+            background: transparent;
+            border: 2px solid #F5C84C;
+            border-radius: 4px;
+            color: #F5C84C;
+            font-family: 'Cinzel', serif;
+            font-size: 1.3rem;
+            font-weight: 700;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            background-color: rgba(0,0,0,0.3);
+            text-align: center;
+            box-shadow: 0 0 20px rgba(245, 200, 76, 0.05);
+        }
+        .obra-item:hover {
+            background: #F5C84C;
+            color: #000;
+            box-shadow: 0 0 40px rgba(245, 200, 76, 0.2);
+            transform: scale(1.02);
+        }
+
+        /* Contenedor del marco antiguo (oculto por defecto) */
+        .marco-contenedor {
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.6s ease, opacity 0.4s ease, margin 0.3s ease;
+            opacity: 0;
+            margin: 0 auto;
+        }
+        .marco-contenedor.abierto {
+            max-height: 1200px;  /* suficiente para el contenido */
+            opacity: 1;
+            margin: 30px auto;
+        }
+
+        /* Marco antiguo (el mismo que definimos antes, sin cambios) */
         .marco-antiguo {
             position: relative;
             background: #0a0a0a;
             border: 8px double #F5C84C;
             border-radius: 20px 5px 20px 5px;
             padding: 40px 35px;
-            margin: 20px auto;
             max-width: 650px;
+            margin: 0 auto;
             box-shadow: 
                 inset 0 0 60px rgba(0,0,0,0.8),
                 0 0 30px rgba(245, 200, 76, 0.1),
@@ -162,7 +205,7 @@
                 0 10px 40px rgba(0,0,0,0.9);
         }
 
-        /* Runas decorativas (sin emojis) */
+        /* Runas decorativas */
         .marco-antiguo::before,
         .marco-antiguo::after {
             content: "ᛉ";
@@ -182,7 +225,6 @@
             right: 20px;
         }
 
-        /* Runas pequeñas en las esquinas internas */
         .marco-antiguo .runas {
             position: absolute;
             font-family: 'MedievalSharp', cursive;
@@ -253,7 +295,6 @@
             font-weight: 700;
         }
 
-        /* Botón antiguo, sin emoji, con la misma paleta */
         .btn-pdf {
             display: inline-block;
             background: transparent;
@@ -317,6 +358,10 @@
                 font-size: 2rem;
             }
             .marco-antiguo .runas { display: none; }
+            .obra-item {
+                font-size: 1rem;
+                padding: 14px 20px;
+            }
         }
     </style>
 </head>
@@ -364,40 +409,47 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
         </div>
     </div>
 
-    <!-- SECCIÓN LIBROS: imagen arriba (como en el original) y marco antiguo -->
+    <!-- SECCIÓN LIBROS -->
     <div id="books" class="seccion">
-        <div class="libros-arcaicos">
-            <!-- Imagen de libros (igual que en el código original, fuera del marco) -->
+        <div class="libros-lista">
+            <!-- Imagen de libros (sin marco extra) -->
             <div class="imagen-libros">
                 <img id="img-books-header" alt="Portada de libros" src="">
             </div>
 
-            <div class="marco-antiguo">
-                <!-- Runas decorativas (sin emojis) -->
-                <span class="runas r1">ᛉ ᚨ</span>
-                <span class="runas r2">ᚠ ᛗ</span>
-                <span class="runas r3">ᚢ</span>
-                <span class="runas r4">ᛏ</span>
+            <!-- Lista de obras: actualmente solo una -->
+            <button class="obra-item" onclick="toggleObra(this)">
+                Primer intento
+            </button>
 
-                <div class="obra-titulo">DESOBEDIENCIA</div>
-                <div class="obra-autor">Julien Villamizar Arriaga</div>
-                <div class="obra-fecha">Noviembre de 2025</div>
+            <!-- Contenedor del marco antiguo (oculto inicialmente) -->
+            <div class="marco-contenedor" id="obra-desobediencia">
+                <div class="marco-antiguo">
+                    <span class="runas r1">ᛉ ᚨ</span>
+                    <span class="runas r2">ᚠ ᛗ</span>
+                    <span class="runas r3">ᚢ</span>
+                    <span class="runas r4">ᛏ</span>
 
-                <div class="obra-dedicatoria">
-                    <p>"A mi madre, mi guerrera sin armadura,"</p>
-                    <p>"que me enseñó que los sueños valen la pena."</p>
+                    <div class="obra-titulo">DESOBEDIENCIA</div>
+                    <div class="obra-autor">Julien Villamizar Arriaga</div>
+                    <div class="obra-fecha">Noviembre de 2025</div>
+
+                    <div class="obra-dedicatoria">
+                        <p>"A mi madre, mi guerrera sin armadura,"</p>
+                        <p>"que me enseñó que los sueños valen la pena."</p>
+                    </div>
+
+                    <div class="obra-info">
+                        <p><strong>Este es un borrador en proceso de revisión.</strong></p>
+                        <p>Forma parte de la antología "Herencias Invisibles",</p>
+                        <p>que será publicada por <strong>Ita Editorial</strong>.</p>
+                        <p style="margin-top: 10px; font-style: italic; color: #999;">Cualquier comentario o sugerencia es bienvenido.</p>
+                    </div>
+
+                    <a href="pdf/Desobediencia.pdf" target="_blank" class="btn-pdf">
+                        Leer la historia
+                    </a>
                 </div>
-
-                <div class="obra-info">
-                    <p><strong>Este es un borrador en proceso de revisión.</strong></p>
-                    <p>Forma parte de la antología "Herencias Invisibles",</p>
-                    <p>que será publicada por <strong>Ita Editorial</strong>.</p>
-                    <p style="margin-top: 10px; font-style: italic; color: #999;">Cualquier comentario o sugerencia es bienvenido.</p>
-                </div>
-
-                <a href="pdf/Desobediencia.pdf" target="_blank" class="btn-pdf">
-                    Leer la historia
-                </a>
             </div>
         </div>
     </div>
@@ -411,6 +463,22 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
     </script>
     <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script>
+        // Función para mostrar/ocultar el marco
+        function toggleObra(btn) {
+            // Buscamos el contenedor del marco (hermano siguiente del botón)
+            var contenedor = btn.nextElementSibling;
+            if (contenedor && contenedor.classList.contains('marco-contenedor')) {
+                contenedor.classList.toggle('abierto');
+                // Opcional: cambiar el texto del botón (feedback visual)
+                if (contenedor.classList.contains('abierto')) {
+                    btn.textContent = 'Primer intento ▲';
+                } else {
+                    btn.textContent = 'Primer intento';
+                }
+            }
+        }
+
+        // Funciones de navegación y carga de imágenes (sin cambios)
         function mostrarSeccion(id) {
             document.querySelectorAll('.seccion').forEach(seccion => {
                 seccion.classList.remove('activa');
