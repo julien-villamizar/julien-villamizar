@@ -21,11 +21,12 @@
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
     <style>
+        /* Mantengo la paleta original: negro, blanco, dorado #F5C84C */
         body {
             margin: 0;
-            font-family: 'Lora', serif;
-            background: #1a1410;
-            color: #e8dcc8;
+            font-family: 'Lora', sans-serif;
+            background: #000000;
+            color: #ffffff;
             padding-top: 70px;
         }
         nav {
@@ -33,37 +34,36 @@
             top: 0;
             left: 0;
             width: 100%;
-            background: #1a1410;
+            background: #000000;
             padding: 10px 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             gap: 40px;
             z-index: 1000;
-            border-bottom: 2px solid #8b7a5a;
+            border-bottom: 1px solid #222;
             box-sizing: border-box;
         }
         .nav-text {
             background: none;
             border: none;
-            color: #d4c5a0;
+            color: #ffffff;
             font-size: 1.2rem;
             font-weight: bold;
             cursor: pointer;
             transition: color 0.3s;
             padding: 5px 0;
             font-family: 'Cinzel', serif;
-            letter-spacing: 1px;
         }
         .nav-text:hover,
         .nav-text.activo {
-            color: #c9a84c;
+            color: #F5C84C;
         }
         .lang-select {
-            background: #2a221c;
-            color: #d4c5a0;
-            border: 1px solid #5a4a3a;
-            border-radius: 4px;
+            background: #000;
+            color: #fff;
+            border: 1px solid #333;
+            border-radius: 8px;
             padding: 6px 10px;
             font-size: 0.9rem;
             margin-left: auto;
@@ -72,11 +72,10 @@
             top: 50%;
             transform: translateY(-50%);
             cursor: pointer;
-            font-family: 'Lora', serif;
         }
         .seccion {
             display: none;
-            max-width: 900px;
+            max-width: 800px;
             margin: 40px auto;
             padding: 0 20px;
             text-align: center;
@@ -91,15 +90,15 @@
             width: 120px;
             border-radius: 50%;
             margin-bottom: 20px;
-            border: 3px solid #8b7a5a;
-            box-shadow: 0 0 30px rgba(139, 122, 90, 0.3);
+            border: 3px solid #F5C84C;
+            box-shadow: 0 0 20px rgba(245, 200, 76, 0.2);
         }
         .cabecera h1 {
             margin: 0 0 10px;
             font-size: 2.8em;
             font-family: 'Cinzel', serif;
-            color: #c9a84c;
-            text-shadow: 0 0 20px rgba(201, 168, 76, 0.2);
+            color: #F5C84C;
+            text-shadow: 0 0 30px rgba(245, 200, 76, 0.15);
             letter-spacing: 3px;
         }
         .cabecera .bio {
@@ -109,100 +108,100 @@
             display: inline-block;
             text-align: center;
             font-family: 'Lora', serif;
-            color: #d4c5a0;
+            color: #ddd;
             max-width: 700px;
             font-size: 1.05rem;
         }
         footer {
             text-align: center;
             padding: 30px;
-            background: #1a1410;
-            color: #8b7a5a;
+            background: #000000;
+            color: #ffffff;
             margin-top: 60px;
-            border-top: 2px solid #2a221c;
+            border-top: 1px solid #222;
             font-family: 'Lora', serif;
             font-size: 0.9rem;
         }
 
-        /* ===== ESTILOS ARCANOS ===== */
+        /* ===== ESTILOS PARA LA SECCIÓN LIBROS (ARCAICO, CON PALETA ORIGINAL) ===== */
         .libros-arcaicos {
             padding: 10px 0;
         }
 
+        /* Imagen de libros: exactamente como en el original, fuera del marco */
         .imagen-libros {
             text-align: center;
-            margin-bottom: 30px;
+            margin-bottom: 40px;
         }
         .imagen-libros img {
-            max-width: 280px;
-            border-radius: 8px;
-            border: 3px solid #5a4a3a;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+            max-width: 300px;
+            border-radius: 12px;
+            border: 2px solid #333;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
 
+        /* Marco antiguo con bordes dobles y runas, sin neones */
         .marco-antiguo {
             position: relative;
-            background: #2a221c;
-            background-image: 
-                linear-gradient(rgba(60, 50, 40, 0.3) 1px, transparent 1px),
-                linear-gradient(90deg, rgba(60, 50, 40, 0.3) 1px, transparent 1px);
-            background-size: 20px 20px;
-            border: 8px double #8b7a5a;
+            background: #0a0a0a;
+            border: 8px double #F5C84C;
             border-radius: 20px 5px 20px 5px;
             padding: 40px 35px;
             margin: 20px auto;
             max-width: 650px;
             box-shadow: 
-                inset 0 0 50px rgba(0,0,0,0.7),
-                0 0 30px rgba(139, 122, 90, 0.2),
-                0 10px 40px rgba(0,0,0,0.8);
+                inset 0 0 60px rgba(0,0,0,0.8),
+                0 0 30px rgba(245, 200, 76, 0.1),
+                0 10px 40px rgba(0,0,0,0.9);
             transition: box-shadow 0.5s ease;
         }
         .marco-antiguo:hover {
             box-shadow: 
-                inset 0 0 50px rgba(0,0,0,0.7),
-                0 0 50px rgba(139, 122, 90, 0.3),
-                0 10px 40px rgba(0,0,0,0.8);
+                inset 0 0 60px rgba(0,0,0,0.8),
+                0 0 50px rgba(245, 200, 76, 0.15),
+                0 10px 40px rgba(0,0,0,0.9);
         }
 
+        /* Runas decorativas (sin emojis) */
         .marco-antiguo::before,
         .marco-antiguo::after {
             content: "ᛉ";
             position: absolute;
-            font-size: 2.5rem;
-            color: #8b7a5a;
-            opacity: 0.5;
+            font-size: 2.8rem;
+            color: #F5C84C;
+            opacity: 0.3;
             font-family: 'MedievalSharp', cursive;
-            text-shadow: 0 0 10px rgba(139, 122, 90, 0.2);
+            text-shadow: 0 0 15px rgba(245, 200, 76, 0.1);
         }
         .marco-antiguo::before {
-            top: -10px;
-            left: 15px;
+            top: -15px;
+            left: 20px;
         }
         .marco-antiguo::after {
-            bottom: -10px;
-            right: 15px;
+            bottom: -15px;
+            right: 20px;
         }
 
+        /* Runas pequeñas en las esquinas internas */
         .marco-antiguo .runas {
             position: absolute;
             font-family: 'MedievalSharp', cursive;
-            color: #6a5a4a;
-            font-size: 1.2rem;
-            opacity: 0.3;
+            color: #F5C84C;
+            font-size: 1.3rem;
+            opacity: 0.2;
             pointer-events: none;
         }
-        .marco-antiguo .runas.r1 { top: 12px; right: 20px; }
-        .marco-antiguo .runas.r2 { bottom: 12px; left: 20px; }
-        .marco-antiguo .runas.r3 { top: 50%; left: 8px; transform: translateY(-50%); }
-        .marco-antiguo .runas.r4 { top: 50%; right: 8px; transform: translateY(-50%); }
+        .marco-antiguo .runas.r1 { top: 15px; right: 25px; }
+        .marco-antiguo .runas.r2 { bottom: 15px; left: 25px; }
+        .marco-antiguo .runas.r3 { top: 50%; left: 10px; transform: translateY(-50%); }
+        .marco-antiguo .runas.r4 { top: 50%; right: 10px; transform: translateY(-50%); }
 
         .obra-titulo {
             font-family: 'Cinzel', serif;
             font-size: 3.2rem;
             font-weight: 700;
-            color: #c9a84c;
-            text-shadow: 0 0 30px rgba(201, 168, 76, 0.15);
+            color: #F5C84C;
+            text-shadow: 0 0 30px rgba(245, 200, 76, 0.1);
             margin: 10px 0 5px;
             letter-spacing: 8px;
             word-break: break-word;
@@ -210,7 +209,7 @@
         .obra-autor {
             font-family: 'Lora', serif;
             font-size: 1.4rem;
-            color: #b8a88a;
+            color: #ccc;
             margin-bottom: 20px;
             font-style: italic;
             letter-spacing: 1px;
@@ -218,7 +217,7 @@
         .obra-fecha {
             font-family: 'Lora', serif;
             font-size: 1rem;
-            color: #8b7a5a;
+            color: #888;
             margin-bottom: 25px;
             letter-spacing: 3px;
             text-transform: uppercase;
@@ -226,11 +225,11 @@
         .obra-dedicatoria {
             font-family: 'Lora', serif;
             font-size: 1.2rem;
-            color: #d4c5a0;
+            color: #ddd;
             font-style: italic;
             line-height: 1.6;
-            border-top: 1px solid #5a4a3a;
-            border-bottom: 1px solid #5a4a3a;
+            border-top: 1px solid #333;
+            border-bottom: 1px solid #333;
             padding: 18px 0;
             margin: 20px 0;
         }
@@ -240,55 +239,55 @@
         .obra-info {
             font-family: 'Lora', serif;
             font-size: 1rem;
-            color: #b8a88a;
+            color: #bbb;
             line-height: 1.8;
             margin: 20px 0 30px;
-            background: rgba(0,0,0,0.3);
+            background: rgba(0,0,0,0.4);
             padding: 18px;
             border-radius: 8px;
-            border-left: 3px solid #8b7a5a;
-            border-right: 3px solid #8b7a5a;
+            border-left: 3px solid #F5C84C;
+            border-right: 3px solid #F5C84C;
         }
         .obra-info strong {
-            color: #c9a84c;
+            color: #F5C84C;
             font-weight: 700;
         }
 
+        /* Botón antiguo, sin emoji, con la misma paleta */
         .btn-pdf {
             display: inline-block;
-            background: #3a2e24;
-            color: #c9a84c;
+            background: transparent;
+            color: #F5C84C;
             font-family: 'Cinzel', serif;
             font-size: 1.1rem;
             font-weight: 700;
             padding: 14px 40px;
-            border: 2px solid #8b7a5a;
+            border: 2px solid #F5C84C;
             border-radius: 4px;
             text-decoration: none;
             text-transform: uppercase;
             letter-spacing: 4px;
             transition: all 0.4s ease;
-            box-shadow: 0 0 20px rgba(139, 122, 90, 0.1);
+            box-shadow: 0 0 20px rgba(245, 200, 76, 0.05);
             position: relative;
             cursor: pointer;
-            background-image: linear-gradient(135deg, #3a2e24, #2a221c);
+            background-color: rgba(0,0,0,0.3);
         }
         .btn-pdf:hover {
-            background: #4a3a2e;
-            color: #e8dcc8;
-            border-color: #c9a84c;
-            box-shadow: 0 0 40px rgba(201, 168, 76, 0.2);
+            background: #F5C84C;
+            color: #000;
+            box-shadow: 0 0 40px rgba(245, 200, 76, 0.2);
             transform: scale(1.02);
         }
         .btn-pdf::before {
             content: "";
             position: absolute;
-            top: -2px;
-            left: -2px;
-            right: -2px;
-            bottom: -2px;
-            border: 2px solid #5a4a3a;
-            border-radius: 4px;
+            top: -4px;
+            left: -4px;
+            right: -4px;
+            bottom: -4px;
+            border: 2px solid #333;
+            border-radius: 6px;
             opacity: 0.3;
             transition: opacity 0.4s;
             pointer-events: none;
@@ -315,7 +314,7 @@
             }
             .marco-antiguo::before,
             .marco-antiguo::after {
-                font-size: 1.8rem;
+                font-size: 2rem;
             }
             .marco-antiguo .runas { display: none; }
         }
@@ -365,17 +364,16 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
         </div>
     </div>
 
-    <!-- SECCIÓN LIBROS -->
+    <!-- SECCIÓN LIBROS: imagen arriba (como en el original) y marco antiguo -->
     <div id="books" class="seccion">
-        <!-- LÍNEA DE PRUEBA PARA VERIFICAR QUE EL CÓDIGO NUEVO ESTÁ CARGADO -->
-        <p style="color: red; font-size: 2rem; font-weight: bold; background: #000; padding: 10px;">¡CÓDIGO NUEVO ACTIVO!</p>
-
         <div class="libros-arcaicos">
+            <!-- Imagen de libros (igual que en el código original, fuera del marco) -->
             <div class="imagen-libros">
                 <img id="img-books-header" alt="Portada de libros" src="">
             </div>
 
             <div class="marco-antiguo">
+                <!-- Runas decorativas (sin emojis) -->
                 <span class="runas r1">ᛉ ᚨ</span>
                 <span class="runas r2">ᚠ ᛗ</span>
                 <span class="runas r3">ᚢ</span>
@@ -394,7 +392,7 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
                     <p><strong>Este es un borrador en proceso de revisión.</strong></p>
                     <p>Forma parte de la antología "Herencias Invisibles",</p>
                     <p>que será publicada por <strong>Ita Editorial</strong>.</p>
-                    <p style="margin-top: 10px; font-style: italic; color: #a09080;">Cualquier comentario o sugerencia es bienvenido.</p>
+                    <p style="margin-top: 10px; font-style: italic; color: #999;">Cualquier comentario o sugerencia es bienvenido.</p>
                 </div>
 
                 <a href="pdf/Desobediencia.pdf" target="_blank" class="btn-pdf">
