@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Mi portafolio personal como artista: 🎹 Música | 🎮 Videojuegos | 📚 Libros</title>
+    <title>Julien Villamizar Arriaga</title>
     <meta name="description" content="Te doy la bienvenida a mi portafolio personal, donde comparto mi música, mis videojuegos y mis libros.">
-    <meta property="og:title" content="Mi portafolio personal como artista: 🎹 Música | 🎮 Videojuegos | 📚 Libros">
+    <meta property="og:title" content="Julien Villamizar Arriaga">
     <meta property="og:description" content="Te doy la bienvenida a mi portafolio personal, donde comparto mi música, mis videojuegos y mis libros.">
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="img/favicon.png">
@@ -123,21 +123,9 @@
             font-size: 0.9rem;
         }
 
-        /* === SECCIÓN LIBROS: IMAGEN + LISTA === */
+        /* === SECCIÓN LIBROS: SOLO LISTA === */
         .libros-lista {
             padding: 10px 0;
-        }
-
-        /* Imagen de libros: exactamente como en el original */
-        .imagen-libros {
-            text-align: center;
-            margin-bottom: 40px;
-        }
-        .imagen-libros img {
-            max-width: 300px;
-            border-radius: 12px;
-            border: 2px solid #333;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.7);
         }
 
         /* Estilo del botón de la lista (obra individual) */
@@ -350,9 +338,6 @@
                 padding: 12px 25px;
                 letter-spacing: 2px;
             }
-            .imagen-libros img {
-                max-width: 200px;
-            }
             .marco-antiguo::before,
             .marco-antiguo::after {
                 font-size: 2rem;
@@ -370,12 +355,9 @@
         <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')">Inicio</button>
         <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')">Libros</button>
         <select class="lang-select" onchange="cambiarIdioma(this.value)">
-            <option value="es" selected>Español</option>
+            <option value="es" selected>Español (Latinoamérica)</option>
             <option value="en">English</option>
             <option value="fr">Français</option>
-            <option value="de">Deutsch</option>
-            <option value="it">Italiano</option>
-            <option value="pt">Português</option>
         </select>
     </nav>
 
@@ -412,11 +394,6 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
     <!-- SECCIÓN LIBROS -->
     <div id="books" class="seccion">
         <div class="libros-lista">
-            <!-- Imagen de libros (sin marco extra) -->
-            <div class="imagen-libros">
-                <img id="img-books-header" alt="Portada de libros" src="">
-            </div>
-
             <!-- Lista de obras: actualmente solo una -->
             <button class="obra-item" onclick="toggleObra(this)">
                 Primer intento
@@ -465,11 +442,9 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
     <script>
         // Función para mostrar/ocultar el marco
         function toggleObra(btn) {
-            // Buscamos el contenedor del marco (hermano siguiente del botón)
             var contenedor = btn.nextElementSibling;
             if (contenedor && contenedor.classList.contains('marco-contenedor')) {
                 contenedor.classList.toggle('abierto');
-                // Opcional: cambiar el texto del botón (feedback visual)
                 if (contenedor.classList.contains('abierto')) {
                     btn.textContent = 'Primer intento ▲';
                 } else {
@@ -478,7 +453,7 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
             }
         }
 
-        // Funciones de navegación y carga de imágenes (sin cambios)
+        // Funciones de navegación y carga de imágenes
         function mostrarSeccion(id) {
             document.querySelectorAll('.seccion').forEach(seccion => {
                 seccion.classList.remove('activa');
@@ -530,8 +505,8 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
                 intentar();
             }
 
+            // Solo cargamos la imagen del logo de inicio
             cargarImagen('logo-home', 'Home');
-            cargarImagen('img-books-header', 'Books');
         });
     </script>
 </body>
