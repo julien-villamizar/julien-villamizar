@@ -9,6 +9,8 @@
     <meta property="og:description" content="Te doy la bienvenida a mi portafolio personal, donde comparto mi música, mis videojuegos y mis libros.">
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="img/favicon.png">
+
+    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-76HJ6GQSB8"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -16,12 +18,23 @@
         gtag('js', new Date());
         gtag('config', 'G-76HJ6GQSB8');
     </script>
-    <!-- Google Fonts para estilo antiguo -->
+
+    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+
+    <!-- PDF.js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
+    <script>
+        if (window.pdfjsLib) {
+            pdfjsLib.GlobalWorkerOptions.workerSrc =
+                'https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.worker.min.js';
+        }
+    </script>
+
     <style>
-        /* === ESTILOS BASE (PALETA ORIGINAL) === */
+        /* === ESTILOS BASE === */
         body {
             margin: 0;
             font-family: 'Lora', serif;
@@ -59,20 +72,50 @@
         .nav-text.activo {
             color: #F5C84C;
         }
-        .lang-select {
-            background: #000;
-            color: #fff;
-            border: 1px solid #333;
-            border-radius: 8px;
-            padding: 6px 10px;
-            font-size: 0.9rem;
-            margin-left: auto;
+
+        /* === SELECTOR DE IDIOMAS (BANDERAS) === */
+        .lang-switcher {
             position: absolute;
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            cursor: pointer;
+            display: flex;
+            gap: 10px;
+            align-items: center;
         }
+        .lang-btn {
+            background: rgba(0, 0, 0, 0.4);
+            border: 2px solid #333;
+            border-radius: 8px;
+            padding: 4px;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s ease;
+            width: 42px;
+            height: 32px;
+            box-sizing: border-box;
+        }
+        .lang-btn img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            border-radius: 4px;
+            display: block;
+            pointer-events: none;
+        }
+        .lang-btn:hover {
+            border-color: #F5C84C;
+            transform: translateY(-50%) scale(1.08);
+            box-shadow: 0 0 15px rgba(245, 200, 76, 0.35);
+        }
+        .lang-btn.active {
+            border-color: #F5C84C;
+            box-shadow: 0 0 18px rgba(245, 200, 76, 0.55), inset 0 0 8px rgba(245, 200, 76, 0.2);
+            background: rgba(245, 200, 76, 0.08);
+        }
+
         .seccion {
             display: none;
             max-width: 800px;
@@ -83,9 +126,8 @@
         .seccion.activa {
             display: block;
         }
-        .cabecera {
-            text-align: center;
-        }
+
+        .cabecera { text-align: center; }
         .cabecera img {
             width: 120px;
             border-radius: 50%;
@@ -112,6 +154,7 @@
             max-width: 700px;
             font-size: 1.05rem;
         }
+
         footer {
             text-align: center;
             padding: 30px;
@@ -123,12 +166,9 @@
             font-size: 0.9rem;
         }
 
-        /* === SECCIÓN LIBROS: SOLO LISTA === */
-        .libros-lista {
-            padding: 10px 0;
-        }
+        /* === SECCIÓN LIBROS === */
+        .libros-lista { padding: 10px 0; }
 
-        /* Estilo del botón de la lista (obra individual) */
         .obra-item {
             display: block;
             width: 100%;
@@ -157,7 +197,6 @@
             transform: scale(1.02);
         }
 
-        /* Contenedor del marco antiguo (oculto por defecto) */
         .marco-contenedor {
             max-height: 0;
             overflow: hidden;
@@ -166,12 +205,11 @@
             margin: 0 auto;
         }
         .marco-contenedor.abierto {
-            max-height: 1200px;  /* suficiente para el contenido */
+            max-height: 8000px;
             opacity: 1;
             margin: 30px auto;
         }
 
-        /* Marco antiguo (el mismo que definimos antes, sin cambios) */
         .marco-antiguo {
             position: relative;
             background: #0a0a0a;
@@ -180,20 +218,11 @@
             padding: 40px 35px;
             max-width: 650px;
             margin: 0 auto;
-            box-shadow: 
+            box-shadow:
                 inset 0 0 60px rgba(0,0,0,0.8),
                 0 0 30px rgba(245, 200, 76, 0.1),
                 0 10px 40px rgba(0,0,0,0.9);
-            transition: box-shadow 0.5s ease;
         }
-        .marco-antiguo:hover {
-            box-shadow: 
-                inset 0 0 60px rgba(0,0,0,0.8),
-                0 0 50px rgba(245, 200, 76, 0.15),
-                0 10px 40px rgba(0,0,0,0.9);
-        }
-
-        /* Runas decorativas */
         .marco-antiguo::before,
         .marco-antiguo::after {
             content: "ᛉ";
@@ -204,14 +233,8 @@
             font-family: 'MedievalSharp', cursive;
             text-shadow: 0 0 15px rgba(245, 200, 76, 0.1);
         }
-        .marco-antiguo::before {
-            top: -15px;
-            left: 20px;
-        }
-        .marco-antiguo::after {
-            bottom: -15px;
-            right: 20px;
-        }
+        .marco-antiguo::before { top: -15px; left: 20px; }
+        .marco-antiguo::after { bottom: -15px; right: 20px; }
 
         .marco-antiguo .runas {
             position: absolute;
@@ -262,9 +285,7 @@
             border-bottom: 1px solid #333;
             padding: 18px 0;
             margin: 20px 0;
-        }
-        .obra-dedicatoria p {
-            margin: 6px 0;
+            white-space: pre-line;
         }
         .obra-info {
             font-family: 'Lora', serif;
@@ -277,11 +298,10 @@
             border-radius: 8px;
             border-left: 3px solid #F5C84C;
             border-right: 3px solid #F5C84C;
+            white-space: pre-line;
         }
-        .obra-info strong {
-            color: #F5C84C;
-            font-weight: 700;
-        }
+        .obra-info strong { color: #F5C84C; font-weight: 700; }
+        .obra-info .nota { font-style: italic; color: #999; }
 
         .btn-pdf {
             display: inline-block;
@@ -311,54 +331,106 @@
         .btn-pdf::before {
             content: "";
             position: absolute;
-            top: -4px;
-            left: -4px;
-            right: -4px;
-            bottom: -4px;
+            top: -4px; left: -4px; right: -4px; bottom: -4px;
             border: 2px solid #333;
             border-radius: 6px;
             opacity: 0.3;
             transition: opacity 0.4s;
             pointer-events: none;
         }
-        .btn-pdf:hover::before {
-            opacity: 0.8;
+        .btn-pdf:hover::before { opacity: 0.8; }
+
+        /* === VISOR PDF INLINE === */
+        .pdf-viewer-container {
+            display: none;
+            margin: 30px auto 0;
+            padding: 0;
+            max-width: 720px;
+        }
+        .pdf-viewer-container.visible {
+            display: block;
+            animation: fadeIn 0.5s ease;
+        }
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(-10px); }
+            to   { opacity: 1; transform: translateY(0); }
         }
 
+        .pdf-scroll-area {
+            max-height: 80vh;
+            overflow-y: auto;
+            overflow-x: hidden;
+            padding: 15px 10px;
+            background: #050505;
+            border: 1px solid #333;
+            border-radius: 8px;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
+            /* Deshabilitar selección de texto por completo */
+            user-select: none;
+            -webkit-user-select: none;
+            -moz-user-select: none;
+            -ms-user-select: none;
+            scrollbar-width: thin;
+            scrollbar-color: #F5C84C #1a1a1a;
+        }
+        .pdf-scroll-area::-webkit-scrollbar { width: 8px; }
+        .pdf-scroll-area::-webkit-scrollbar-track { background: #1a1a1a; }
+        .pdf-scroll-area::-webkit-scrollbar-thumb { background: #F5C84C; border-radius: 4px; }
+
+        .pdf-page {
+            display: block;
+            width: 100% !important;
+            height: auto !important;
+            max-width: 100%;
+            margin: 15px auto;
+            border: 1px solid #333;
+            box-shadow: 0 0 25px rgba(0,0,0,0.7);
+            user-select: none;
+            -webkit-user-select: none;
+            -webkit-touch-callout: none;
+            pointer-events: none; /* impide selección/arrastre */
+        }
+
+        .pdf-status {
+            color: #F5C84C;
+            font-family: 'Cinzel', serif;
+            letter-spacing: 2px;
+            text-align: center;
+            padding: 30px 0;
+            font-size: 1rem;
+        }
+        .pdf-error { color: #ff6b6b; }
+
         @media (max-width: 600px) {
-            .obra-titulo {
-                font-size: 2.2rem;
-                letter-spacing: 4px;
-            }
-            .marco-antiguo {
-                padding: 25px 15px;
-            }
-            .btn-pdf {
-                font-size: 0.9rem;
-                padding: 12px 25px;
-                letter-spacing: 2px;
-            }
+            .obra-titulo { font-size: 2.2rem; letter-spacing: 4px; }
+            .marco-antiguo { padding: 25px 15px; }
+            .btn-pdf { font-size: 0.9rem; padding: 12px 25px; letter-spacing: 2px; }
             .marco-antiguo::before,
-            .marco-antiguo::after {
-                font-size: 2rem;
-            }
+            .marco-antiguo::after { font-size: 2rem; }
             .marco-antiguo .runas { display: none; }
-            .obra-item {
-                font-size: 1rem;
-                padding: 14px 20px;
-            }
+            .obra-item { font-size: 1rem; padding: 14px 20px; }
+            .lang-btn { width: 36px; height: 28px; }
+            .lang-switcher { gap: 6px; right: 10px; }
+            nav { gap: 20px; }
         }
     </style>
 </head>
 <body>
     <nav>
-        <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')">Inicio</button>
-        <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')">Libros</button>
-        <select class="lang-select" onchange="cambiarIdioma(this.value)">
-            <option value="es" selected>Español (Latinoamérica)</option>
-            <option value="en">English</option>
-            <option value="fr">Français</option>
-        </select>
+        <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')" data-i18n="nav_home">Inicio</button>
+        <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')" data-i18n="nav_books">Libros</button>
+
+        <div class="lang-switcher" role="group" aria-label="Selector de idioma">
+            <button class="lang-btn active" data-lang="es" aria-label="Español" title="Español">
+                <img src="https://flagcdn.com/w40/es.png" alt="Español">
+            </button>
+            <button class="lang-btn" data-lang="en" aria-label="English" title="English">
+                <img src="https://flagcdn.com/w40/gb.png" alt="English">
+            </button>
+            <button class="lang-btn" data-lang="fr" aria-label="Français" title="Français">
+                <img src="https://flagcdn.com/w40/fr.png" alt="Français">
+            </button>
+        </div>
     </nav>
 
     <!-- SECCIÓN INICIO -->
@@ -366,40 +438,15 @@
         <div class="cabecera">
             <img id="logo-home" alt="Logo de Julien Villamizar" src="">
             <h1>Julien Villamizar Arriaga</h1>
-            <div class="bio">
-Nací en Colombia, donde el trópico no solo es clima, sino un modo de sentir el tiempo.
-Crecí entre montañas verdes, calles ruidosas y una lengua que baila al hablar.
-De niño, el olor a tierra mojada me enseñó más que cualquier aula.
-No me gustaba leer: los libros me parecían jaulas de letras que no me pertenecían.
-Hasta que un cómic cayó en mis manos como cae un rayo en tierra fértil.
-Sus viñetas me mostraron que una historia podía respirar, sudar, gritar.
-Empecé a leer sin parar, primero tebeos, luego novelas delgadas, después ladrillos de páginas.
-Cada lectura era una ventana rota a un mundo que yo necesitaba habitar.
-A los doce años, en una noche de insomnio, soñé despierto con escribir mi propio libro.
-Ese sueño no se marchó al amanecer; se quedó a vivir conmigo.
-A los catorce años tomé la decisión más seria de mi vida: ser escritor.
-No fue una fantasía adolescente, sino un pacto íntimo con mi voz.
-Empecé a escribir en cuadernos, en servilletas, en los márgenes del colegio.
-Cada frase torpe era un ensayo, cada error una lección que sabía a victoria.
-Hoy, a los dieciocho, soy un colombiano que escribe desde la honestidad radical.
-Mi país no es solo un escenario, es el latido que le pongo a cada personaje.
-Escribo para tender puentes donde antes solo había silencio y distancia.
-Escribo para que otros, al leerme, sientan que alguien los entiende sin juzgarlos.
-No busco la perfección, busco la verdad que se esconde bajo la piel de las palabras.
-Cada historia que empiezo es una forma de abrazar el caos y convertirlo en algo bello.
-Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div>
+            <div class="bio" data-i18n="bio"></div>
         </div>
     </div>
 
     <!-- SECCIÓN LIBROS -->
     <div id="books" class="seccion">
         <div class="libros-lista">
-            <!-- Lista de obras: actualmente solo una -->
-            <button class="obra-item" onclick="toggleObra(this)">
-                Primer intento
-            </button>
+            <button class="obra-item" id="book-toggle" onclick="toggleObra(this)" data-i18n="book_button">Primer intento</button>
 
-            <!-- Contenedor del marco antiguo (oculto inicialmente) -->
             <div class="marco-contenedor" id="obra-desobediencia">
                 <div class="marco-antiguo">
                     <span class="runas r1">ᛉ ᚨ</span>
@@ -407,107 +454,334 @@ Mi vida es la página en la que aprendo a ser humano, una línea tras otra.</div
                     <span class="runas r3">ᚢ</span>
                     <span class="runas r4">ᛏ</span>
 
-                    <div class="obra-titulo">DESOBEDIENCIA</div>
+                    <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
                     <div class="obra-autor">Julien Villamizar Arriaga</div>
-                    <div class="obra-fecha">Noviembre de 2025</div>
+                    <div class="obra-fecha" data-i18n="book_date">Noviembre de 2025</div>
 
-                    <div class="obra-dedicatoria">
-                        <p>"A mi madre, mi guerrera sin armadura,"</p>
-                        <p>"que me enseñó que los sueños valen la pena."</p>
+                    <div class="obra-dedicatoria" data-i18n="dedication"></div>
+
+                    <div class="obra-info" data-i18n="book_info"></div>
+
+                    <button class="btn-pdf" id="btn-read" onclick="mostrarPDF()" data-i18n="btn_read">Leer la historia</button>
+
+                    <!-- Visor PDF embebido -->
+                    <div class="pdf-viewer-container" id="pdf-viewer-container">
+                        <div class="pdf-scroll-area" id="pdf-scroll" oncontextmenu="return false;">
+                            <div class="pdf-status" id="pdf-status" data-i18n="pdf_loading">Cargando…</div>
+                        </div>
                     </div>
-
-                    <div class="obra-info">
-                        <p><strong>Este es un borrador en proceso de revisión.</strong></p>
-                        <p>Forma parte de la antología "Herencias Invisibles",</p>
-                        <p>que será publicada por <strong>Ita Editorial</strong>.</p>
-                        <p style="margin-top: 10px; font-style: italic; color: #999;">Cualquier comentario o sugerencia es bienvenido.</p>
-                    </div>
-
-                    <a href="pdf/Desobediencia.pdf" target="_blank" class="btn-pdf">
-                        Leer la historia
-                    </a>
                 </div>
             </div>
         </div>
     </div>
 
     <footer>
-        <p>© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.</p>
+        <p data-i18n="footer">© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.</p>
     </footer>
 
-    <script type="text/javascript">
-        function googleTranslateElementInit() {}
-    </script>
-    <script type="text/javascript" src="https://translate.google.com/translate_a/element.js?cb=googleTranslateElementInit"></script>
     <script>
-        // Función para mostrar/ocultar el marco
-        function toggleObra(btn) {
-            var contenedor = btn.nextElementSibling;
-            if (contenedor && contenedor.classList.contains('marco-contenedor')) {
-                contenedor.classList.toggle('abierto');
-                if (contenedor.classList.contains('abierto')) {
-                    btn.textContent = 'Primer intento ▲';
-                } else {
-                    btn.textContent = 'Primer intento';
-                }
-            }
+    /* =========================================================
+       1) DICCIONARIO DE TRADUCCIONES
+       ========================================================= */
+    const i18n = {
+        es: {
+            nav_home: 'Inicio',
+            nav_books: 'Libros',
+            bio: `Nací en Colombia, donde el trópico no es solo un clima, sino una manera de habitar el tiempo.
+Crecí entre montañas verdes, calles bulliciosas y una lengua que danza al pronunciarse.
+Siendo niño, el aroma a tierra mojada me enseñó más que cualquier aula.
+No me gustaba leer: los libros me parecían jaulas de letras ajenas.
+Hasta que un cómic cayó en mis manos como un rayo sobre tierra fértil.
+Sus viñetas me revelaron que una historia podía respirar, transpirar, gritar.
+Comencé a leer sin tregua: primero tebeos, luego novelas breves, después volúmenes de páginas infinitas.
+Cada lectura era una ventana quebrada hacia un mundo que necesitaba habitar.
+A los doce años, en una noche de insomnio, soñé despierto con escribir mi propio libro.
+Aquel sueño no se disipó con el amanecer; se quedó a morar conmigo.
+A los catorce tomé la decisión más solemne de mi vida: ser escritor.
+No fue una quimera adolescente, sino un pacto íntimo con mi propia voz.
+Comencé a escribir en cuadernos, en servilletas, en los márgenes del colegio.
+Cada frase torpe era un ensayo; cada error, una lección con sabor a victoria.
+Hoy, a los dieciocho, soy un colombiano que escribe desde la honestidad radical.
+Mi país no es un simple escenario: es el pulso que late en cada personaje.
+Escribo para tender puentes donde antes solo había silencio y distancia.
+Escribo para que otros, al leerme, sientan que alguien los comprende sin juzgarlos.
+No persigo la perfección; persigo la verdad que se oculta bajo la piel de las palabras.
+Cada historia que inicio es una manera de abrazar el caos y transformarlo en algo bello.
+Mi vida es la página donde aprendo a ser humano, línea tras línea.`,
+            book_button: 'Primer intento',
+            book_button_open: 'Primer intento ▲',
+            book_title: 'DESOBEDIENCIA',
+            book_date: 'Noviembre de 2025',
+            dedication: `"A mi madre, mi guerrera sin armadura,
+que me enseñó que los sueños valen la pena."`,
+            book_info: `<strong>Este es un borrador en proceso de revisión.</strong>
+Forma parte de la antología «Herencias Invisibles»,
+que será publicada por <strong>Ita Editorial</strong>.
+<span class="nota">Cualquier comentario o sugerencia es bienvenido.</span>`,
+            btn_read: 'Leer la historia',
+            footer: '© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.',
+            pdf_loading: 'Cargando…',
+            pdf_error: 'No se pudo cargar el PDF.'
+        },
+        en: {
+            nav_home: 'Home',
+            nav_books: 'Books',
+            bio: `I was born in Colombia, where the tropics are not merely a climate, but a way of inhabiting time.
+I grew up among green mountains, bustling streets, and a tongue that dances as it speaks.
+As a child, the scent of damp earth taught me more than any classroom ever could.
+I did not enjoy reading: books struck me as cages of letters that were not my own.
+Until a comic book fell into my hands like lightning upon fertile ground.
+Its panels revealed to me that a story could breathe, sweat, and cry out.
+I began to read relentlessly—first comics, then slim novels, later brick-thick volumes.
+Each reading was a broken window into a world I needed to inhabit.
+At twelve, during a sleepless night, I dreamed wide awake of writing my own book.
+That dream did not vanish at dawn; it stayed to dwell with me.
+At fourteen I made the gravest decision of my life: to become a writer.
+It was no adolescent fancy, but an intimate pact with my own voice.
+I began to write in notebooks, on napkins, in the margins of school.
+Every clumsy sentence was a rehearsal; every mistake, a lesson that tasted of victory.
+Today, at eighteen, I am a Colombian who writes from radical honesty.
+My country is not a mere backdrop—it is the pulse I place in every character.
+I write to build bridges where once there was only silence and distance.
+I write so that others, upon reading me, may feel that someone understands them without judgment.
+I do not seek perfection; I seek the truth hidden beneath the skin of words.
+Every story I begin is a way of embracing chaos and turning it into something beautiful.
+My life is the page on which I learn to be human, one line at a time.`,
+            book_button: 'First attempt',
+            book_button_open: 'First attempt ▲',
+            book_title: 'DISOBEDIENCE',
+            book_date: 'November 2025',
+            dedication: `"To my mother, my warrior without armor,
+who taught me that dreams are worth the fight."`,
+            book_info: `<strong>This is a draft currently undergoing revision.</strong>
+It belongs to the anthology 'Invisible Inheritances,'
+which will be published by <strong>Ita Editorial</strong>.
+<span class="nota">Any comment or suggestion is warmly welcomed.</span>`,
+            btn_read: 'Read the story',
+            footer: '© 2026 Julien Villamizar Arriaga. All rights reserved.',
+            pdf_loading: 'Loading…',
+            pdf_error: 'The PDF could not be loaded.'
+        },
+        fr: {
+            nav_home: 'Accueil',
+            nav_books: 'Livres',
+            bio: `Je suis né en Colombie, où le tropique n'est pas qu'un climat, mais une manière d'habiter le temps.
+J'ai grandi parmi des montagnes verdoyantes, des rues bruyantes et une langue qui danse lorsqu'elle se prononce.
+Enfant, l'odeur de la terre mouillée m'a enseigné plus que n'importe quelle salle de classe.
+Je n'aimais pas lire : les livres me semblaient des cages de lettres qui ne m'appartenaient pas.
+Jusqu'à ce qu'une bande dessinée tombe entre mes mains comme la foudre sur une terre fertile.
+Ses cases m'ont révélé qu'une histoire pouvait respirer, transpirer, crier.
+J'ai commencé à lire sans relâche : d'abord des bandes dessinées, puis des romans courts, enfin des pavés aux pages infinies.
+Chaque lecture était une fenêtre brisée vers un monde que je devais habiter.
+À douze ans, lors d'une nuit d'insomnie, j'ai rêvé éveillé d'écrire mon propre livre.
+Ce rêve ne s'est pas dissipé à l'aube ; il est resté pour demeurer avec moi.
+À quatorze ans, j'ai pris la décision la plus solennelle de ma vie : devenir écrivain.
+Ce n'était pas une chimère adolescente, mais un pacte intime avec ma propre voix.
+J'ai commencé à écrire dans des carnets, sur des serviettes, dans les marges de l'école.
+Chaque phrase maladroite était une répétition ; chaque erreur, une leçon au goût de victoire.
+Aujourd'hui, à dix-huit ans, je suis un Colombien qui écrit depuis une honnêteté radicale.
+Mon pays n'est pas un simple décor : c'est le pouls que je fais battre en chaque personnage.
+J'écris pour jeter des ponts là où il n'y avait autrefois que silence et distance.
+J'écris pour que d'autres, en me lisant, sentent que quelqu'un les comprend sans les juger.
+Je ne cherche pas la perfection ; je cherche la vérité qui se cache sous la peau des mots.
+Chaque histoire que j'entame est une manière d'embrasser le chaos et de le transformer en beauté.
+Ma vie est la page où j'apprends à être humain, ligne après ligne.`,
+            book_button: 'Première tentative',
+            book_button_open: 'Première tentative ▲',
+            book_title: 'DÉSOBÉISSANCE',
+            book_date: 'Novembre 2025',
+            dedication: `« À ma mère, ma guerrière sans armure,
+qui m'a appris que les rêves valent la peine. »`,
+            book_info: `<strong>Ceci est un manuscrit en cours de révision.</strong>
+Il fait partie de l'anthologie « Héritages Invisibles »,
+qui sera publiée par <strong>Ita Editorial</strong>.
+<span class="nota">Tout commentaire ou suggestion est chaleureusement bienvenu.</span>`,
+            btn_read: "Lire l'histoire",
+            footer: '© 2026 Julien Villamizar Arriaga. Tous droits réservés.',
+            pdf_loading: 'Chargement…',
+            pdf_error: 'Le PDF n\u2019a pas pu être chargé.'
         }
+    };
 
-        // Funciones de navegación y carga de imágenes
-        function mostrarSeccion(id) {
-            document.querySelectorAll('.seccion').forEach(seccion => {
-                seccion.classList.remove('activa');
-            });
-            const seccionActiva = document.getElementById(id);
-            if (seccionActiva) {
-                seccionActiva.classList.add('activa');
-            }
-            document.querySelectorAll('.nav-text').forEach(btn => btn.classList.remove('activo'));
-            document.getElementById('btn-' + id).classList.add('activo');
-        }
+    /* =========================================================
+       2) ESTADO Y APLICACIÓN DE IDIOMA (INSTANTÁNEO)
+       ========================================================= */
+    let currentLang = 'es';
+    let bookOpen = false;
 
-        function cambiarIdioma(lang) {
-            if (lang === 'es') {
-                document.cookie = 'googtrans=; path=/; domain=' + location.hostname + '; expires=Thu, 01 Jan 1970 00:00:01 GMT';
-            } else {
-                document.cookie = 'googtrans=/es/' + lang + '; path=/; domain=' + location.hostname;
-            }
-            location.reload();
-        }
+    function applyLanguage(lang) {
+        if (!i18n[lang]) lang = 'es';
+        currentLang = lang;
+        const dict = i18n[lang];
 
-        window.addEventListener('DOMContentLoaded', function() {
-            const match = document.cookie.match(/googtrans=\/es\/([^;]+)/);
-            if (match) {
-                const lang = match[1];
-                const select = document.querySelector('.lang-select');
-                if (select) {
-                    select.value = lang;
-                }
-            }
-
-            function cargarImagen(idImg, nombre) {
-                const img = document.getElementById(idImg);
-                if (!img) return;
-                const extensiones = ['.png', '.jpg', '.jpeg'];
-                let i = 0;
-                function intentar() {
-                    if (i >= extensiones.length) {
-                        img.alt = 'Imagen no disponible: ' + nombre;
-                        return;
-                    }
-                    img.src = 'img/' + nombre + extensiones[i];
-                    img.onerror = function() {
-                        i++;
-                        intentar();
-                    };
-                    img.onload = function() {};
-                }
-                intentar();
-            }
-
-            // Solo cargamos la imagen del logo de inicio
-            cargarImagen('logo-home', 'Home');
+        document.querySelectorAll('[data-i18n]').forEach(el => {
+            const key = el.dataset.i18n;
+            if (dict[key] !== undefined) el.innerHTML = dict[key];
         });
+
+        document.querySelectorAll('.lang-btn').forEach(btn => {
+            btn.classList.toggle('active', btn.dataset.lang === lang);
+        });
+
+        document.documentElement.lang = lang;
+        try { localStorage.setItem('lang', lang); } catch (e) {}
+
+        // Refrescar el botón "Primer intento" según estado abierto/cerrado
+        const btn = document.getElementById('book-toggle');
+        if (btn) {
+            btn.textContent = bookOpen ? dict.book_button_open : dict.book_button;
+        }
+
+        // Actualizar metadatos
+        const metaDesc = document.querySelector('meta[name="description"]');
+        const metaOgDesc = document.querySelector('meta[property="og:description"]');
+        const desc = lang === 'es'
+            ? 'Te doy la bienvenida a mi portafolio personal, donde comparto mi música, mis videojuegos y mis libros.'
+            : lang === 'en'
+                ? 'Welcome to my personal portfolio, where I share my music, my video games, and my books.'
+                : 'Bienvenue sur mon portfolio personnel, où je partage ma musique, mes jeux vidéo et mes livres.';
+        if (metaDesc) metaDesc.setAttribute('content', desc);
+        if (metaOgDesc) metaOgDesc.setAttribute('content', desc);
+    }
+
+    // Listeners de banderas
+    document.querySelectorAll('.lang-btn').forEach(btn => {
+        btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+    });
+
+    /* =========================================================
+       3) NAVEGACIÓN Y TOGGLE OBRA
+       ========================================================= */
+    function mostrarSeccion(id) {
+        document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
+        const seccionActiva = document.getElementById(id);
+        if (seccionActiva) seccionActiva.classList.add('activa');
+
+        document.querySelectorAll('.nav-text').forEach(b => b.classList.remove('activo'));
+        const btn = document.getElementById('btn-' + id);
+        if (btn) btn.classList.add('activo');
+    }
+
+    function toggleObra(btn) {
+        const contenedor = btn.nextElementSibling;
+        if (!contenedor || !contenedor.classList.contains('marco-contenedor')) return;
+
+        contenedor.classList.toggle('abierto');
+        bookOpen = contenedor.classList.contains('abierto');
+        btn.textContent = bookOpen
+            ? i18n[currentLang].book_button_open
+            : i18n[currentLang].book_button;
+    }
+
+    /* =========================================================
+       4) VISOR PDF INLINE (con PDF.js, render en canvas)
+          - Sin capa de texto => no se puede seleccionar ni copiar
+          - Se muestra dentro de la propia página
+       ========================================================= */
+    let pdfLoaded = false;
+    let pdfLoading = false;
+
+    async function mostrarPDF() {
+        const container = document.getElementById('pdf-viewer-container');
+        const scrollArea = document.getElementById('pdf-scroll');
+        const statusEl = document.getElementById('pdf-status');
+
+        // Mostrar el contenedor
+        container.classList.add('visible');
+        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+        if (pdfLoaded || pdfLoading) return;
+
+        if (!window.pdfjsLib) {
+            statusEl.textContent = i18n[currentLang].pdf_error;
+            statusEl.classList.add('pdf-error');
+            return;
+        }
+
+        pdfLoading = true;
+        statusEl.textContent = i18n[currentLang].pdf_loading;
+
+        try {
+            const loadingTask = pdfjsLib.getDocument('pdf/Desobediencia.pdf');
+            const pdf = await loadingTask.promise;
+
+            // Limpiar estado
+            scrollArea.innerHTML = '';
+
+            const outputScale = window.devicePixelRatio || 1;
+
+            for (let num = 1; num <= pdf.numPages; num++) {
+                const page = await pdf.getPage(num);
+                const viewport = page.getViewport({ scale: 1.5 });
+
+                const canvas = document.createElement('canvas');
+                canvas.className = 'pdf-page';
+                const ctx = canvas.getContext('2d');
+
+                canvas.width = Math.floor(viewport.width * outputScale);
+                canvas.height = Math.floor(viewport.height * outputScale);
+
+                const transform = outputScale !== 1
+                    ? [outputScale, 0, 0, outputScale, 0, 0]
+                    : null;
+
+                scrollArea.appendChild(canvas);
+
+                await page.render({
+                    canvasContext: ctx,
+                    viewport: viewport,
+                    transform: transform
+                }).promise;
+            }
+
+            pdfLoaded = true;
+        } catch (err) {
+            console.error('Error cargando el PDF:', err);
+            scrollArea.innerHTML =
+                '<div class="pdf-status pdf-error">' +
+                i18n[currentLang].pdf_error +
+                '</div>';
+        } finally {
+            pdfLoading = false;
+        }
+    }
+
+    /* =========================================================
+       5) CARGA INICIAL
+       ========================================================= */
+    window.addEventListener('DOMContentLoaded', function () {
+        // Idioma guardado
+        let savedLang = 'es';
+        try { savedLang = localStorage.getItem('lang') || 'es'; } catch (e) {}
+        applyLanguage(savedLang);
+
+        // Logo (con fallback a distintas extensiones)
+        function cargarImagen(idImg, nombre) {
+            const img = document.getElementById(idImg);
+            if (!img) return;
+            const extensiones = ['.png', '.jpg', '.jpeg', '.webp'];
+            let i = 0;
+            function intentar() {
+                if (i >= extensiones.length) {
+                    img.alt = 'Imagen no disponible: ' + nombre;
+                    return;
+                }
+                img.src = 'img/' + nombre + extensiones[i];
+                img.onerror = () => { i++; intentar(); };
+            }
+            intentar();
+        }
+        cargarImagen('logo-home', 'Home');
+
+        // Protección adicional contra copia en el visor
+        const scroller = document.getElementById('pdf-scroll');
+        if (scroller) {
+            scroller.addEventListener('copy', e => e.preventDefault());
+            scroller.addEventListener('cut', e => e.preventDefault());
+            scroller.addEventListener('dragstart', e => e.preventDefault());
+            scroller.addEventListener('selectstart', e => e.preventDefault());
+        }
+    });
     </script>
 </body>
 </html>
