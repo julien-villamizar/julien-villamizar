@@ -10,7 +10,6 @@
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="img/favicon.png">
 
-    <!-- Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=G-76HJ6GQSB8"></script>
     <script>
         window.dataLayer = window.dataLayer || [];
@@ -19,12 +18,10 @@
         gtag('config', 'G-76HJ6GQSB8');
     </script>
 
-    <!-- Fuentes -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
     <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
 
-    <!-- PDF.js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
         if (window.pdfjsLib) {
@@ -34,7 +31,6 @@
     </script>
 
     <style>
-        /* === ESTILOS BASE === */
         body {
             margin: 0;
             font-family: 'Lora', serif;
@@ -69,52 +65,114 @@
             font-family: 'Cinzel', serif;
         }
         .nav-text:hover,
-        .nav-text.activo {
-            color: #F5C84C;
-        }
+        .nav-text.activo { color: #F5C84C; }
 
-        /* === SELECTOR DE IDIOMAS (BANDERAS) === */
+        /* === SELECTOR DE IDIOMA === */
         .lang-switcher {
             position: absolute;
             right: 20px;
             top: 50%;
             transform: translateY(-50%);
-            display: flex;
-            gap: 10px;
-            align-items: center;
+            z-index: 1100;
         }
-        .lang-btn {
-            background: rgba(0, 0, 0, 0.4);
-            border: 2px solid #333;
-            border-radius: 8px;
-            padding: 4px;
+        .lang-main {
+            width: 46px;
+            height: 46px;
+            border-radius: 50%;
+            background: radial-gradient(circle at 30% 30%, rgba(245,200,76,0.15), rgba(0,0,0,0.9));
+            border: 2px solid #F5C84C;
             cursor: pointer;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: all 0.3s ease;
-            width: 42px;
-            height: 32px;
+            transition: transform 0.35s ease, box-shadow 0.35s ease;
+            box-shadow:
+                0 0 15px rgba(245,200,76,0.3),
+                inset 0 0 12px rgba(245,200,76,0.15);
+            padding: 0;
+        }
+        .lang-main:hover {
+            transform: scale(1.08);
+            box-shadow:
+                0 0 28px rgba(245,200,76,0.7),
+                inset 0 0 18px rgba(245,200,76,0.3);
+        }
+        .lang-main .globe {
+            width: 24px;
+            height: 24px;
+            stroke: #F5C84C;
+            fill: none;
+            transition: transform 0.5s ease;
+        }
+        .lang-switcher.open .lang-main .globe { transform: rotate(180deg); }
+
+        .lang-options {
+            position: absolute;
+            top: 58px;
+            right: 0;
+            background: rgba(8,8,8,0.98);
+            border: 2px solid #F5C84C;
+            border-radius: 14px;
+            padding: 8px;
+            display: flex;
+            flex-direction: column;
+            gap: 4px;
+            opacity: 0;
+            visibility: hidden;
+            transform: translateY(-12px) scale(0.95);
+            transform-origin: top right;
+            transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
+            box-shadow:
+                0 12px 40px rgba(0,0,0,0.9),
+                0 0 40px rgba(245,200,76,0.18);
+            min-width: 210px;
+            backdrop-filter: blur(6px);
+        }
+        .lang-switcher.open .lang-options {
+            opacity: 1;
+            visibility: visible;
+            transform: translateY(0) scale(1);
+        }
+        .lang-option {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            background: transparent;
+            border: 1px solid transparent;
+            color: #ddd;
+            padding: 10px 14px;
+            border-radius: 9px;
+            cursor: pointer;
+            font-family: 'Cinzel', serif;
+            font-size: 0.9rem;
+            letter-spacing: 1.5px;
+            transition: all 0.2s;
+            text-align: left;
+            width: 100%;
             box-sizing: border-box;
         }
-        .lang-btn img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-            border-radius: 4px;
-            display: block;
-            pointer-events: none;
+        .lang-option:hover {
+            background: rgba(245,200,76,0.12);
+            border-color: rgba(245,200,76,0.4);
+            color: #F5C84C;
+            transform: translateX(-3px);
         }
-        .lang-btn:hover {
+        .lang-option.active {
+            background: rgba(245,200,76,0.18);
             border-color: #F5C84C;
-            transform: translateY(-50%) scale(1.08);
-            box-shadow: 0 0 15px rgba(245, 200, 76, 0.35);
+            color: #F5C84C;
+            box-shadow: inset 0 0 12px rgba(245,200,76,0.2);
         }
-        .lang-btn.active {
-            border-color: #F5C84C;
-            box-shadow: 0 0 18px rgba(245, 200, 76, 0.55), inset 0 0 8px rgba(245, 200, 76, 0.2);
-            background: rgba(245, 200, 76, 0.08);
+        .lang-option .globe-sm {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            fill: none;
+            flex-shrink: 0;
+            transition: stroke 0.2s;
         }
+        .lang-option.active .globe-sm,
+        .lang-option:hover .globe-sm { stroke: #F5C84C; }
 
         .seccion {
             display: none;
@@ -123,9 +181,7 @@
             padding: 0 20px;
             text-align: center;
         }
-        .seccion.activa {
-            display: block;
-        }
+        .seccion.activa { display: block; }
 
         .cabecera { text-align: center; }
         .cabecera img {
@@ -166,9 +222,7 @@
             font-size: 0.9rem;
         }
 
-        /* === SECCIÓN LIBROS === */
         .libros-lista { padding: 10px 0; }
-
         .obra-item {
             display: block;
             width: 100%;
@@ -303,6 +357,22 @@
         .obra-info strong { color: #F5C84C; font-weight: 700; }
         .obra-info .nota { font-style: italic; color: #999; }
 
+        /* Aviso de idioma del PDF */
+        .pdf-lang-warning {
+            display: block;
+            margin-top: 14px;
+            padding-top: 12px;
+            border-top: 1px dashed #444;
+            font-style: italic;
+            color: #F5C84C;
+            font-size: 0.92rem;
+            letter-spacing: 0.5px;
+        }
+        .pdf-lang-warning::before {
+            content: "⚠ ";
+            color: #F5C84C;
+        }
+
         .btn-pdf {
             display: inline-block;
             background: transparent;
@@ -340,7 +410,6 @@
         }
         .btn-pdf:hover::before { opacity: 0.8; }
 
-        /* === VISOR PDF INLINE === */
         .pdf-viewer-container {
             display: none;
             margin: 30px auto 0;
@@ -355,7 +424,6 @@
             from { opacity: 0; transform: translateY(-10px); }
             to   { opacity: 1; transform: translateY(0); }
         }
-
         .pdf-scroll-area {
             max-height: 80vh;
             overflow-y: auto;
@@ -365,7 +433,6 @@
             border: 1px solid #333;
             border-radius: 8px;
             box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
-            /* Deshabilitar selección de texto por completo */
             user-select: none;
             -webkit-user-select: none;
             -moz-user-select: none;
@@ -376,7 +443,6 @@
         .pdf-scroll-area::-webkit-scrollbar { width: 8px; }
         .pdf-scroll-area::-webkit-scrollbar-track { background: #1a1a1a; }
         .pdf-scroll-area::-webkit-scrollbar-thumb { background: #F5C84C; border-radius: 4px; }
-
         .pdf-page {
             display: block;
             width: 100% !important;
@@ -388,9 +454,8 @@
             user-select: none;
             -webkit-user-select: none;
             -webkit-touch-callout: none;
-            pointer-events: none; /* impide selección/arrastre */
+            pointer-events: none;
         }
-
         .pdf-status {
             color: #F5C84C;
             font-family: 'Cinzel', serif;
@@ -409,9 +474,12 @@
             .marco-antiguo::after { font-size: 2rem; }
             .marco-antiguo .runas { display: none; }
             .obra-item { font-size: 1rem; padding: 14px 20px; }
-            .lang-btn { width: 36px; height: 28px; }
-            .lang-switcher { gap: 6px; right: 10px; }
             nav { gap: 20px; }
+            .lang-switcher { right: 10px; }
+            .lang-main { width: 40px; height: 40px; }
+            .lang-main .globe { width: 20px; height: 20px; }
+            .lang-options { min-width: 190px; }
+            .lang-option { font-size: 0.82rem; padding: 9px 12px; }
         }
     </style>
 </head>
@@ -420,20 +488,52 @@
         <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')" data-i18n="nav_home">Inicio</button>
         <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')" data-i18n="nav_books">Libros</button>
 
-        <div class="lang-switcher" role="group" aria-label="Selector de idioma">
-            <button class="lang-btn active" data-lang="es" aria-label="Español" title="Español">
-                <img src="https://flagcdn.com/w40/es.png" alt="Español">
+        <div class="lang-switcher" id="lang-switcher">
+            <button class="lang-main" id="lang-main" aria-label="Cambiar idioma" title="Cambiar idioma">
+                <svg class="globe" viewBox="0 0 24 24" stroke-width="1.6">
+                    <circle cx="12" cy="12" r="9"/>
+                    <ellipse cx="12" cy="12" rx="4" ry="9"/>
+                    <line x1="3" y1="12" x2="21" y2="12"/>
+                    <line x1="4.5" y1="7" x2="19.5" y2="7"/>
+                    <line x1="4.5" y1="17" x2="19.5" y2="17"/>
+                </svg>
             </button>
-            <button class="lang-btn" data-lang="en" aria-label="English" title="English">
-                <img src="https://flagcdn.com/w40/gb.png" alt="English">
-            </button>
-            <button class="lang-btn" data-lang="fr" aria-label="Français" title="Français">
-                <img src="https://flagcdn.com/w40/fr.png" alt="Français">
-            </button>
+
+            <div class="lang-options" id="lang-options" role="menu">
+                <button class="lang-option" data-lang="en" role="menuitem">
+                    <svg class="globe-sm" viewBox="0 0 24 24" stroke-width="1.6">
+                        <circle cx="12" cy="12" r="9"/>
+                        <ellipse cx="12" cy="12" rx="4" ry="9"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="4.5" y1="7" x2="19.5" y2="7"/>
+                        <line x1="4.5" y1="17" x2="19.5" y2="17"/>
+                    </svg>
+                    <span>English</span>
+                </button>
+                <button class="lang-option" data-lang="fr" role="menuitem">
+                    <svg class="globe-sm" viewBox="0 0 24 24" stroke-width="1.6">
+                        <circle cx="12" cy="12" r="9"/>
+                        <ellipse cx="12" cy="12" rx="4" ry="9"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="4.5" y1="7" x2="19.5" y2="7"/>
+                        <line x1="4.5" y1="17" x2="19.5" y2="17"/>
+                    </svg>
+                    <span>Français</span>
+                </button>
+                <button class="lang-option" data-lang="es" role="menuitem">
+                    <svg class="globe-sm" viewBox="0 0 24 24" stroke-width="1.6">
+                        <circle cx="12" cy="12" r="9"/>
+                        <ellipse cx="12" cy="12" rx="4" ry="9"/>
+                        <line x1="3" y1="12" x2="21" y2="12"/>
+                        <line x1="4.5" y1="7" x2="19.5" y2="7"/>
+                        <line x1="4.5" y1="17" x2="19.5" y2="17"/>
+                    </svg>
+                    <span>Español</span>
+                </button>
+            </div>
         </div>
     </nav>
 
-    <!-- SECCIÓN INICIO -->
     <div id="home" class="seccion activa">
         <div class="cabecera">
             <img id="logo-home" alt="Logo de Julien Villamizar" src="">
@@ -442,7 +542,6 @@
         </div>
     </div>
 
-    <!-- SECCIÓN LIBROS -->
     <div id="books" class="seccion">
         <div class="libros-lista">
             <button class="obra-item" id="book-toggle" onclick="toggleObra(this)" data-i18n="book_button">Primer intento</button>
@@ -464,7 +563,6 @@
 
                     <button class="btn-pdf" id="btn-read" onclick="mostrarPDF()" data-i18n="btn_read">Leer la historia</button>
 
-                    <!-- Visor PDF embebido -->
                     <div class="pdf-viewer-container" id="pdf-viewer-container">
                         <div class="pdf-scroll-area" id="pdf-scroll" oncontextmenu="return false;">
                             <div class="pdf-status" id="pdf-status" data-i18n="pdf_loading">Cargando…</div>
@@ -481,33 +579,32 @@
 
     <script>
     /* =========================================================
-       1) DICCIONARIO DE TRADUCCIONES
+       DICCIONARIO
        ========================================================= */
     const i18n = {
         es: {
             nav_home: 'Inicio',
             nav_books: 'Libros',
-            bio: `Nací en Colombia, donde el trópico no es solo un clima, sino una manera de habitar el tiempo.
-Crecí entre montañas verdes, calles bulliciosas y una lengua que danza al pronunciarse.
-Siendo niño, el aroma a tierra mojada me enseñó más que cualquier aula.
-No me gustaba leer: los libros me parecían jaulas de letras ajenas.
+            bio: `Crecí entre montañas verdes, calles ruidosas y un idioma que baila cuando se habla.
+De niño, el olor de la tierra húmeda me enseñó más que cualquier salón de clases.
+No me gustaba leer: los libros me parecían jaulas de letras que no me pertenecían.
 Hasta que un cómic cayó en mis manos como un rayo sobre tierra fértil.
-Sus viñetas me revelaron que una historia podía respirar, transpirar, gritar.
-Comencé a leer sin tregua: primero tebeos, luego novelas breves, después volúmenes de páginas infinitas.
-Cada lectura era una ventana quebrada hacia un mundo que necesitaba habitar.
+Sus viñetas me revelaron que una historia podía respirar, sudar, gritar.
+Comencé a leer sin descanso: primero cómics, luego novelas delgadas, más tarde ladrillos de páginas.
+Cada lectura era una ventana rota a un mundo que tenía que habitar.
 A los doce años, en una noche de insomnio, soñé despierto con escribir mi propio libro.
-Aquel sueño no se disipó con el amanecer; se quedó a morar conmigo.
-A los catorce tomé la decisión más solemne de mi vida: ser escritor.
-No fue una quimera adolescente, sino un pacto íntimo con mi propia voz.
-Comencé a escribir en cuadernos, en servilletas, en los márgenes del colegio.
-Cada frase torpe era un ensayo; cada error, una lección con sabor a victoria.
-Hoy, a los dieciocho, soy un colombiano que escribe desde la honestidad radical.
-Mi país no es un simple escenario: es el pulso que late en cada personaje.
+Ese sueño no se desvaneció al amanecer; se quedó a vivir conmigo.
+A los catorce tomé la decisión más solemne de mi vida: convertirme en escritor.
+No fue un capricho juvenil, sino un pacto íntimo con mi propia voz.
+Empecé a escribir en cuadernos, en servilletas, en los márgenes de los libros de la escuela.
+Cada frase torpe era una prueba; cada error, una lección que sabía a victoria.
+Hoy, a los dieciocho años, soy un chico que escribe desde la honestidad radical.
+Mi tierra no es solo un escenario: es el pulso que le pongo a cada personaje.
 Escribo para tender puentes donde antes solo había silencio y distancia.
-Escribo para que otros, al leerme, sientan que alguien los comprende sin juzgarlos.
-No persigo la perfección; persigo la verdad que se oculta bajo la piel de las palabras.
-Cada historia que inicio es una manera de abrazar el caos y transformarlo en algo bello.
-Mi vida es la página donde aprendo a ser humano, línea tras línea.`,
+Escribo para que otros, al leerme, sientan que alguien los entiende sin juzgarlos.
+No busco la perfección; busco la verdad que se esconde bajo la piel de las palabras.
+Cada historia que comienzo es una forma de abrazar el caos y transformarlo en algo hermoso.
+Mi vida es la página en la que aprendo a ser humano, línea por línea.`,
             book_button: 'Primer intento',
             book_button_open: 'Primer intento ▲',
             book_title: 'DESOBEDIENCIA',
@@ -517,7 +614,8 @@ que me enseñó que los sueños valen la pena."`,
             book_info: `<strong>Este es un borrador en proceso de revisión.</strong>
 Forma parte de la antología «Herencias Invisibles»,
 que será publicada por <strong>Ita Editorial</strong>.
-<span class="nota">Cualquier comentario o sugerencia es bienvenido.</span>`,
+<span class="nota">Cualquier comentario o sugerencia es bienvenido.</span>
+<span class="pdf-lang-warning">El texto solo está disponible en español.</span>`,
             btn_read: 'Leer la historia',
             footer: '© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.',
             pdf_loading: 'Cargando…',
@@ -526,27 +624,26 @@ que será publicada por <strong>Ita Editorial</strong>.
         en: {
             nav_home: 'Home',
             nav_books: 'Books',
-            bio: `I was born in Colombia, where the tropics are not merely a climate, but a way of inhabiting time.
-I grew up among green mountains, bustling streets, and a tongue that dances as it speaks.
-As a child, the scent of damp earth taught me more than any classroom ever could.
-I did not enjoy reading: books struck me as cages of letters that were not my own.
-Until a comic book fell into my hands like lightning upon fertile ground.
-Its panels revealed to me that a story could breathe, sweat, and cry out.
-I began to read relentlessly—first comics, then slim novels, later brick-thick volumes.
-Each reading was a broken window into a world I needed to inhabit.
-At twelve, during a sleepless night, I dreamed wide awake of writing my own book.
-That dream did not vanish at dawn; it stayed to dwell with me.
-At fourteen I made the gravest decision of my life: to become a writer.
-It was no adolescent fancy, but an intimate pact with my own voice.
-I began to write in notebooks, on napkins, in the margins of school.
-Every clumsy sentence was a rehearsal; every mistake, a lesson that tasted of victory.
-Today, at eighteen, I am a Colombian who writes from radical honesty.
-My country is not a mere backdrop—it is the pulse I place in every character.
+            bio: `I grew up amongst green mountains, noisy streets and a language that dances when spoken.
+As a child, the smell of damp earth taught me more than any classroom ever did.
+I didn't like reading: books struck me as cages made of letters that didn't belong to me.
+Until a comic fell into my hands like a bolt of lightning striking fertile ground.
+Its panels revealed to me that a story could breathe, sweat and scream.
+I began to read tirelessly: first comics, then slim novels, later brick-thick tomes.
+Each reading was a shattered window onto a world I had to inhabit.
+At the age of twelve, during a sleepless night, I dreamed wide awake of writing my own book.
+That dream did not vanish at dawn; it remained to dwell in me.
+At fourteen, I made the most solemn decision of my life: to become a writer.
+It was no youthful whim, but an intimate pact with my own voice.
+I began writing in notebooks, on napkins, in the margins of my schoolwork.
+Every clumsy sentence was a trial; every mistake a lesson that tasted of victory.
+Today, at eighteen, I am a boy who writes with radical honesty.
+My land is not merely a backdrop: it is the pulse I place in every character.
 I write to build bridges where once there was only silence and distance.
-I write so that others, upon reading me, may feel that someone understands them without judgment.
+I write so that others, when they read me, may feel that someone understands them without judgement.
 I do not seek perfection; I seek the truth hidden beneath the skin of words.
-Every story I begin is a way of embracing chaos and turning it into something beautiful.
-My life is the page on which I learn to be human, one line at a time.`,
+Every story I begin is a way of embracing chaos and transforming it into something beautiful.
+My life is the page on which I learn to be human, line by line.`,
             book_button: 'First attempt',
             book_button_open: 'First attempt ▲',
             book_title: 'DISOBEDIENCE',
@@ -556,7 +653,8 @@ who taught me that dreams are worth the fight."`,
             book_info: `<strong>This is a draft currently undergoing revision.</strong>
 It belongs to the anthology 'Invisible Inheritances,'
 which will be published by <strong>Ita Editorial</strong>.
-<span class="nota">Any comment or suggestion is warmly welcomed.</span>`,
+<span class="nota">Any comment or suggestion is warmly welcomed.</span>
+<span class="pdf-lang-warning">The text is only available in Spanish.</span>`,
             btn_read: 'Read the story',
             footer: '© 2026 Julien Villamizar Arriaga. All rights reserved.',
             pdf_loading: 'Loading…',
@@ -565,27 +663,26 @@ which will be published by <strong>Ita Editorial</strong>.
         fr: {
             nav_home: 'Accueil',
             nav_books: 'Livres',
-            bio: `Je suis né en Colombie, où le tropique n'est pas qu'un climat, mais une manière d'habiter le temps.
-J'ai grandi parmi des montagnes verdoyantes, des rues bruyantes et une langue qui danse lorsqu'elle se prononce.
-Enfant, l'odeur de la terre mouillée m'a enseigné plus que n'importe quelle salle de classe.
-Je n'aimais pas lire : les livres me semblaient des cages de lettres qui ne m'appartenaient pas.
-Jusqu'à ce qu'une bande dessinée tombe entre mes mains comme la foudre sur une terre fertile.
+            bio: `J'ai grandi entre des montagnes verdoyantes, des rues bruyantes et une langue qui danse lorsqu'on la parle.
+Enfant, l'odeur de la terre humide m'a appris bien plus que n'importe quelle salle de classe.
+Je n'aimais pas lire : les livres me semblaient des cages faites de lettres qui ne m'appartenaient pas.
+Jusqu'à ce qu'une bande dessinée tombe entre mes mains comme un éclair sur un sol fertile.
 Ses cases m'ont révélé qu'une histoire pouvait respirer, transpirer, crier.
-J'ai commencé à lire sans relâche : d'abord des bandes dessinées, puis des romans courts, enfin des pavés aux pages infinies.
-Chaque lecture était une fenêtre brisée vers un monde que je devais habiter.
-À douze ans, lors d'une nuit d'insomnie, j'ai rêvé éveillé d'écrire mon propre livre.
-Ce rêve ne s'est pas dissipé à l'aube ; il est resté pour demeurer avec moi.
+J'ai commencé à lire sans relâche : d'abord des bandes dessinées, puis des romans courts, plus tard des pavés.
+Chaque lecture était une fenêtre brisée donnant sur un monde que je devais habiter.
+À douze ans, lors d'une nuit d'insomnie, j'ai rêvé les yeux ouverts d'écrire mon propre livre.
+Ce rêve n'a pas disparu à l'aube ; il est resté pour s'installer en moi.
 À quatorze ans, j'ai pris la décision la plus solennelle de ma vie : devenir écrivain.
-Ce n'était pas une chimère adolescente, mais un pacte intime avec ma propre voix.
-J'ai commencé à écrire dans des carnets, sur des serviettes, dans les marges de l'école.
-Chaque phrase maladroite était une répétition ; chaque erreur, une leçon au goût de victoire.
-Aujourd'hui, à dix-huit ans, je suis un Colombien qui écrit depuis une honnêteté radicale.
-Mon pays n'est pas un simple décor : c'est le pouls que je fais battre en chaque personnage.
+Ce n'était pas un engouement de jeunesse, mais un pacte intime avec ma propre voix.
+J'ai commencé à écrire dans des carnets, sur des serviettes en papier, dans les marges de mes manuels scolaires.
+Chaque phrase maladroite était un essai ; chaque erreur, une leçon qui avait le goût de la victoire.
+Aujourd'hui, à dix-huit ans, je suis un garçon qui écrit avec une honnêteté radicale.
+Ma terre n'est pas seulement un décor : c'est le pouls que j'insuffle à chaque personnage.
 J'écris pour jeter des ponts là où il n'y avait autrefois que silence et distance.
-J'écris pour que d'autres, en me lisant, sentent que quelqu'un les comprend sans les juger.
-Je ne cherche pas la perfection ; je cherche la vérité qui se cache sous la peau des mots.
-Chaque histoire que j'entame est une manière d'embrasser le chaos et de le transformer en beauté.
-Ma vie est la page où j'apprends à être humain, ligne après ligne.`,
+J'écris pour que les autres, en me lisant, sentent que quelqu'un les comprend sans les juger.
+Je ne recherche pas la perfection ; je recherche la vérité qui se cache sous la peau des mots.
+Chaque histoire que j'entame est une façon d'embrasser le chaos et de le transformer en quelque chose de beau.
+Ma vie est la page sur laquelle j'apprends à être humain, ligne après ligne.`,
             book_button: 'Première tentative',
             book_button_open: 'Première tentative ▲',
             book_title: 'DÉSOBÉISSANCE',
@@ -595,7 +692,8 @@ qui m'a appris que les rêves valent la peine. »`,
             book_info: `<strong>Ceci est un manuscrit en cours de révision.</strong>
 Il fait partie de l'anthologie « Héritages Invisibles »,
 qui sera publiée par <strong>Ita Editorial</strong>.
-<span class="nota">Tout commentaire ou suggestion est chaleureusement bienvenu.</span>`,
+<span class="nota">Tout commentaire ou suggestion est chaleureusement bienvenu.</span>
+<span class="pdf-lang-warning">Le texte n'est disponible qu'en espagnol.</span>`,
             btn_read: "Lire l'histoire",
             footer: '© 2026 Julien Villamizar Arriaga. Tous droits réservés.',
             pdf_loading: 'Chargement…',
@@ -604,7 +702,7 @@ qui sera publiée par <strong>Ita Editorial</strong>.
     };
 
     /* =========================================================
-       2) ESTADO Y APLICACIÓN DE IDIOMA (INSTANTÁNEO)
+       APLICAR IDIOMA
        ========================================================= */
     let currentLang = 'es';
     let bookOpen = false;
@@ -619,20 +717,16 @@ qui sera publiée par <strong>Ita Editorial</strong>.
             if (dict[key] !== undefined) el.innerHTML = dict[key];
         });
 
-        document.querySelectorAll('.lang-btn').forEach(btn => {
+        document.querySelectorAll('.lang-option').forEach(btn => {
             btn.classList.toggle('active', btn.dataset.lang === lang);
         });
 
         document.documentElement.lang = lang;
         try { localStorage.setItem('lang', lang); } catch (e) {}
 
-        // Refrescar el botón "Primer intento" según estado abierto/cerrado
         const btn = document.getElementById('book-toggle');
-        if (btn) {
-            btn.textContent = bookOpen ? dict.book_button_open : dict.book_button;
-        }
+        if (btn) btn.textContent = bookOpen ? dict.book_button_open : dict.book_button;
 
-        // Actualizar metadatos
         const metaDesc = document.querySelector('meta[name="description"]');
         const metaOgDesc = document.querySelector('meta[property="og:description"]');
         const desc = lang === 'es'
@@ -644,13 +738,34 @@ qui sera publiée par <strong>Ita Editorial</strong>.
         if (metaOgDesc) metaOgDesc.setAttribute('content', desc);
     }
 
-    // Listeners de banderas
-    document.querySelectorAll('.lang-btn').forEach(btn => {
-        btn.addEventListener('click', () => applyLanguage(btn.dataset.lang));
+    /* =========================================================
+       SELECTOR DE IDIOMA
+       ========================================================= */
+    const langSwitcher = document.getElementById('lang-switcher');
+    const langMain = document.getElementById('lang-main');
+
+    langMain.addEventListener('click', (e) => {
+        e.stopPropagation();
+        langSwitcher.classList.toggle('open');
+    });
+
+    document.querySelectorAll('.lang-option').forEach(btn => {
+        btn.addEventListener('click', () => {
+            applyLanguage(btn.dataset.lang);
+            langSwitcher.classList.remove('open');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        if (!langSwitcher.contains(e.target)) langSwitcher.classList.remove('open');
+    });
+
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape') langSwitcher.classList.remove('open');
     });
 
     /* =========================================================
-       3) NAVEGACIÓN Y TOGGLE OBRA
+       NAVEGACIÓN Y TOGGLE
        ========================================================= */
     function mostrarSeccion(id) {
         document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
@@ -665,7 +780,6 @@ qui sera publiée par <strong>Ita Editorial</strong>.
     function toggleObra(btn) {
         const contenedor = btn.nextElementSibling;
         if (!contenedor || !contenedor.classList.contains('marco-contenedor')) return;
-
         contenedor.classList.toggle('abierto');
         bookOpen = contenedor.classList.contains('abierto');
         btn.textContent = bookOpen
@@ -674,9 +788,7 @@ qui sera publiée par <strong>Ita Editorial</strong>.
     }
 
     /* =========================================================
-       4) VISOR PDF INLINE (con PDF.js, render en canvas)
-          - Sin capa de texto => no se puede seleccionar ni copiar
-          - Se muestra dentro de la propia página
+       VISOR PDF INLINE
        ========================================================= */
     let pdfLoaded = false;
     let pdfLoading = false;
@@ -686,7 +798,6 @@ qui sera publiée par <strong>Ita Editorial</strong>.
         const scrollArea = document.getElementById('pdf-scroll');
         const statusEl = document.getElementById('pdf-status');
 
-        // Mostrar el contenedor
         container.classList.add('visible');
         container.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -705,9 +816,7 @@ qui sera publiée par <strong>Ita Editorial</strong>.
             const loadingTask = pdfjsLib.getDocument('pdf/Desobediencia.pdf');
             const pdf = await loadingTask.promise;
 
-            // Limpiar estado
             scrollArea.innerHTML = '';
-
             const outputScale = window.devicePixelRatio || 1;
 
             for (let num = 1; num <= pdf.numPages; num++) {
@@ -747,15 +856,13 @@ qui sera publiée par <strong>Ita Editorial</strong>.
     }
 
     /* =========================================================
-       5) CARGA INICIAL
+       INICIO
        ========================================================= */
     window.addEventListener('DOMContentLoaded', function () {
-        // Idioma guardado
         let savedLang = 'es';
         try { savedLang = localStorage.getItem('lang') || 'es'; } catch (e) {}
         applyLanguage(savedLang);
 
-        // Logo (con fallback a distintas extensiones)
         function cargarImagen(idImg, nombre) {
             const img = document.getElementById(idImg);
             if (!img) return;
@@ -773,7 +880,6 @@ qui sera publiée par <strong>Ita Editorial</strong>.
         }
         cargarImagen('logo-home', 'Home');
 
-        // Protección adicional contra copia en el visor
         const scroller = document.getElementById('pdf-scroll');
         if (scroller) {
             scroller.addEventListener('copy', e => e.preventDefault());
