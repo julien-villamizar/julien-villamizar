@@ -260,7 +260,7 @@
             margin: 0 auto;
         }
         .marco-contenedor.abierto {
-            max-height: 8000px;
+            max-height: 12000px;
             opacity: 1;
             margin: 30px auto;
         }
@@ -387,11 +387,12 @@
             background: rgba(0,0,0,0.4);
             padding: 18px;
             border-radius: 8px;
-            border-left: 3px solid #F5C84C;
-            border-right: 3px solid #F5C84C;
+            border-left: 3px solid #555;
+            border-right: 3px solid #555;
             white-space: pre-line;
         }
-        .obra-info strong { color: #F5C84C; font-weight: 700; }
+        /* Sin dorado dentro de los textos reemplazados */
+        .obra-info strong { font-weight: 700; color: #e8e8e8; }
         .obra-info .nota { font-style: italic; color: #999; }
 
         .pdf-lang-warning {
@@ -400,13 +401,13 @@
             padding-top: 12px;
             border-top: 1px dashed #444;
             font-style: italic;
-            color: #F5C84C;
+            color: #999;
             font-size: 0.92rem;
             letter-spacing: 0.5px;
         }
         .pdf-lang-warning::before {
             content: "⚠ ";
-            color: #F5C84C;
+            color: #999;
         }
 
         .btn-pdf {
@@ -635,7 +636,7 @@
 
                         <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
                         <div class="obra-autor">Julien Villamizar Arriaga</div>
-                        <div class="obra-fecha" data-i18n="book_date">Noviembre de 2025</div>
+                        <div class="obra-fecha" data-i18n="book_date">Noviembre de dos mil veinticinco</div>
 
                         <div class="obra-dedicatoria" data-i18n="dedication"></div>
 
@@ -668,7 +669,7 @@
 
                         <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
                         <div class="obra-autor">Julien Villamizar Arriaga</div>
-                        <div class="obra-fecha" data-i18n="book_date">Noviembre de 2025</div>
+                        <div class="obra-fecha" data-i18n="book_date">Noviembre de dos mil veinticinco</div>
 
                         <div class="obra-dedicatoria" data-i18n="dedication"></div>
 
@@ -696,7 +697,7 @@
     </div>
 
     <footer>
-        <p data-i18n="footer">© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.</p>
+        <p data-i18n="footer">© dos mil veintiséis Julien Villamizar Arriaga. Todos los derechos reservados.</p>
     </footer>
 
     <script>
@@ -730,19 +731,19 @@ Mi vida es la página en la que aprendo a ser humano, línea por línea.`,
             book_button: 'Primer intento',
             book_button_open: 'Primer intento ▲',
             book_title: 'DESOBEDIENCIA',
-            book_date: 'Noviembre de 2025',
+            book_date: 'Noviembre de dos mil veinticinco',
             dedication: `"A mi madre, mi guerrera sin armadura,
 que me enseñó que los sueños valen la pena."`,
-            herencias_info: `<strong>Mi obra forma parte de Herencias invisibles</strong>, un libro que reúne a 27 autores y 27 textos sobre recuerdos, silencios y aquello que recibimos sin palabras.
+            herencias_info: `<strong>Mi obra forma parte de Herencias invisibles</strong>, un libro que reúne a veintisiete autores y veintisiete textos sobre recuerdos, silencios y aquello que recibimos sin palabras.
 Hoy mi nombre comparte portada, lomo e ISBN con voces que también decidieron escribir sobre esas huellas que permanecen en nosotros, incluso cuando no sabemos exactamente de dónde vienen.
 <span class="pdf-lang-warning">El texto solo está disponible en español.</span>`,
-            cuando_nadie_info: `<strong>Mi obra forma parte de Cuando nadie está mirando</strong>, un libro que reúne a 26 autores y 26 textos sobre decisiones privadas, silencios, acciones ocultas y vidas que cambian cuando nadie está ahí para verlo.
+            cuando_nadie_info: `<strong>Mi obra forma parte de Cuando nadie está mirando</strong>, un libro que reúne a veintiséis autores y veintiséis textos sobre decisiones privadas, silencios, acciones ocultas y vidas que cambian cuando nadie está ahí para verlo.
 Hoy mi nombre comparte portada, lomo e ISBN con voces que también decidieron escribir sobre aquello que ocurre lejos de la mirada de los demás.
 <span class="pdf-lang-warning">El texto solo está disponible en español.</span>`,
             link_herencias: 'Ver en Ita Editorial',
             link_cuando_nadie: 'Ver en Ita Editorial',
             btn_read: 'Leer la historia',
-            footer: '© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.',
+            footer: '© dos mil veintiséis Julien Villamizar Arriaga. Todos los derechos reservados.',
             pdf_loading: 'Cargando…',
             pdf_error: 'No se pudo cargar el PDF.'
         },
@@ -772,19 +773,19 @@ My life is the page on which I learn to be human, line by line.`,
             book_button: 'First attempt',
             book_button_open: 'First attempt ▲',
             book_title: 'DISOBEDIENCE',
-            book_date: 'November 2025',
+            book_date: 'November twenty twenty-five',
             dedication: `"To my mother, my warrior without armor,
 who taught me that dreams are worth the fight."`,
-            herencias_info: `<strong>My work is part of <em>Herencias invisibles</em></strong> (Invisible Inheritances), a book that brings together 27 authors and 27 texts about memories, silences, and what we receive without words.
+            herencias_info: `<strong>My work is part of <em>Herencias invisibles</em></strong> (Invisible Inheritances), a book that brings together twenty-seven authors and twenty-seven texts about memories, silences, and what we receive without words.
 Today my name shares a cover, spine, and ISBN with voices that also chose to write about those traces that remain in us, even when we don't know exactly where they come from.
 <span class="pdf-lang-warning">The text is only available in Spanish.</span>`,
-            cuando_nadie_info: `<strong>My work is part of <em>Cuando nadie está mirando</em></strong> (When No One Is Watching), a book that brings together 26 authors and 26 texts about private decisions, silences, hidden actions, and lives that change when no one is there to see it.
+            cuando_nadie_info: `<strong>My work is part of <em>Cuando nadie está mirando</em></strong> (When No One Is Watching), a book that brings together twenty-six authors and twenty-six texts about private decisions, silences, hidden actions, and lives that change when no one is there to see it.
 Today my name shares a cover, spine, and ISBN with voices that also chose to write about what happens far from others' gaze.
 <span class="pdf-lang-warning">The text is only available in Spanish.</span>`,
             link_herencias: 'View at Ita Editorial',
             link_cuando_nadie: 'View at Ita Editorial',
             btn_read: 'Read the story',
-            footer: '© 2026 Julien Villamizar Arriaga. All rights reserved.',
+            footer: '© twenty twenty-six Julien Villamizar Arriaga. All rights reserved.',
             pdf_loading: 'Loading…',
             pdf_error: 'The PDF could not be loaded.'
         },
@@ -814,19 +815,19 @@ Ma vie est la page sur laquelle j'apprends à être humain, ligne après ligne.`
             book_button: 'Première tentative',
             book_button_open: 'Première tentative ▲',
             book_title: 'DÉSOBÉISSANCE',
-            book_date: 'Novembre 2025',
+            book_date: 'Novembre deux mille vingt-cinq',
             dedication: `« À ma mère, ma guerrière sans armure,
 qui m'a appris que les rêves valent la peine. »`,
-            herencias_info: `<strong>Mon œuvre fait partie de <em>Herencias invisibles</em></strong> (Héritages invisibles), un livre qui réunit 27 auteurs et 27 textes sur les souvenirs, les silences et ce que nous recevons sans mots.
+            herencias_info: `<strong>Mon œuvre fait partie de <em>Herencias invisibles</em></strong> (Héritages invisibles), un livre qui réunit vingt-sept auteurs et vingt-sept textes sur les souvenirs, les silences et ce que nous recevons sans mots.
 Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui ont aussi choisi d'écrire sur ces empreintes qui demeurent en nous, même lorsque nous ne savons pas exactement d'où elles viennent.
 <span class="pdf-lang-warning">Le texte n'est disponible qu'en espagnol.</span>`,
-            cuando_nadie_info: `<strong>Mon œuvre fait partie de <em>Cuando nadie está mirando</em></strong> (Quand personne ne regarde), un livre qui réunit 26 auteurs et 26 textes sur les décisions privées, les silences, les actions cachées et les vies qui changent quand personne n'est là pour le voir.
+            cuando_nadie_info: `<strong>Mon œuvre fait partie de <em>Cuando nadie está mirando</em></strong> (Quand personne ne regarde), un livre qui réunit vingt-six auteurs et vingt-six textes sur les décisions privées, les silences, les actions cachées et les vies qui changent quand personne n'est là pour le voir.
 Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui ont aussi choisi d'écrire sur ce qui se passe loin du regard des autres.
 <span class="pdf-lang-warning">Le texte n'est disponible qu'en espagnol.</span>`,
             link_herencias: 'Voir chez Ita Editorial',
             link_cuando_nadie: 'Voir chez Ita Editorial',
             btn_read: "Lire l'histoire",
-            footer: '© 2026 Julien Villamizar Arriaga. Tous droits réservés.',
+            footer: '© deux mille vingt-six Julien Villamizar Arriaga. Tous droits réservés.',
             pdf_loading: 'Chargement…',
             pdf_error: 'Le PDF n\u2019a pas pu être chargé.'
         }
@@ -928,7 +929,6 @@ Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui
         if (other) other.classList.remove('abierto');
         target.classList.toggle('abierto', willOpen);
         if (willOpen) {
-            // Pequeño retardo para que el marco termine de expandirse antes del scroll
             setTimeout(() => {
                 target.scrollIntoView({ behavior: 'smooth', block: 'start' });
             }, 320);
@@ -1037,14 +1037,10 @@ Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui
         try { savedLang = localStorage.getItem('lang') || 'es'; } catch (e) {}
         applyLanguage(savedLang);
 
-        // Logo
         cargarImagenConExtensiones('logo-home', 'Home');
-
-        // Portadas de las dos antologías
         cargarImagenConExtensiones('cover-herencias', 'Nota de lanzamiento Herencias invisibles');
         cargarImagenConExtensiones('cover-cuando-nadie', 'Nota de lanzamiento Cuando nadie está mirando');
 
-        // Anti-copia en los visores PDF
         document.querySelectorAll('.pdf-scroll-area').forEach(scroller => {
             scroller.addEventListener('copy', e => e.preventDefault());
             scroller.addEventListener('cut', e => e.preventDefault());
