@@ -3,10 +3,10 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Julien Villamizar Arriaga</title>
-    <meta name="description" content="Te doy la bienvenida a mi portafolio personal, donde comparto mi música, mis videojuegos y mis libros.">
-    <meta property="og:title" content="Julien Villamizar Arriaga">
-    <meta property="og:description" content="Te doy la bienvenida a mi portafolio personal, donde comparto mi música, mis videojuegos y mis libros.">
+    <title>Julien Villamizar Arriaga — Escritor</title>
+    <meta name="description" content="Portafolio personal de Julien Villamizar Arriaga: música, videojuegos y libros. Mi historia «Desobediencia» publicada en dos antologías de Ita Editorial.">
+    <meta property="og:title" content="Julien Villamizar Arriaga — Escritor">
+    <meta property="og:description" content="Portafolio personal de Julien Villamizar Arriaga: música, videojuegos y libros. Mi historia «Desobediencia» publicada en dos antologías de Ita Editorial.">
     <meta property="og:type" content="website">
     <link rel="icon" type="image/png" href="img/favicon.png">
 
@@ -20,7 +20,7 @@
 
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <link href="https://fonts.googleapis.com/css2?family=Cinzel:wght@400;700&family=MedievalSharp&family=Lora:ital,wght@0,400;0,700;1,400&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,300;9..144,400;9..144,500;9..144,600;9..144,700&family=Lora:ital,wght@0,400;0,500;0,600;1,400;1,500&family=Inter:wght@400;500;600&display=swap" rel="stylesheet">
 
     <script src="https://cdnjs.cloudflare.com/ajax/libs/pdf.js/3.11.174/pdf.min.js"></script>
     <script>
@@ -31,530 +31,701 @@
     </script>
 
     <style>
+        /* ============================
+           TOKENS
+           ============================ */
+        :root {
+            --bg:            #0c0b09;
+            --bg-elevated:   #14120e;
+            --bg-surface:    #1a1712;
+            --bg-inset:      #090806;
+
+            --text:          #e8e3d8;
+            --text-muted:    #9a958a;
+            --text-dim:      #5c5851;
+
+            --accent:        #c9a961;
+            --accent-bright: #d9bd7f;
+            --accent-soft:   rgba(201, 169, 97, 0.12);
+            --accent-line:   rgba(201, 169, 97, 0.30);
+
+            --border:        rgba(232, 227, 216, 0.08);
+            --border-strong: rgba(232, 227, 216, 0.16);
+
+            --serif:  'Fraunces', 'Lora', Georgia, serif;
+            --body:   'Lora', Georgia, serif;
+            --ui:     'Inter', system-ui, sans-serif;
+
+            --ease:   cubic-bezier(0.22, 0.61, 0.36, 1);
+
+            --max:    1080px;
+            --gutter: clamp(1.25rem, 4vw, 2.5rem);
+        }
+
+        * { box-sizing: border-box; }
+        html { scroll-behavior: smooth; }
+        @media (prefers-reduced-motion: reduce) {
+            html { scroll-behavior: auto; }
+            *, *::before, *::after {
+                animation-duration: 0.01ms !important;
+                transition-duration: 0.01ms !important;
+            }
+        }
+
         body {
             margin: 0;
-            font-family: 'Lora', serif;
-            background: #000000;
-            color: #ffffff;
-            padding-top: 70px;
+            font-family: var(--body);
+            background: var(--bg);
+            color: var(--text);
+            -webkit-font-smoothing: antialiased;
+            text-rendering: optimizeLegibility;
+            padding-top: 76px;
+            line-height: 1.7;
         }
+
+        ::selection { background: var(--accent-soft); color: var(--accent-bright); }
+
+        a { color: inherit; text-decoration: none; }
+        button { font: inherit; color: inherit; }
+
+        /* Scrollbar */
+        ::-webkit-scrollbar { width: 10px; height: 10px; }
+        ::-webkit-scrollbar-track { background: var(--bg); }
+        ::-webkit-scrollbar-thumb { background: #2a2620; border-radius: 5px; border: 2px solid var(--bg); }
+        ::-webkit-scrollbar-thumb:hover { background: #3a352c; }
+
+        /* ============================
+           NAV
+           ============================ */
         nav {
             position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            background: #000000;
-            padding: 10px 20px;
+            inset: 0 0 auto 0;
+            height: 76px;
+            background: rgba(12, 11, 9, 0.72);
+            backdrop-filter: saturate(1.4) blur(16px);
+            -webkit-backdrop-filter: saturate(1.4) blur(16px);
+            border-bottom: 1px solid var(--border);
+            z-index: 100;
             display: flex;
-            justify-content: center;
             align-items: center;
-            gap: 40px;
-            z-index: 1000;
-            border-bottom: 1px solid #222;
-            box-sizing: border-box;
+        }
+        .nav-inner {
+            width: 100%;
+            max-width: var(--max);
+            margin: 0 auto;
+            padding: 0 var(--gutter);
+            display: flex;
+            align-items: center;
+            gap: 2rem;
+        }
+        .nav-brand {
+            font-family: var(--serif);
+            font-weight: 400;
+            font-style: italic;
+            font-size: 1.15rem;
+            letter-spacing: 0.01em;
+            color: var(--text);
+            white-space: nowrap;
+            font-variation-settings: "opsz" 30;
+        }
+        .nav-brand span { color: var(--accent); }
+        .nav-links {
+            display: flex;
+            gap: 0.25rem;
+            margin-left: auto;
         }
         .nav-text {
-            background: none;
-            border: none;
-            color: #ffffff;
-            font-size: 1.2rem;
-            font-weight: bold;
+            background: transparent;
+            border: 0;
+            padding: 0.55rem 0.95rem;
+            font-family: var(--ui);
+            font-size: 0.78rem;
+            font-weight: 500;
+            letter-spacing: 0.14em;
+            text-transform: uppercase;
+            color: var(--text-muted);
             cursor: pointer;
-            transition: color 0.3s;
-            padding: 5px 0;
-            font-family: 'Cinzel', serif;
+            border-radius: 6px;
+            transition: color 0.25s var(--ease), background 0.25s var(--ease);
         }
-        .nav-text:hover,
-        .nav-text.activo { color: #F5C84C; }
+        .nav-text:hover { color: var(--text); background: var(--border); }
+        .nav-text.activo { color: var(--text); }
+        .nav-text.activo::after { content: ""; display: block; height: 1px; background: var(--accent); margin-top: 3px; }
 
-        /* === SELECTOR DE IDIOMA === */
-        .lang-switcher {
-            position: absolute;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            z-index: 1100;
-        }
+        /* ============================
+           SELECTOR DE IDIOMA
+           ============================ */
+        .lang-switcher { position: relative; }
         .lang-main {
-            width: 46px;
-            height: 46px;
-            border-radius: 50%;
-            background: radial-gradient(circle at 30% 30%, rgba(245,200,76,0.15), rgba(0,0,0,0.9));
-            border: 2px solid #F5C84C;
-            cursor: pointer;
+            width: 38px;
+            height: 38px;
             display: flex;
             align-items: center;
             justify-content: center;
-            transition: transform 0.35s ease, box-shadow 0.35s ease;
-            box-shadow:
-                0 0 15px rgba(245,200,76,0.3),
-                inset 0 0 12px rgba(245,200,76,0.15);
-            padding: 0;
+            border-radius: 50%;
+            border: 1px solid var(--border-strong);
+            background: transparent;
+            cursor: pointer;
+            transition: border-color 0.25s var(--ease), background 0.25s var(--ease);
         }
-        .lang-main:hover {
-            transform: scale(1.08);
-            box-shadow:
-                0 0 28px rgba(245,200,76,0.7),
-                inset 0 0 18px rgba(245,200,76,0.3);
-        }
+        .lang-main:hover { border-color: var(--accent-line); background: var(--accent-soft); }
         .lang-main .globe {
-            width: 24px;
-            height: 24px;
-            stroke: #F5C84C;
+            width: 18px; height: 18px;
+            stroke: var(--text-muted);
             fill: none;
-            transition: transform 0.5s ease;
+            stroke-width: 1.6;
+            transition: stroke 0.25s var(--ease), transform 0.4s var(--ease);
         }
-        .lang-switcher.open .lang-main .globe { transform: rotate(180deg); }
+        .lang-main:hover .globe { stroke: var(--accent); }
+        .lang-switcher.open .lang-main .globe { transform: rotate(180deg); stroke: var(--accent); }
 
         .lang-options {
             position: absolute;
-            top: 58px;
+            top: calc(100% + 10px);
             right: 0;
-            background: rgba(8,8,8,0.98);
-            border: 2px solid #F5C84C;
-            border-radius: 14px;
-            padding: 8px;
+            min-width: 200px;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border-strong);
+            border-radius: 12px;
+            padding: 6px;
             display: flex;
             flex-direction: column;
-            gap: 4px;
+            gap: 2px;
             opacity: 0;
             visibility: hidden;
-            transform: translateY(-12px) scale(0.95);
-            transform-origin: top right;
-            transition: opacity 0.28s ease, transform 0.28s ease, visibility 0.28s;
-            box-shadow:
-                0 12px 40px rgba(0,0,0,0.9),
-                0 0 40px rgba(245,200,76,0.18);
-            min-width: 210px;
-            backdrop-filter: blur(6px);
+            transform: translateY(-6px);
+            transition: opacity 0.22s var(--ease), transform 0.22s var(--ease), visibility 0.22s;
+            box-shadow: 0 20px 60px rgba(0,0,0,0.6), 0 0 0 1px rgba(255,255,255,0.02);
+            z-index: 200;
         }
         .lang-switcher.open .lang-options {
             opacity: 1;
             visibility: visible;
-            transform: translateY(0) scale(1);
+            transform: translateY(0);
         }
         .lang-option {
             display: flex;
             align-items: center;
-            gap: 12px;
+            gap: 10px;
+            padding: 9px 12px;
             background: transparent;
-            border: 1px solid transparent;
-            color: #ddd;
-            padding: 10px 14px;
-            border-radius: 9px;
+            border: 0;
+            border-radius: 7px;
+            color: var(--text-muted);
+            font-family: var(--ui);
+            font-size: 0.85rem;
             cursor: pointer;
-            font-family: 'Cinzel', serif;
-            font-size: 0.9rem;
-            letter-spacing: 1.5px;
-            transition: all 0.2s;
             text-align: left;
-            width: 100%;
-            box-sizing: border-box;
+            transition: background 0.2s var(--ease), color 0.2s var(--ease);
         }
-        .lang-option:hover {
-            background: rgba(245,200,76,0.12);
-            border-color: rgba(245,200,76,0.4);
-            color: #F5C84C;
-            transform: translateX(-3px);
-        }
-        .lang-option.active {
-            background: rgba(245,200,76,0.18);
-            border-color: #F5C84C;
-            color: #F5C84C;
-            box-shadow: inset 0 0 12px rgba(245,200,76,0.2);
-        }
-        .lang-option .globe-sm {
-            width: 20px;
-            height: 20px;
-            stroke: currentColor;
-            fill: none;
-            flex-shrink: 0;
-            transition: stroke 0.2s;
-        }
-        .lang-option.active .globe-sm,
-        .lang-option:hover .globe-sm { stroke: #F5C84C; }
+        .lang-option:hover { background: var(--accent-soft); color: var(--accent-bright); }
+        .lang-option.active { color: var(--accent); background: var(--accent-soft); }
+        .lang-option .globe-sm { width: 15px; height: 15px; stroke: currentColor; fill: none; stroke-width: 1.6; flex-shrink: 0; }
 
-        .seccion {
-            display: none;
-            max-width: 800px;
-            margin: 40px auto;
-            padding: 0 20px;
-            text-align: center;
-        }
+        /* ============================
+           LAYOUT
+           ============================ */
+        .seccion { display: none; }
         .seccion.activa { display: block; }
 
-        .cabecera { text-align: center; }
-        .cabecera img {
-            width: 120px;
-            border-radius: 50%;
-            margin-bottom: 20px;
-            border: 3px solid #F5C84C;
-            box-shadow: 0 0 20px rgba(245, 200, 76, 0.2);
-        }
-        .cabecera h1 {
-            margin: 0 0 10px;
-            font-size: 2.8em;
-            font-family: 'Cinzel', serif;
-            color: #F5C84C;
-            text-shadow: 0 0 30px rgba(245, 200, 76, 0.15);
-            letter-spacing: 3px;
-        }
-        .cabecera .bio {
-            margin-top: 30px;
-            white-space: pre-line;
-            line-height: 1.9;
-            display: inline-block;
-            text-align: center;
-            font-family: 'Lora', serif;
-            color: #ddd;
-            max-width: 700px;
-            font-size: 1.05rem;
-        }
-
-        footer {
-            text-align: center;
-            padding: 30px;
-            background: #000000;
-            color: #ffffff;
-            margin-top: 60px;
-            border-top: 1px solid #222;
-            font-family: 'Lora', serif;
-            font-size: 0.9rem;
-        }
-
-        .libros-lista { padding: 10px 0; }
-        .obra-item {
-            display: block;
-            width: 100%;
-            max-width: 500px;
-            margin: 20px auto;
-            padding: 18px 25px;
-            background: transparent;
-            border: 2px solid #F5C84C;
-            border-radius: 4px;
-            color: #F5C84C;
-            font-family: 'Cinzel', serif;
-            font-size: 1.3rem;
-            font-weight: 700;
-            letter-spacing: 3px;
-            text-transform: uppercase;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            background-color: rgba(0,0,0,0.3);
-            text-align: center;
-            box-shadow: 0 0 20px rgba(245, 200, 76, 0.05);
-        }
-        .obra-item:hover {
-            background: #F5C84C;
-            color: #000;
-            box-shadow: 0 0 40px rgba(245, 200, 76, 0.2);
-            transform: scale(1.02);
-        }
-
-        /* === CONTENEDOR COLAPSABLE (nivel 1 y nivel 2) === */
-        .marco-contenedor {
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.6s ease, opacity 0.4s ease, margin 0.3s ease;
-            opacity: 0;
-            margin: 0 auto;
-        }
-        .marco-contenedor.abierto {
-            max-height: 12000px;
-            opacity: 1;
-            margin: 30px auto;
-        }
-
-        /* === PORTADAS DE LOS LIBROS (botones-imagen) === */
-        .libros-grid {
-            display: flex;
-            flex-wrap: wrap;
-            justify-content: center;
-            gap: 22px;
-            margin: 10px auto 20px;
-        }
-        .libro-cover-btn {
-            flex: 1 1 240px;
-            max-width: 280px;
-            background: rgba(0,0,0,0.3);
-            border: 2px solid #F5C84C;
-            border-radius: 12px;
-            padding: 10px;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            box-shadow: 0 0 20px rgba(245, 200, 76, 0.1);
+        /* ============================
+           HERO
+           ============================ */
+        #home {
+            min-height: calc(100vh - 76px);
             display: flex;
             align-items: center;
             justify-content: center;
-            min-height: 120px;
+            padding: clamp(3rem, 8vw, 6rem) var(--gutter);
+        }
+        .hero {
+            max-width: 720px;
+            width: 100%;
+            text-align: center;
+        }
+        .hero-portrait {
+            width: 108px;
+            height: 108px;
+            border-radius: 50%;
+            object-fit: cover;
+            margin: 0 auto 2rem;
+            display: block;
+            border: 1px solid var(--border-strong);
+            padding: 4px;
+            background: var(--bg-elevated);
+            box-shadow: 0 12px 40px rgba(0,0,0,0.5), 0 0 0 1px var(--border);
+        }
+        .hero-eyebrow {
+            font-family: var(--ui);
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0 0 1.2rem;
+            font-weight: 500;
+        }
+        .hero-name {
+            font-family: var(--serif);
+            font-size: clamp(2.2rem, 5.5vw, 3.8rem);
+            font-weight: 400;
+            line-height: 1.05;
+            margin: 0 0 1rem;
+            letter-spacing: -0.015em;
+            color: var(--text);
+            font-variation-settings: "opsz" 144;
+        }
+        .hero-name em {
+            font-style: italic;
+            color: var(--accent);
+            font-weight: 300;
+        }
+        .hero-rule {
+            width: 48px;
+            height: 1px;
+            background: var(--accent);
+            opacity: 0.5;
+            margin: 2rem auto;
+        }
+        .hero-bio {
+            font-family: var(--body);
+            font-size: 1.02rem;
+            line-height: 1.85;
+            color: var(--text-muted);
+            white-space: pre-line;
+            text-align: left;
+            max-width: 62ch;
+            margin: 0 auto;
+            letter-spacing: 0.005em;
+        }
+        .hero-bio::first-letter {
+            font-family: var(--serif);
+            font-size: 3.4em;
+            float: left;
+            line-height: 0.82;
+            padding: 0.05em 0.12em 0 0;
+            color: var(--accent);
+            font-weight: 500;
+            font-variation-settings: "opsz" 144;
+        }
+
+        /* ============================
+           LIBROS
+           ============================ */
+        #books { padding: clamp(3rem, 6vw, 5rem) var(--gutter) 6rem; }
+        .books-container { max-width: var(--max); margin: 0 auto; }
+
+        .books-header {
+            text-align: center;
+            margin-bottom: clamp(2.5rem, 5vw, 4rem);
+        }
+        .books-eyebrow {
+            font-family: var(--ui);
+            font-size: 0.72rem;
+            letter-spacing: 0.28em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0 0 1rem;
+            font-weight: 500;
+        }
+
+        /* Botón "Primer intento" — discreto, tipográfico */
+        .obra-item {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.75rem;
+            background: transparent;
+            border: 0;
+            padding: 0;
+            color: var(--text);
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 4vw, 2.6rem);
+            font-weight: 400;
+            font-style: italic;
+            cursor: pointer;
+            letter-spacing: -0.01em;
+            transition: color 0.3s var(--ease);
+            font-variation-settings: "opsz" 144;
+        }
+        .obra-item:hover { color: var(--accent); }
+        .obra-item .chevron {
+            width: 20px;
+            height: 20px;
+            stroke: currentColor;
+            stroke-width: 1.5;
+            fill: none;
+            transition: transform 0.35s var(--ease);
+        }
+        .obra-item.is-open .chevron { transform: rotate(180deg); }
+
+        /* Contenedor colapsable */
+        .marco-contenedor {
+            display: grid;
+            grid-template-rows: 0fr;
+            transition: grid-template-rows 0.55s var(--ease), margin 0.55s var(--ease);
+            margin: 0 auto;
+        }
+        .marco-contenedor > .marco-contenedor-inner {
+            overflow: hidden;
+            min-height: 0;
+        }
+        .marco-contenedor.abierto {
+            grid-template-rows: 1fr;
+            margin-top: 2.5rem;
+        }
+
+        /* Grid de portadas */
+        .libros-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+            gap: clamp(1.25rem, 3vw, 2rem);
+            max-width: 820px;
+            margin: 0 auto 1rem;
+        }
+
+        .libro-cover-btn {
+            display: flex;
+            flex-direction: column;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 10px;
+            padding: 0;
+            cursor: pointer;
+            overflow: hidden;
+            transition: transform 0.4s var(--ease), border-color 0.4s var(--ease), box-shadow 0.4s var(--ease);
+            text-align: left;
         }
         .libro-cover-btn:hover {
-            box-shadow: 0 0 40px rgba(245, 200, 76, 0.35);
-            transform: translateY(-4px) scale(1.02);
-            border-color: #ffe082;
+            transform: translateY(-4px);
+            border-color: var(--accent-line);
+            box-shadow: 0 20px 50px -12px rgba(0,0,0,0.7), 0 0 0 1px var(--accent-line);
         }
-        .libro-cover-btn img {
-            display: block;
-            width: 100%;
-            height: auto;
-            border-radius: 6px;
-        }
-
-        /* === MARCO ANTIGUO === */
-        .marco-antiguo {
+        .libro-cover-frame {
+            aspect-ratio: 4 / 5;
+            background: linear-gradient(160deg, #1a1712 0%, #0e0d0a 100%);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 1.5rem;
+            overflow: hidden;
             position: relative;
-            background: #0a0a0a;
-            border: 8px double #F5C84C;
-            border-radius: 20px 5px 20px 5px;
-            padding: 40px 35px;
-            max-width: 650px;
-            margin: 0 auto;
-            box-shadow:
-                inset 0 0 60px rgba(0,0,0,0.8),
-                0 0 30px rgba(245, 200, 76, 0.1),
-                0 10px 40px rgba(0,0,0,0.9);
         }
-        .marco-antiguo::before,
-        .marco-antiguo::after {
-            content: "ᛉ";
+        .libro-cover-frame::after {
+            content: "";
             position: absolute;
-            font-size: 2.8rem;
-            color: #F5C84C;
-            opacity: 0.3;
-            font-family: 'MedievalSharp', cursive;
-            text-shadow: 0 0 15px rgba(245, 200, 76, 0.1);
-        }
-        .marco-antiguo::before { top: -15px; left: 20px; }
-        .marco-antiguo::after { bottom: -15px; right: 20px; }
-
-        .marco-antiguo .runas {
-            position: absolute;
-            font-family: 'MedievalSharp', cursive;
-            color: #F5C84C;
-            font-size: 1.3rem;
-            opacity: 0.2;
+            inset: 0;
+            background: linear-gradient(180deg, transparent 60%, rgba(0,0,0,0.3) 100%);
             pointer-events: none;
         }
-        .marco-antiguo .runas.r1 { top: 15px; right: 25px; }
-        .marco-antiguo .runas.r2 { bottom: 15px; left: 25px; }
-        .marco-antiguo .runas.r3 { top: 50%; left: 10px; transform: translateY(-50%); }
-        .marco-antiguo .runas.r4 { top: 50%; right: 10px; transform: translateY(-50%); }
+        .libro-cover-frame img {
+            max-width: 100%;
+            max-height: 100%;
+            object-fit: contain;
+            filter: drop-shadow(0 12px 30px rgba(0,0,0,0.55));
+            transition: transform 0.6s var(--ease);
+        }
+        .libro-cover-btn:hover .libro-cover-frame img { transform: scale(1.03); }
 
+        .libro-cover-meta {
+            padding: 1.1rem 1.25rem 1.3rem;
+            border-top: 1px solid var(--border);
+        }
+        .libro-cover-eyebrow {
+            font-family: var(--ui);
+            font-size: 0.68rem;
+            letter-spacing: 0.22em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0 0 0.4rem;
+            font-weight: 500;
+        }
+        .libro-cover-title {
+            font-family: var(--serif);
+            font-size: 1.15rem;
+            font-weight: 500;
+            margin: 0 0 0.25rem;
+            color: var(--text);
+            font-variation-settings: "opsz" 40;
+        }
+        .libro-cover-sub {
+            font-family: var(--body);
+            font-style: italic;
+            font-size: 0.88rem;
+            color: var(--text-dim);
+            margin: 0;
+        }
+
+        /* ============================
+           DETALLE DE LIBRO (marco)
+           ============================ */
+        .libro-detail {
+            max-width: 960px;
+            margin: 2rem auto 0;
+            background: var(--bg-elevated);
+            border: 1px solid var(--border);
+            border-radius: 14px;
+            overflow: hidden;
+            animation: fadeUp 0.5s var(--ease) both;
+        }
+        @keyframes fadeUp {
+            from { opacity: 0; transform: translateY(12px); }
+            to   { opacity: 1; transform: translateY(0); }
+        }
+
+        .libro-detail-inner {
+            display: grid;
+            grid-template-columns: minmax(0, 340px) 1fr;
+        }
+        @media (max-width: 720px) {
+            .libro-detail-inner { grid-template-columns: 1fr; }
+        }
+
+        .libro-detail-cover {
+            background: linear-gradient(160deg, #1a1712 0%, #0a0906 100%);
+            padding: 2.5rem 2rem;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-right: 1px solid var(--border);
+        }
+        @media (max-width: 720px) {
+            .libro-detail-cover { border-right: 0; border-bottom: 1px solid var(--border); padding: 2rem; }
+        }
+        .libro-detail-cover img {
+            max-width: 100%;
+            max-height: 420px;
+            object-fit: contain;
+            filter: drop-shadow(0 20px 50px rgba(0,0,0,0.6));
+        }
+
+        .libro-detail-body {
+            padding: 2.5rem clamp(1.5rem, 4vw, 2.75rem);
+        }
+
+        .detail-eyebrow {
+            font-family: var(--ui);
+            font-size: 0.7rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--accent);
+            margin: 0 0 1rem;
+            font-weight: 500;
+        }
         .obra-titulo {
-            font-family: 'Cinzel', serif;
-            font-size: 3.2rem;
-            font-weight: 700;
-            color: #F5C84C;
-            text-shadow: 0 0 30px rgba(245, 200, 76, 0.1);
-            margin: 10px 0 5px;
-            letter-spacing: 8px;
-            word-break: break-word;
+            font-family: var(--serif);
+            font-size: clamp(1.8rem, 4vw, 2.4rem);
+            font-weight: 500;
+            letter-spacing: -0.01em;
+            margin: 0 0 0.4rem;
+            line-height: 1.1;
+            color: var(--text);
+            font-variation-settings: "opsz" 144;
         }
         .obra-autor {
-            font-family: 'Lora', serif;
-            font-size: 1.4rem;
-            color: #ccc;
-            margin-bottom: 20px;
+            font-family: var(--body);
             font-style: italic;
-            letter-spacing: 1px;
+            font-size: 1rem;
+            color: var(--text-muted);
+            margin: 0 0 0.25rem;
         }
         .obra-fecha {
-            font-family: 'Lora', serif;
-            font-size: 1rem;
-            color: #888;
-            margin-bottom: 25px;
-            letter-spacing: 3px;
-            text-transform: uppercase;
+            font-family: var(--ui);
+            font-size: 0.78rem;
+            color: var(--text-dim);
+            letter-spacing: 0.08em;
+            margin: 0 0 1.5rem;
         }
+
         .obra-dedicatoria {
-            font-family: 'Lora', serif;
-            font-size: 1.2rem;
-            color: #ddd;
+            font-family: var(--body);
             font-style: italic;
-            line-height: 1.6;
-            border-top: 1px solid #333;
-            border-bottom: 1px solid #333;
-            padding: 18px 0;
-            margin: 20px 0;
+            font-size: 1.02rem;
+            line-height: 1.7;
+            color: var(--text-muted);
+            border-left: 2px solid var(--accent-line);
+            padding: 0.15rem 0 0.15rem 1.25rem;
+            margin: 0 0 1.75rem;
             white-space: pre-line;
         }
+
         .obra-info {
-            font-family: 'Lora', serif;
-            font-size: 1rem;
-            color: #bbb;
+            font-family: var(--body);
+            font-size: 0.98rem;
             line-height: 1.8;
-            margin: 20px 0 30px;
-            background: rgba(0,0,0,0.4);
-            padding: 18px;
-            border-radius: 8px;
-            border-left: 3px solid #555;
-            border-right: 3px solid #555;
+            color: var(--text-muted);
+            margin: 0 0 1.75rem;
             white-space: pre-line;
         }
-        /* Sin dorado dentro de los textos reemplazados */
-        .obra-info strong { font-weight: 700; color: #e8e8e8; }
-        .obra-info .nota { font-style: italic; color: #999; }
+        .obra-info strong { color: var(--text); font-weight: 600; }
+        .obra-info em { font-style: italic; color: var(--text); }
+        .obra-info .nota { font-style: italic; color: var(--text-dim); }
 
         .pdf-lang-warning {
             display: block;
-            margin-top: 14px;
-            padding-top: 12px;
-            border-top: 1px dashed #444;
+            margin-top: 1rem;
+            padding-top: 0.85rem;
+            border-top: 1px dashed var(--border-strong);
             font-style: italic;
-            color: #999;
-            font-size: 0.92rem;
-            letter-spacing: 0.5px;
+            color: var(--text-dim);
+            font-size: 0.85rem;
         }
-        .pdf-lang-warning::before {
-            content: "⚠ ";
-            color: #999;
+        .pdf-lang-warning::before { content: "◇ "; color: var(--text-dim); }
+
+        .detail-actions {
+            display: flex;
+            flex-wrap: wrap;
+            align-items: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+            padding-top: 1.75rem;
+            border-top: 1px solid var(--border);
         }
 
-        .btn-pdf {
-            display: inline-block;
-            background: transparent;
-            color: #F5C84C;
-            font-family: 'Cinzel', serif;
-            font-size: 1.1rem;
-            font-weight: 700;
-            padding: 14px 40px;
-            border: 2px solid #F5C84C;
-            border-radius: 4px;
-            text-decoration: none;
+        .btn-primary {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.6rem;
+            padding: 0.85rem 1.6rem;
+            background: var(--accent);
+            color: #1a1712;
+            border: 0;
+            border-radius: 8px;
+            font-family: var(--ui);
+            font-size: 0.82rem;
+            font-weight: 600;
+            letter-spacing: 0.08em;
             text-transform: uppercase;
-            letter-spacing: 4px;
-            transition: all 0.4s ease;
-            box-shadow: 0 0 20px rgba(245, 200, 76, 0.05);
-            position: relative;
             cursor: pointer;
-            background-color: rgba(0,0,0,0.3);
+            transition: background 0.25s var(--ease), transform 0.25s var(--ease), box-shadow 0.25s var(--ease);
         }
-        .btn-pdf:hover {
-            background: #F5C84C;
-            color: #000;
-            box-shadow: 0 0 40px rgba(245, 200, 76, 0.2);
-            transform: scale(1.02);
+        .btn-primary:hover {
+            background: var(--accent-bright);
+            transform: translateY(-1px);
+            box-shadow: 0 10px 30px -10px rgba(201, 169, 97, 0.5);
         }
-        .btn-pdf::before {
-            content: "";
-            position: absolute;
-            top: -4px; left: -4px; right: -4px; bottom: -4px;
-            border: 2px solid #333;
-            border-radius: 6px;
-            opacity: 0.3;
-            transition: opacity 0.4s;
-            pointer-events: none;
-        }
-        .btn-pdf:hover::before { opacity: 0.8; }
+        .btn-primary svg { width: 14px; height: 14px; stroke: currentColor; fill: none; stroke-width: 2; }
 
-        /* === ENLACE A ITA EDITORIAL === */
-        .enlace-editorial {
-            display: block;
-            width: fit-content;
-            margin: 18px auto 0;
-            color: #F5C84C;
-            font-family: 'Lora', serif;
-            font-size: 0.95rem;
+        .btn-ghost {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            font-family: var(--ui);
+            font-size: 0.82rem;
+            font-weight: 500;
+            letter-spacing: 0.06em;
+            color: var(--text-muted);
+            padding: 0.85rem 0.25rem;
+            border: 0;
+            border-bottom: 1px solid var(--border-strong);
+            background: transparent;
             text-decoration: none;
-            border-bottom: 1px dashed #F5C84C;
-            padding: 4px 0;
-            letter-spacing: 0.5px;
-            transition: all 0.2s;
+            transition: color 0.25s var(--ease), border-color 0.25s var(--ease);
         }
-        .enlace-editorial:hover {
-            color: #fff;
-            border-bottom-color: #fff;
-            text-shadow: 0 0 10px rgba(245, 200, 76, 0.5);
-        }
-        .enlace-editorial::after {
-            content: " ↗";
-            font-size: 0.8rem;
-        }
+        .btn-ghost:hover { color: var(--accent); border-bottom-color: var(--accent); }
+        .btn-ghost::after { content: "↗"; font-size: 0.9em; }
 
-        /* === VISOR PDF === */
+        /* ============================
+           VISOR PDF
+           ============================ */
         .pdf-viewer-container {
             display: none;
-            margin: 30px auto 0;
-            padding: 0;
-            max-width: 720px;
+            margin: 2rem 0 0;
         }
         .pdf-viewer-container.visible {
             display: block;
-            animation: fadeIn 0.5s ease;
-        }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(-10px); }
-            to   { opacity: 1; transform: translateY(0); }
+            animation: fadeUp 0.45s var(--ease) both;
         }
         .pdf-scroll-area {
-            max-height: 80vh;
+            max-height: 78vh;
             overflow-y: auto;
             overflow-x: hidden;
-            padding: 15px 10px;
-            background: #050505;
-            border: 1px solid #333;
-            border-radius: 8px;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.9);
+            padding: 1.5rem 1rem;
+            background: var(--bg-inset);
+            border: 1px solid var(--border);
+            border-radius: 10px;
             user-select: none;
             -webkit-user-select: none;
-            -moz-user-select: none;
-            -ms-user-select: none;
             scrollbar-width: thin;
-            scrollbar-color: #F5C84C #1a1a1a;
+            scrollbar-color: #2a2620 var(--bg-inset);
         }
         .pdf-scroll-area::-webkit-scrollbar { width: 8px; }
-        .pdf-scroll-area::-webkit-scrollbar-track { background: #1a1a1a; }
-        .pdf-scroll-area::-webkit-scrollbar-thumb { background: #F5C84C; border-radius: 4px; }
+        .pdf-scroll-area::-webkit-scrollbar-track { background: var(--bg-inset); }
+        .pdf-scroll-area::-webkit-scrollbar-thumb { background: #2a2620; border-radius: 4px; }
         .pdf-page {
             display: block;
             width: 100% !important;
             height: auto !important;
             max-width: 100%;
-            margin: 15px auto;
-            border: 1px solid #333;
-            box-shadow: 0 0 25px rgba(0,0,0,0.7);
-            user-select: none;
-            -webkit-user-select: none;
-            -webkit-touch-callout: none;
+            margin: 1rem auto;
+            border-radius: 2px;
+            box-shadow: 0 10px 40px rgba(0,0,0,0.8), 0 0 0 1px rgba(255,255,255,0.02);
             pointer-events: none;
         }
         .pdf-status {
-            color: #F5C84C;
-            font-family: 'Cinzel', serif;
-            letter-spacing: 2px;
+            color: var(--text-dim);
+            font-family: var(--ui);
+            font-size: 0.85rem;
+            letter-spacing: 0.1em;
             text-align: center;
-            padding: 30px 0;
-            font-size: 1rem;
+            padding: 3rem 1rem;
         }
-        .pdf-error { color: #ff6b6b; }
+        .pdf-error { color: #d97777; }
 
-        @media (max-width: 600px) {
-            .obra-titulo { font-size: 2.2rem; letter-spacing: 4px; }
-            .marco-antiguo { padding: 25px 15px; }
-            .btn-pdf { font-size: 0.9rem; padding: 12px 25px; letter-spacing: 2px; }
-            .marco-antiguo::before,
-            .marco-antiguo::after { font-size: 2rem; }
-            .marco-antiguo .runas { display: none; }
-            .obra-item { font-size: 1rem; padding: 14px 20px; }
-            nav { gap: 20px; padding-right: 60px; }
-            .lang-switcher { right: 10px; }
-            .lang-main { width: 40px; height: 40px; }
-            .lang-main .globe { width: 20px; height: 20px; }
-            .lang-options { min-width: 190px; }
-            .lang-option { font-size: 0.82rem; padding: 9px 12px; }
-            .libros-grid { gap: 16px; }
-            .libro-cover-btn { flex: 1 1 100%; max-width: 340px; }
+        /* ============================
+           FOOTER
+           ============================ */
+        footer {
+            border-top: 1px solid var(--border);
+            padding: 2.5rem var(--gutter);
+            text-align: center;
+            color: var(--text-dim);
+            font-family: var(--ui);
+            font-size: 0.78rem;
+            letter-spacing: 0.05em;
+        }
+        footer p { margin: 0; }
+        footer .footer-mark { color: var(--accent); margin-right: 0.4rem; }
+
+        /* ============================
+           REVEAL ON SCROLL
+           ============================ */
+        .reveal { opacity: 0; transform: translateY(14px); transition: opacity 0.7s var(--ease), transform 0.7s var(--ease); }
+        .reveal.is-visible { opacity: 1; transform: translateY(0); }
+        @media (prefers-reduced-motion: reduce) {
+            .reveal { opacity: 1; transform: none; }
+        }
+
+        /* ============================
+           MOBILE
+           ============================ */
+        @media (max-width: 640px) {
+            body { padding-top: 68px; }
+            nav { height: 68px; }
+            .nav-inner { gap: 0.5rem; }
+            .nav-brand { font-size: 1rem; }
+            .nav-text { font-size: 0.7rem; padding: 0.5rem 0.7rem; }
+            .lang-main { width: 34px; height: 34px; }
+            .lang-main .globe { width: 15px; height: 15px; }
+            .hero-portrait { width: 88px; height: 88px; }
+            .hero-bio { font-size: 0.98rem; }
+            .libros-grid { grid-template-columns: 1fr; max-width: 380px; }
+            .detail-actions { flex-direction: column; align-items: stretch; }
+            .btn-primary { justify-content: center; }
+            .btn-ghost { justify-content: center; border-bottom: 0; border: 1px solid var(--border-strong); border-radius: 8px; padding: 0.85rem 1.6rem; }
         }
     </style>
 </head>
 <body>
-    <nav>
-        <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')" data-i18n="nav_home">Inicio</button>
-        <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')" data-i18n="nav_books">Libros</button>
 
+<nav>
+    <div class="nav-inner">
+        <div class="nav-brand">Julien Villamizar <span>·</span> Arriaga</div>
+        <div class="nav-links">
+            <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')" data-i18n="nav_home">Inicio</button>
+            <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')" data-i18n="nav_books">Libros</button>
+        </div>
         <div class="lang-switcher" id="lang-switcher">
             <button class="lang-main" id="lang-main" aria-label="Cambiar idioma" title="Cambiar idioma">
-                <svg class="globe" viewBox="0 0 24 24" stroke-width="1.6">
+                <svg class="globe" viewBox="0 0 24 24">
                     <circle cx="12" cy="12" r="9"/>
                     <ellipse cx="12" cy="12" rx="4" ry="9"/>
                     <line x1="3" y1="12" x2="21" y2="12"/>
@@ -562,153 +733,186 @@
                     <line x1="4.5" y1="17" x2="19.5" y2="17"/>
                 </svg>
             </button>
-
             <div class="lang-options" id="lang-options" role="menu">
                 <button class="lang-option" data-lang="en" role="menuitem">
-                    <svg class="globe-sm" viewBox="0 0 24 24" stroke-width="1.6">
-                        <circle cx="12" cy="12" r="9"/>
-                        <ellipse cx="12" cy="12" rx="4" ry="9"/>
-                        <line x1="3" y1="12" x2="21" y2="12"/>
-                        <line x1="4.5" y1="7" x2="19.5" y2="7"/>
-                        <line x1="4.5" y1="17" x2="19.5" y2="17"/>
-                    </svg>
+                    <svg class="globe-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="4.5" y1="7" x2="19.5" y2="7"/><line x1="4.5" y1="17" x2="19.5" y2="17"/></svg>
                     <span>English</span>
                 </button>
                 <button class="lang-option" data-lang="fr" role="menuitem">
-                    <svg class="globe-sm" viewBox="0 0 24 24" stroke-width="1.6">
-                        <circle cx="12" cy="12" r="9"/>
-                        <ellipse cx="12" cy="12" rx="4" ry="9"/>
-                        <line x1="3" y1="12" x2="21" y2="12"/>
-                        <line x1="4.5" y1="7" x2="19.5" y2="7"/>
-                        <line x1="4.5" y1="17" x2="19.5" y2="17"/>
-                    </svg>
+                    <svg class="globe-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="4.5" y1="7" x2="19.5" y2="7"/><line x1="4.5" y1="17" x2="19.5" y2="17"/></svg>
                     <span>Français</span>
                 </button>
                 <button class="lang-option" data-lang="es" role="menuitem">
-                    <svg class="globe-sm" viewBox="0 0 24 24" stroke-width="1.6">
-                        <circle cx="12" cy="12" r="9"/>
-                        <ellipse cx="12" cy="12" rx="4" ry="9"/>
-                        <line x1="3" y1="12" x2="21" y2="12"/>
-                        <line x1="4.5" y1="7" x2="19.5" y2="7"/>
-                        <line x1="4.5" y1="17" x2="19.5" y2="17"/>
-                    </svg>
+                    <svg class="globe-sm" viewBox="0 0 24 24"><circle cx="12" cy="12" r="9"/><ellipse cx="12" cy="12" rx="4" ry="9"/><line x1="3" y1="12" x2="21" y2="12"/><line x1="4.5" y1="7" x2="19.5" y2="7"/><line x1="4.5" y1="17" x2="19.5" y2="17"/></svg>
                     <span>Español</span>
                 </button>
             </div>
         </div>
-    </nav>
-
-    <div id="home" class="seccion activa">
-        <div class="cabecera">
-            <img id="logo-home" alt="Logo de Julien Villamizar">
-            <h1>Julien Villamizar Arriaga</h1>
-            <div class="bio" data-i18n="bio"></div>
-        </div>
     </div>
+</nav>
 
-    <div id="books" class="seccion">
-        <div class="libros-lista">
-            <button class="obra-item" id="book-toggle" onclick="toggleObra(this)" data-i18n="book_button">Primer intento</button>
+<!-- HOME -->
+<div id="home" class="seccion activa">
+    <div class="hero">
+        <img id="logo-home" class="hero-portrait reveal" alt="Retrato de Julien Villamizar">
+        <p class="hero-eyebrow reveal" data-i18n="hero_eyebrow">Escritor · Colombia</p>
+        <h1 class="hero-name reveal">Julien Villamizar <em>Arriaga</em></h1>
+        <div class="hero-rule reveal"></div>
+        <div class="hero-bio reveal" data-i18n="bio"></div>
+    </div>
+</div>
 
-            <div class="marco-contenedor" id="obra-desobediencia">
+<!-- BOOKS -->
+<div id="books" class="seccion">
+    <div class="books-container">
 
-                <!-- === PORTADAS / NOTAS DE LANZAMIENTO (botones-imagen) === -->
+        <header class="books-header reveal">
+            <p class="books-eyebrow" data-i18n="books_eyebrow">Obra publicada</p>
+            <button class="obra-item" id="book-toggle" onclick="toggleObra(this)" aria-expanded="false">
+                <span data-i18n="book_button">Primer intento</span>
+                <svg class="chevron" viewBox="0 0 24 24"><polyline points="6 9 12 15 18 9"/></svg>
+            </button>
+        </header>
+
+        <div class="marco-contenedor" id="obra-desobediencia">
+            <div class="marco-contenedor-inner">
+
+                <!-- PORTADAS -->
                 <div class="libros-grid">
                     <button class="libro-cover-btn" type="button"
                             onclick="toggleLibro('libro-herencias', 'libro-cuando-nadie')"
                             aria-label="Herencias invisibles">
-                        <img id="cover-herencias" alt="Herencias invisibles">
+                        <div class="libro-cover-frame">
+                            <img id="cover-herencias" alt="Herencias invisibles">
+                        </div>
+                        <div class="libro-cover-meta">
+                            <p class="libro-cover-eyebrow" data-i18n="cover_label">Antología</p>
+                            <h3 class="libro-cover-title">Herencias Invisibles</h3>
+                            <p class="libro-cover-sub" data-i18n="cover_herencias_sub">Ita Editorial · dos mil veinticinco</p>
+                        </div>
                     </button>
+
                     <button class="libro-cover-btn" type="button"
                             onclick="toggleLibro('libro-cuando-nadie', 'libro-herencias')"
                             aria-label="Cuando nadie está mirando">
-                        <img id="cover-cuando-nadie" alt="Cuando nadie está mirando">
+                        <div class="libro-cover-frame">
+                            <img id="cover-cuando-nadie" alt="Cuando nadie está mirando">
+                        </div>
+                        <div class="libro-cover-meta">
+                            <p class="libro-cover-eyebrow" data-i18n="cover_label">Antología</p>
+                            <h3 class="libro-cover-title">Cuando nadie está mirando</h3>
+                            <p class="libro-cover-sub" data-i18n="cover_cuando_nadie_sub">Ita Editorial · dos mil veinticinco</p>
+                        </div>
                     </button>
                 </div>
 
-                <!-- === MARCO: HERENCIAS INVISIBLES === -->
+                <!-- DETALLE: HERENCIAS -->
                 <div class="marco-contenedor" id="libro-herencias">
-                    <div class="marco-antiguo">
-                        <span class="runas r1">ᛉ ᚨ</span>
-                        <span class="runas r2">ᚠ ᛗ</span>
-                        <span class="runas r3">ᚢ</span>
-                        <span class="runas r4">ᛏ</span>
+                    <div class="marco-contenedor-inner">
+                        <article class="libro-detail">
+                            <div class="libro-detail-inner">
+                                <div class="libro-detail-cover">
+                                    <img id="detail-cover-herencias" alt="Portada de Herencias Invisibles">
+                                </div>
+                                <div class="libro-detail-body">
+                                    <p class="detail-eyebrow" data-i18n="detail_eyebrow">Incluido en la antología</p>
+                                    <h2 class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</h2>
+                                    <p class="obra-autor">Julien Villamizar Arriaga</p>
+                                    <p class="obra-fecha" data-i18n="book_date">Noviembre de dos mil veinticinco</p>
 
-                        <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
-                        <div class="obra-autor">Julien Villamizar Arriaga</div>
-                        <div class="obra-fecha" data-i18n="book_date">Noviembre de dos mil veinticinco</div>
+                                    <blockquote class="obra-dedicatoria" data-i18n="dedication"></blockquote>
 
-                        <div class="obra-dedicatoria" data-i18n="dedication"></div>
+                                    <div class="obra-info" data-i18n="herencias_info"></div>
 
-                        <div class="obra-info" data-i18n="herencias_info"></div>
+                                    <div class="detail-actions">
+                                        <button class="btn-primary" type="button"
+                                                onclick="mostrarPDF('pdf-viewer-herencias')">
+                                            <svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="14 4 14 10 20 10"/></svg>
+                                            <span data-i18n="btn_read">Leer la historia</span>
+                                        </button>
+                                        <a class="btn-ghost"
+                                           href="https://itabooks.com/herencias-invisibles-27-voces-que-aun-nos-habitan/"
+                                           target="_blank" rel="noopener noreferrer"
+                                           data-i18n="link_herencias">Ver en Ita Editorial</a>
+                                    </div>
 
-                        <button class="btn-pdf" type="button"
-                                onclick="mostrarPDF('pdf-viewer-herencias')"
-                                data-i18n="btn_read">Leer la historia</button>
-
-                        <a class="enlace-editorial"
-                           href="https://itabooks.com/herencias-invisibles-27-voces-que-aun-nos-habitan/"
-                           target="_blank" rel="noopener noreferrer"
-                           data-i18n="link_herencias">Ver en Ita Editorial</a>
-
-                        <div class="pdf-viewer-container" id="pdf-viewer-herencias">
-                            <div class="pdf-scroll-area">
-                                <div class="pdf-status" data-i18n="pdf_loading">Cargando…</div>
+                                    <div class="pdf-viewer-container" id="pdf-viewer-herencias">
+                                        <div class="pdf-scroll-area">
+                                            <div class="pdf-status" data-i18n="pdf_loading">Cargando…</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </article>
                     </div>
                 </div>
 
-                <!-- === MARCO: CUANDO NADIE ESTÁ MIRANDO === -->
+                <!-- DETALLE: CUANDO NADIE -->
                 <div class="marco-contenedor" id="libro-cuando-nadie">
-                    <div class="marco-antiguo">
-                        <span class="runas r1">ᛉ ᚨ</span>
-                        <span class="runas r2">ᚠ ᛗ</span>
-                        <span class="runas r3">ᚢ</span>
-                        <span class="runas r4">ᛏ</span>
+                    <div class="marco-contenedor-inner">
+                        <article class="libro-detail">
+                            <div class="libro-detail-inner">
+                                <div class="libro-detail-cover">
+                                    <img id="detail-cover-cuando-nadie" alt="Portada de Cuando nadie está mirando">
+                                </div>
+                                <div class="libro-detail-body">
+                                    <p class="detail-eyebrow" data-i18n="detail_eyebrow">Incluido en la antología</p>
+                                    <h2 class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</h2>
+                                    <p class="obra-autor">Julien Villamizar Arriaga</p>
+                                    <p class="obra-fecha" data-i18n="book_date">Noviembre de dos mil veinticinco</p>
 
-                        <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
-                        <div class="obra-autor">Julien Villamizar Arriaga</div>
-                        <div class="obra-fecha" data-i18n="book_date">Noviembre de dos mil veinticinco</div>
+                                    <blockquote class="obra-dedicatoria" data-i18n="dedication"></blockquote>
 
-                        <div class="obra-dedicatoria" data-i18n="dedication"></div>
+                                    <div class="obra-info" data-i18n="cuando_nadie_info"></div>
 
-                        <div class="obra-info" data-i18n="cuando_nadie_info"></div>
+                                    <div class="detail-actions">
+                                        <button class="btn-primary" type="button"
+                                                onclick="mostrarPDF('pdf-viewer-cuando-nadie')">
+                                            <svg viewBox="0 0 24 24"><path d="M4 4h12l4 4v12a2 2 0 0 1-2 2H4a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2z"/><polyline points="14 4 14 10 20 10"/></svg>
+                                            <span data-i18n="btn_read">Leer la historia</span>
+                                        </button>
+                                        <a class="btn-ghost"
+                                           href="https://itabooks.com/cuando-nadie-esta-mirando-26-voces-sin-testigos/"
+                                           target="_blank" rel="noopener noreferrer"
+                                           data-i18n="link_cuando_nadie">Ver en Ita Editorial</a>
+                                    </div>
 
-                        <button class="btn-pdf" type="button"
-                                onclick="mostrarPDF('pdf-viewer-cuando-nadie')"
-                                data-i18n="btn_read">Leer la historia</button>
-
-                        <a class="enlace-editorial"
-                           href="https://itabooks.com/cuando-nadie-esta-mirando-26-voces-sin-testigos/"
-                           target="_blank" rel="noopener noreferrer"
-                           data-i18n="link_cuando_nadie">Ver en Ita Editorial</a>
-
-                        <div class="pdf-viewer-container" id="pdf-viewer-cuando-nadie">
-                            <div class="pdf-scroll-area">
-                                <div class="pdf-status" data-i18n="pdf_loading">Cargando…</div>
+                                    <div class="pdf-viewer-container" id="pdf-viewer-cuando-nadie">
+                                        <div class="pdf-scroll-area">
+                                            <div class="pdf-status" data-i18n="pdf_loading">Cargando…</div>
+                                        </div>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                        </article>
                     </div>
                 </div>
 
             </div>
         </div>
+
     </div>
+</div>
 
-    <footer>
-        <p data-i18n="footer">© dos mil veintiséis Julien Villamizar Arriaga. Todos los derechos reservados.</p>
-    </footer>
+<footer>
+    <p><span class="footer-mark">◆</span><span data-i18n="footer">© dos mil veintiséis Julien Villamizar Arriaga. Todos los derechos reservados.</span></p>
+</footer>
 
-    <script>
-    /* =========================================================
-       DICCIONARIO
-       ========================================================= */
-    const i18n = {
-        es: {
-            nav_home: 'Inicio',
-            nav_books: 'Libros',
-            bio: `Crecí entre montañas verdes, calles ruidosas y un idioma que baila cuando se habla.
+<script>
+/* ============================
+   DICCIONARIO
+   ============================ */
+const i18n = {
+    es: {
+        nav_home: 'Inicio',
+        nav_books: 'Libros',
+        hero_eyebrow: 'Escritor · Colombia',
+        books_eyebrow: 'Obra publicada',
+        cover_label: 'Antología',
+        cover_herencias_sub: 'Ita Editorial · dos mil veinticinco',
+        cover_cuando_nadie_sub: 'Ita Editorial · dos mil veinticinco',
+        detail_eyebrow: 'Incluido en la antología',
+        bio: `Crecí entre montañas verdes, calles ruidosas y un idioma que baila cuando se habla.
 De niño, el olor de la tierra húmeda me enseñó más que cualquier salón de clases.
 No me gustaba leer: los libros me parecían jaulas de letras que no me pertenecían.
 Hasta que un cómic cayó en mis manos como un rayo sobre tierra fértil.
@@ -728,29 +932,34 @@ Escribo para que otros, al leerme, sientan que alguien los entiende sin juzgarlo
 No busco la perfección; busco la verdad que se esconde bajo la piel de las palabras.
 Cada historia que comienzo es una forma de abrazar el caos y transformarlo en algo hermoso.
 Mi vida es la página en la que aprendo a ser humano, línea por línea.`,
-            book_button: 'Primer intento',
-            book_button_open: 'Primer intento ▲',
-            book_title: 'DESOBEDIENCIA',
-            book_date: 'Noviembre de dos mil veinticinco',
-            dedication: `"A mi madre, mi guerrera sin armadura,
-que me enseñó que los sueños valen la pena."`,
-            herencias_info: `<strong>Mi obra forma parte de Herencias invisibles</strong>, un libro que reúne a veintisiete autores y veintisiete textos sobre recuerdos, silencios y aquello que recibimos sin palabras.
+        book_button: 'Primer intento',
+        book_title: 'DESOBEDIENCIA',
+        book_date: 'Noviembre de dos mil veinticinco',
+        dedication: `«A mi madre, mi guerrera sin armadura,
+que me enseñó que los sueños valen la pena.»`,
+        herencias_info: `<strong>Mi obra forma parte de Herencias invisibles</strong>, un libro que reúne a veintisiete autores y veintisiete textos sobre recuerdos, silencios y aquello que recibimos sin palabras.
 Hoy mi nombre comparte portada, lomo e ISBN con voces que también decidieron escribir sobre esas huellas que permanecen en nosotros, incluso cuando no sabemos exactamente de dónde vienen.
 <span class="pdf-lang-warning">El texto solo está disponible en español.</span>`,
-            cuando_nadie_info: `<strong>Mi obra forma parte de Cuando nadie está mirando</strong>, un libro que reúne a veintiséis autores y veintiséis textos sobre decisiones privadas, silencios, acciones ocultas y vidas que cambian cuando nadie está ahí para verlo.
+        cuando_nadie_info: `<strong>Mi obra forma parte de Cuando nadie está mirando</strong>, un libro que reúne a veintiséis autores y veintiséis textos sobre decisiones privadas, silencios, acciones ocultas y vidas que cambian cuando nadie está ahí para verlo.
 Hoy mi nombre comparte portada, lomo e ISBN con voces que también decidieron escribir sobre aquello que ocurre lejos de la mirada de los demás.
 <span class="pdf-lang-warning">El texto solo está disponible en español.</span>`,
-            link_herencias: 'Ver en Ita Editorial',
-            link_cuando_nadie: 'Ver en Ita Editorial',
-            btn_read: 'Leer la historia',
-            footer: '© dos mil veintiséis Julien Villamizar Arriaga. Todos los derechos reservados.',
-            pdf_loading: 'Cargando…',
-            pdf_error: 'No se pudo cargar el PDF.'
-        },
-        en: {
-            nav_home: 'Home',
-            nav_books: 'Books',
-            bio: `I grew up amongst green mountains, noisy streets and a language that dances when spoken.
+        link_herencias: 'Ver en Ita Editorial',
+        link_cuando_nadie: 'Ver en Ita Editorial',
+        btn_read: 'Leer la historia',
+        footer: '© dos mil veintiséis Julien Villamizar Arriaga. Todos los derechos reservados.',
+        pdf_loading: 'Cargando…',
+        pdf_error: 'No se pudo cargar el PDF.'
+    },
+    en: {
+        nav_home: 'Home',
+        nav_books: 'Books',
+        hero_eyebrow: 'Writer · Colombia',
+        books_eyebrow: 'Published work',
+        cover_label: 'Anthology',
+        cover_herencias_sub: 'Ita Editorial · twenty twenty-five',
+        cover_cuando_nadie_sub: 'Ita Editorial · twenty twenty-five',
+        detail_eyebrow: 'Included in the anthology',
+        bio: `I grew up amongst green mountains, noisy streets and a language that dances when spoken.
 As a child, the smell of damp earth taught me more than any classroom ever did.
 I didn't like reading: books struck me as cages made of letters that didn't belong to me.
 Until a comic fell into my hands like a bolt of lightning striking fertile ground.
@@ -770,29 +979,34 @@ I write so that others, when they read me, may feel that someone understands the
 I do not seek perfection; I seek the truth hidden beneath the skin of words.
 Every story I begin is a way of embracing chaos and transforming it into something beautiful.
 My life is the page on which I learn to be human, line by line.`,
-            book_button: 'First attempt',
-            book_button_open: 'First attempt ▲',
-            book_title: 'DISOBEDIENCE',
-            book_date: 'November twenty twenty-five',
-            dedication: `"To my mother, my warrior without armor,
+        book_button: 'First attempt',
+        book_title: 'DISOBEDIENCE',
+        book_date: 'November twenty twenty-five',
+        dedication: `"To my mother, my warrior without armor,
 who taught me that dreams are worth the fight."`,
-            herencias_info: `<strong>My work is part of <em>Herencias invisibles</em></strong> (Invisible Inheritances), a book that brings together twenty-seven authors and twenty-seven texts about memories, silences, and what we receive without words.
+        herencias_info: `<strong>My work is part of <em>Herencias invisibles</em></strong> (Invisible Inheritances), a book that brings together twenty-seven authors and twenty-seven texts about memories, silences, and what we receive without words.
 Today my name shares a cover, spine, and ISBN with voices that also chose to write about those traces that remain in us, even when we don't know exactly where they come from.
 <span class="pdf-lang-warning">The text is only available in Spanish.</span>`,
-            cuando_nadie_info: `<strong>My work is part of <em>Cuando nadie está mirando</em></strong> (When No One Is Watching), a book that brings together twenty-six authors and twenty-six texts about private decisions, silences, hidden actions, and lives that change when no one is there to see it.
+        cuando_nadie_info: `<strong>My work is part of <em>Cuando nadie está mirando</em></strong> (When No One Is Watching), a book that brings together twenty-six authors and twenty-six texts about private decisions, silences, hidden actions, and lives that change when no one is there to see it.
 Today my name shares a cover, spine, and ISBN with voices that also chose to write about what happens far from others' gaze.
 <span class="pdf-lang-warning">The text is only available in Spanish.</span>`,
-            link_herencias: 'View at Ita Editorial',
-            link_cuando_nadie: 'View at Ita Editorial',
-            btn_read: 'Read the story',
-            footer: '© twenty twenty-six Julien Villamizar Arriaga. All rights reserved.',
-            pdf_loading: 'Loading…',
-            pdf_error: 'The PDF could not be loaded.'
-        },
-        fr: {
-            nav_home: 'Accueil',
-            nav_books: 'Livres',
-            bio: `J'ai grandi entre des montagnes verdoyantes, des rues bruyantes et une langue qui danse lorsqu'on la parle.
+        link_herencias: 'View at Ita Editorial',
+        link_cuando_nadie: 'View at Ita Editorial',
+        btn_read: 'Read the story',
+        footer: '© twenty twenty-six Julien Villamizar Arriaga. All rights reserved.',
+        pdf_loading: 'Loading…',
+        pdf_error: 'The PDF could not be loaded.'
+    },
+    fr: {
+        nav_home: 'Accueil',
+        nav_books: 'Livres',
+        hero_eyebrow: 'Écrivain · Colombie',
+        books_eyebrow: 'Œuvre publiée',
+        cover_label: 'Anthologie',
+        cover_herencias_sub: 'Ita Editorial · deux mille vingt-cinq',
+        cover_cuando_nadie_sub: 'Ita Editorial · deux mille vingt-cinq',
+        detail_eyebrow: 'Inclus dans l\u2019anthologie',
+        bio: `J'ai grandi entre des montagnes verdoyantes, des rues bruyantes et une langue qui danse lorsqu'on la parle.
 Enfant, l'odeur de la terre humide m'a appris bien plus que n'importe quelle salle de classe.
 Je n'aimais pas lire : les livres me semblaient des cages faites de lettres qui ne m'appartenaient pas.
 Jusqu'à ce qu'une bande dessinée tombe entre mes mains comme un éclair sur un sol fertile.
@@ -812,243 +1026,226 @@ J'écris pour que les autres, en me lisant, sentent que quelqu'un les comprend s
 Je ne recherche pas la perfection ; je recherche la vérité qui se cache sous la peau des mots.
 Chaque histoire que j'entame est une façon d'embrasser le chaos et de le transformer en quelque chose de beau.
 Ma vie est la page sur laquelle j'apprends à être humain, ligne après ligne.`,
-            book_button: 'Première tentative',
-            book_button_open: 'Première tentative ▲',
-            book_title: 'DÉSOBÉISSANCE',
-            book_date: 'Novembre deux mille vingt-cinq',
-            dedication: `« À ma mère, ma guerrière sans armure,
+        book_button: 'Première tentative',
+        book_title: 'DÉSOBÉISSANCE',
+        book_date: 'Novembre deux mille vingt-cinq',
+        dedication: `« À ma mère, ma guerrière sans armure,
 qui m'a appris que les rêves valent la peine. »`,
-            herencias_info: `<strong>Mon œuvre fait partie de <em>Herencias invisibles</em></strong> (Héritages invisibles), un livre qui réunit vingt-sept auteurs et vingt-sept textes sur les souvenirs, les silences et ce que nous recevons sans mots.
+        herencias_info: `<strong>Mon œuvre fait partie de <em>Herencias invisibles</em></strong> (Héritages invisibles), un livre qui réunit vingt-sept auteurs et vingt-sept textes sur les souvenirs, les silences et ce que nous recevons sans mots.
 Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui ont aussi choisi d'écrire sur ces empreintes qui demeurent en nous, même lorsque nous ne savons pas exactement d'où elles viennent.
 <span class="pdf-lang-warning">Le texte n'est disponible qu'en espagnol.</span>`,
-            cuando_nadie_info: `<strong>Mon œuvre fait partie de <em>Cuando nadie está mirando</em></strong> (Quand personne ne regarde), un livre qui réunit vingt-six auteurs et vingt-six textes sur les décisions privées, les silences, les actions cachées et les vies qui changent quand personne n'est là pour le voir.
+        cuando_nadie_info: `<strong>Mon œuvre fait partie de <em>Cuando nadie está mirando</em></strong> (Quand personne ne regarde), un livre qui réunit vingt-six auteurs et vingt-six textes sur les décisions privées, les silences, les actions cachées et les vies qui changent quand personne n'est là pour le voir.
 Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui ont aussi choisi d'écrire sur ce qui se passe loin du regard des autres.
 <span class="pdf-lang-warning">Le texte n'est disponible qu'en espagnol.</span>`,
-            link_herencias: 'Voir chez Ita Editorial',
-            link_cuando_nadie: 'Voir chez Ita Editorial',
-            btn_read: "Lire l'histoire",
-            footer: '© deux mille vingt-six Julien Villamizar Arriaga. Tous droits réservés.',
-            pdf_loading: 'Chargement…',
-            pdf_error: 'Le PDF n\u2019a pas pu être chargé.'
-        }
-    };
-
-    /* =========================================================
-       APLICAR IDIOMA
-       ========================================================= */
-    let currentLang = 'es';
-    let bookOpen = false;
-
-    function applyLanguage(lang) {
-        if (!i18n[lang]) lang = 'es';
-        currentLang = lang;
-        const dict = i18n[lang];
-
-        document.querySelectorAll('[data-i18n]').forEach(el => {
-            const key = el.dataset.i18n;
-            if (dict[key] !== undefined) el.innerHTML = dict[key];
-        });
-
-        document.querySelectorAll('.lang-option').forEach(btn => {
-            btn.classList.toggle('active', btn.dataset.lang === lang);
-        });
-
-        document.documentElement.lang = lang;
-        try { localStorage.setItem('lang', lang); } catch (e) {}
-
-        const btn = document.getElementById('book-toggle');
-        if (btn) btn.textContent = bookOpen ? dict.book_button_open : dict.book_button;
-
-        const metaDesc = document.querySelector('meta[name="description"]');
-        const metaOgDesc = document.querySelector('meta[property="og:description"]');
-        const desc = lang === 'es'
-            ? 'Te doy la bienvenida a mi portafolio personal, donde comparto mi música, mis videojuegos y mis libros.'
-            : lang === 'en'
-                ? 'Welcome to my personal portfolio, where I share my music, my video games, and my books.'
-                : 'Bienvenue sur mon portfolio personnel, où je partage ma musique, mes jeux vidéo et mes livres.';
-        if (metaDesc) metaDesc.setAttribute('content', desc);
-        if (metaOgDesc) metaOgDesc.setAttribute('content', desc);
+        link_herencias: 'Voir chez Ita Editorial',
+        link_cuando_nadie: 'Voir chez Ita Editorial',
+        btn_read: "Lire l'histoire",
+        footer: '© deux mille vingt-six Julien Villamizar Arriaga. Tous droits réservés.',
+        pdf_loading: 'Chargement…',
+        pdf_error: 'Le PDF n\u2019a pas pu être chargé.'
     }
+};
 
-    /* =========================================================
-       SELECTOR DE IDIOMA
-       ========================================================= */
-    const langSwitcher = document.getElementById('lang-switcher');
-    const langMain = document.getElementById('lang-main');
+/* ============================
+   IDIOMA
+   ============================ */
+let currentLang = 'es';
 
-    langMain.addEventListener('click', (e) => {
-        e.stopPropagation();
-        langSwitcher.classList.toggle('open');
+function applyLanguage(lang) {
+    if (!i18n[lang]) lang = 'es';
+    currentLang = lang;
+    const dict = i18n[lang];
+
+    document.querySelectorAll('[data-i18n]').forEach(el => {
+        const key = el.dataset.i18n;
+        if (dict[key] !== undefined) el.innerHTML = dict[key];
     });
 
     document.querySelectorAll('.lang-option').forEach(btn => {
-        btn.addEventListener('click', () => {
-            applyLanguage(btn.dataset.lang);
-            langSwitcher.classList.remove('open');
+        btn.classList.toggle('active', btn.dataset.lang === lang);
+    });
+
+    document.documentElement.lang = lang;
+    try { localStorage.setItem('lang', lang); } catch (e) {}
+
+    const metaDesc = document.querySelector('meta[name="description"]');
+    const metaOgDesc = document.querySelector('meta[property="og:description"]');
+    const desc = {
+        es: 'Portafolio personal de Julien Villamizar Arriaga: música, videojuegos y libros. Mi historia «Desobediencia» publicada en dos antologías de Ita Editorial.',
+        en: 'Personal portfolio of Julien Villamizar Arriaga: music, video games and books. My story "Disobedience" published in two anthologies by Ita Editorial.',
+        fr: 'Portfolio personnel de Julien Villamizar Arriaga : musique, jeux vidéo et livres. Ma nouvelle « Désobéissance » publiée dans deux anthologies d\u2019Ita Editorial.'
+    }[lang];
+    if (metaDesc) metaDesc.setAttribute('content', desc);
+    if (metaOgDesc) metaOgDesc.setAttribute('content', desc);
+}
+
+const langSwitcher = document.getElementById('lang-switcher');
+const langMain = document.getElementById('lang-main');
+langMain.addEventListener('click', (e) => {
+    e.stopPropagation();
+    langSwitcher.classList.toggle('open');
+});
+document.querySelectorAll('.lang-option').forEach(btn => {
+    btn.addEventListener('click', () => {
+        applyLanguage(btn.dataset.lang);
+        langSwitcher.classList.remove('open');
+    });
+});
+document.addEventListener('click', (e) => {
+    if (!langSwitcher.contains(e.target)) langSwitcher.classList.remove('open');
+});
+document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') langSwitcher.classList.remove('open');
+});
+
+/* ============================
+   NAVEGACIÓN
+   ============================ */
+function mostrarSeccion(id) {
+    document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
+    const s = document.getElementById(id);
+    if (s) s.classList.add('activa');
+    document.querySelectorAll('.nav-text').forEach(b => b.classList.remove('activo'));
+    const btn = document.getElementById('btn-' + id);
+    if (btn) btn.classList.add('activo');
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+    setTimeout(revealCheck, 50);
+}
+
+/* ============================
+   TOGGLES
+   ============================ */
+function toggleObra(btn) {
+    const contenedor = btn.nextElementSibling;
+    if (!contenedor) return;
+    const open = contenedor.classList.toggle('abierto');
+    btn.classList.toggle('is-open', open);
+    btn.setAttribute('aria-expanded', String(open));
+    if (open) setTimeout(() => contenedor.scrollIntoView({ behavior: 'smooth', block: 'start' }), 250);
+}
+
+function toggleLibro(id, otherId) {
+    const target = document.getElementById(id);
+    const other = document.getElementById(otherId);
+    if (!target) return;
+    const open = !target.classList.contains('abierto');
+    if (other) other.classList.remove('abierto');
+    target.classList.toggle('abierto', open);
+    if (open) setTimeout(() => target.scrollIntoView({ behavior: 'smooth', block: 'start' }), 300);
+}
+
+/* ============================
+   PDF
+   ============================ */
+let pdfDocPromise = null;
+function getPdfDoc() {
+    if (!pdfDocPromise) pdfDocPromise = pdfjsLib.getDocument('pdf/Desobediencia.pdf').promise;
+    return pdfDocPromise;
+}
+
+async function mostrarPDF(containerId) {
+    const container = document.getElementById(containerId);
+    if (!container) return;
+    container.classList.add('visible');
+    container.scrollIntoView({ behavior: 'smooth', block: 'start' });
+
+    const scrollArea = container.querySelector('.pdf-scroll-area');
+    if (!scrollArea) return;
+    if (container.dataset.loaded === '1' || container.dataset.loading === '1') return;
+
+    if (!window.pdfjsLib) {
+        scrollArea.innerHTML = `<div class="pdf-status pdf-error">${i18n[currentLang].pdf_error}</div>`;
+        return;
+    }
+
+    container.dataset.loading = '1';
+    scrollArea.innerHTML = `<div class="pdf-status">${i18n[currentLang].pdf_loading}</div>`;
+
+    try {
+        const pdf = await getPdfDoc();
+        scrollArea.innerHTML = '';
+        const outputScale = window.devicePixelRatio || 1;
+        for (let n = 1; n <= pdf.numPages; n++) {
+            const page = await pdf.getPage(n);
+            const viewport = page.getViewport({ scale: 1.5 });
+            const canvas = document.createElement('canvas');
+            canvas.className = 'pdf-page';
+            const ctx = canvas.getContext('2d');
+            canvas.width = Math.floor(viewport.width * outputScale);
+            canvas.height = Math.floor(viewport.height * outputScale);
+            const transform = outputScale !== 1 ? [outputScale, 0, 0, outputScale, 0, 0] : null;
+            scrollArea.appendChild(canvas);
+            await page.render({ canvasContext: ctx, viewport, transform }).promise;
+        }
+        container.dataset.loaded = '1';
+    } catch (err) {
+        console.error(err);
+        scrollArea.innerHTML = `<div class="pdf-status pdf-error">${i18n[currentLang].pdf_error}</div>`;
+    } finally {
+        container.dataset.loading = '0';
+    }
+}
+
+/* ============================
+   CARGA DE IMÁGENES
+   ============================ */
+function cargarImagen(imgId, baseName) {
+    const img = document.getElementById(imgId);
+    if (!img) return;
+    const exts = ['.png', '.jpg', '.jpeg', '.webp', '.avif'];
+    const encoded = encodeURIComponent(baseName);
+    let i = 0;
+    (function intentar() {
+        if (i >= exts.length) { img.style.opacity = '0.2'; return; }
+        img.src = 'img/' + encoded + exts[i];
+        img.onerror = () => { i++; intentar(); };
+    })();
+}
+
+/* ============================
+   REVEAL ON SCROLL
+   ============================ */
+const revealObserver = ('IntersectionObserver' in window)
+    ? new IntersectionObserver((entries) => {
+        entries.forEach(en => {
+            if (en.isIntersecting) { en.target.classList.add('is-visible'); revealObserver.unobserve(en.target); }
         });
+    }, { threshold: 0.12, rootMargin: '0px 0px -40px 0px' })
+    : null;
+
+function revealCheck() {
+    document.querySelectorAll('.reveal:not(.is-visible)').forEach(el => {
+        if (revealObserver) revealObserver.observe(el);
+        else el.classList.add('is-visible');
+    });
+}
+
+/* ============================
+   INIT
+   ============================ */
+window.addEventListener('DOMContentLoaded', () => {
+    let saved = 'es';
+    try { saved = localStorage.getItem('lang') || 'es'; } catch (e) {}
+    applyLanguage(saved);
+
+    cargarImagen('logo-home', 'Home');
+    cargarImagen('cover-herencias', 'Nota de lanzamiento Herencias invisibles');
+    cargarImagen('cover-cuando-nadie', 'Nota de lanzamiento Cuando nadie está mirando');
+    cargarImagen('detail-cover-herencias', 'Nota de lanzamiento Herencias invisibles');
+    cargarImagen('detail-cover-cuando-nadie', 'Nota de lanzamiento Cuando nadie está mirando');
+
+    document.querySelectorAll('.pdf-scroll-area').forEach(sc => {
+        ['copy','cut','dragstart','selectstart','contextmenu'].forEach(ev =>
+            sc.addEventListener(ev, e => e.preventDefault()));
     });
 
-    document.addEventListener('click', (e) => {
-        if (!langSwitcher.contains(e.target)) langSwitcher.classList.remove('open');
+    revealCheck();
+
+    // Reveal secuencial en el hero
+    document.querySelectorAll('#home .reveal').forEach((el, i) => {
+        el.style.transitionDelay = (i * 90) + 'ms';
     });
-
-    document.addEventListener('keydown', (e) => {
-        if (e.key === 'Escape') langSwitcher.classList.remove('open');
-    });
-
-    /* =========================================================
-       NAVEGACIÓN Y TOGGLES
-       ========================================================= */
-    function mostrarSeccion(id) {
-        document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
-        const seccionActiva = document.getElementById(id);
-        if (seccionActiva) seccionActiva.classList.add('activa');
-
-        document.querySelectorAll('.nav-text').forEach(b => b.classList.remove('activo'));
-        const btn = document.getElementById('btn-' + id);
-        if (btn) btn.classList.add('activo');
-    }
-
-    /* Nivel 1: "Primer intento" → muestra las dos portadas */
-    function toggleObra(btn) {
-        const contenedor = btn.nextElementSibling;
-        if (!contenedor || !contenedor.classList.contains('marco-contenedor')) return;
-        contenedor.classList.toggle('abierto');
-        bookOpen = contenedor.classList.contains('abierto');
-        btn.textContent = bookOpen
-            ? i18n[currentLang].book_button_open
-            : i18n[currentLang].book_button;
-    }
-
-    /* Nivel 2: portada pulsada → abre su marco y cierra el otro */
-    function toggleLibro(frameId, otherFrameId) {
-        const target = document.getElementById(frameId);
-        const other = document.getElementById(otherFrameId);
-        if (!target) return;
-        const willOpen = !target.classList.contains('abierto');
-        if (other) other.classList.remove('abierto');
-        target.classList.toggle('abierto', willOpen);
-        if (willOpen) {
-            setTimeout(() => {
-                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-            }, 320);
-        }
-    }
-
-    /* =========================================================
-       VISOR PDF (compartido entre los dos marcos)
-       ========================================================= */
-    let pdfDocPromise = null;
-
-    function getPdfDoc() {
-        if (!pdfDocPromise) {
-            pdfDocPromise = pdfjsLib.getDocument('pdf/Desobediencia.pdf').promise;
-        }
-        return pdfDocPromise;
-    }
-
-    async function mostrarPDF(containerId) {
-        const container = document.getElementById(containerId);
-        if (!container) return;
-        container.classList.add('visible');
-        container.scrollIntoView({ behavior: 'smooth', block: 'start' });
-
-        const scrollArea = container.querySelector('.pdf-scroll-area');
-        if (!scrollArea) return;
-
-        if (container.dataset.loaded === '1' || container.dataset.loading === '1') return;
-
-        if (!window.pdfjsLib) {
-            scrollArea.innerHTML =
-                `<div class="pdf-status pdf-error">${i18n[currentLang].pdf_error}</div>`;
-            return;
-        }
-
-        container.dataset.loading = '1';
-        scrollArea.innerHTML =
-            `<div class="pdf-status">${i18n[currentLang].pdf_loading}</div>`;
-
-        try {
-            const pdf = await getPdfDoc();
-            scrollArea.innerHTML = '';
-
-            const outputScale = window.devicePixelRatio || 1;
-
-            for (let num = 1; num <= pdf.numPages; num++) {
-                const page = await pdf.getPage(num);
-                const viewport = page.getViewport({ scale: 1.5 });
-
-                const canvas = document.createElement('canvas');
-                canvas.className = 'pdf-page';
-                const ctx = canvas.getContext('2d');
-
-                canvas.width = Math.floor(viewport.width * outputScale);
-                canvas.height = Math.floor(viewport.height * outputScale);
-
-                const transform = outputScale !== 1
-                    ? [outputScale, 0, 0, outputScale, 0, 0]
-                    : null;
-
-                scrollArea.appendChild(canvas);
-
-                await page.render({
-                    canvasContext: ctx,
-                    viewport: viewport,
-                    transform: transform
-                }).promise;
-            }
-
-            container.dataset.loaded = '1';
-        } catch (err) {
-            console.error('Error cargando el PDF:', err);
-            scrollArea.innerHTML =
-                `<div class="pdf-status pdf-error">${i18n[currentLang].pdf_error}</div>`;
-        } finally {
-            container.dataset.loading = '0';
-        }
-    }
-
-    /* =========================================================
-       CARGA DE IMÁGENES (con fallback de extensión)
-       ========================================================= */
-    function cargarImagenConExtensiones(imgId, baseName) {
-        const img = document.getElementById(imgId);
-        if (!img) return;
-        const extensiones = ['.png', '.jpg', '.jpeg', '.webp', '.avif'];
-        const nombreCodificado = encodeURIComponent(baseName);
-        let i = 0;
-        function intentar() {
-            if (i >= extensiones.length) {
-                img.alt = (img.alt || 'Imagen') + ' (no encontrada)';
-                img.style.opacity = '0.25';
-                return;
-            }
-            img.src = 'img/' + nombreCodificado + extensiones[i];
-            img.onerror = () => { i++; intentar(); };
-        }
-        intentar();
-    }
-
-    /* =========================================================
-       INICIO
-       ========================================================= */
-    window.addEventListener('DOMContentLoaded', function () {
-        let savedLang = 'es';
-        try { savedLang = localStorage.getItem('lang') || 'es'; } catch (e) {}
-        applyLanguage(savedLang);
-
-        cargarImagenConExtensiones('logo-home', 'Home');
-        cargarImagenConExtensiones('cover-herencias', 'Nota de lanzamiento Herencias invisibles');
-        cargarImagenConExtensiones('cover-cuando-nadie', 'Nota de lanzamiento Cuando nadie está mirando');
-
-        document.querySelectorAll('.pdf-scroll-area').forEach(scroller => {
-            scroller.addEventListener('copy', e => e.preventDefault());
-            scroller.addEventListener('cut', e => e.preventDefault());
-            scroller.addEventListener('dragstart', e => e.preventDefault());
-            scroller.addEventListener('selectstart', e => e.preventDefault());
-            scroller.addEventListener('contextmenu', e => e.preventDefault());
-        });
-    });
-    </script>
+});
+</script>
 </body>
 </html>
