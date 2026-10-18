@@ -251,6 +251,7 @@
             transform: scale(1.02);
         }
 
+        /* === CONTENEDOR COLAPSABLE (nivel 1 y nivel 2) === */
         .marco-contenedor {
             max-height: 0;
             overflow: hidden;
@@ -264,6 +265,42 @@
             margin: 30px auto;
         }
 
+        /* === PORTADAS DE LOS LIBROS (botones-imagen) === */
+        .libros-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 22px;
+            margin: 10px auto 20px;
+        }
+        .libro-cover-btn {
+            flex: 1 1 240px;
+            max-width: 280px;
+            background: rgba(0,0,0,0.3);
+            border: 2px solid #F5C84C;
+            border-radius: 12px;
+            padding: 10px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            box-shadow: 0 0 20px rgba(245, 200, 76, 0.1);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            min-height: 120px;
+        }
+        .libro-cover-btn:hover {
+            box-shadow: 0 0 40px rgba(245, 200, 76, 0.35);
+            transform: translateY(-4px) scale(1.02);
+            border-color: #ffe082;
+        }
+        .libro-cover-btn img {
+            display: block;
+            width: 100%;
+            height: auto;
+            border-radius: 6px;
+        }
+
+        /* === MARCO ANTIGUO === */
         .marco-antiguo {
             position: relative;
             background: #0a0a0a;
@@ -357,7 +394,6 @@
         .obra-info strong { color: #F5C84C; font-weight: 700; }
         .obra-info .nota { font-style: italic; color: #999; }
 
-        /* Aviso de idioma del PDF */
         .pdf-lang-warning {
             display: block;
             margin-top: 14px;
@@ -410,6 +446,31 @@
         }
         .btn-pdf:hover::before { opacity: 0.8; }
 
+        /* === ENLACE A ITA EDITORIAL === */
+        .enlace-editorial {
+            display: block;
+            width: fit-content;
+            margin: 18px auto 0;
+            color: #F5C84C;
+            font-family: 'Lora', serif;
+            font-size: 0.95rem;
+            text-decoration: none;
+            border-bottom: 1px dashed #F5C84C;
+            padding: 4px 0;
+            letter-spacing: 0.5px;
+            transition: all 0.2s;
+        }
+        .enlace-editorial:hover {
+            color: #fff;
+            border-bottom-color: #fff;
+            text-shadow: 0 0 10px rgba(245, 200, 76, 0.5);
+        }
+        .enlace-editorial::after {
+            content: " ↗";
+            font-size: 0.8rem;
+        }
+
+        /* === VISOR PDF === */
         .pdf-viewer-container {
             display: none;
             margin: 30px auto 0;
@@ -474,12 +535,14 @@
             .marco-antiguo::after { font-size: 2rem; }
             .marco-antiguo .runas { display: none; }
             .obra-item { font-size: 1rem; padding: 14px 20px; }
-            nav { gap: 20px; }
+            nav { gap: 20px; padding-right: 60px; }
             .lang-switcher { right: 10px; }
             .lang-main { width: 40px; height: 40px; }
             .lang-main .globe { width: 20px; height: 20px; }
             .lang-options { min-width: 190px; }
             .lang-option { font-size: 0.82rem; padding: 9px 12px; }
+            .libros-grid { gap: 16px; }
+            .libro-cover-btn { flex: 1 1 100%; max-width: 340px; }
         }
     </style>
 </head>
@@ -536,7 +599,7 @@
 
     <div id="home" class="seccion activa">
         <div class="cabecera">
-            <img id="logo-home" alt="Logo de Julien Villamizar" src="">
+            <img id="logo-home" alt="Logo de Julien Villamizar">
             <h1>Julien Villamizar Arriaga</h1>
             <div class="bio" data-i18n="bio"></div>
         </div>
@@ -547,28 +610,87 @@
             <button class="obra-item" id="book-toggle" onclick="toggleObra(this)" data-i18n="book_button">Primer intento</button>
 
             <div class="marco-contenedor" id="obra-desobediencia">
-                <div class="marco-antiguo">
-                    <span class="runas r1">ᛉ ᚨ</span>
-                    <span class="runas r2">ᚠ ᛗ</span>
-                    <span class="runas r3">ᚢ</span>
-                    <span class="runas r4">ᛏ</span>
 
-                    <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
-                    <div class="obra-autor">Julien Villamizar Arriaga</div>
-                    <div class="obra-fecha" data-i18n="book_date">Noviembre de 2025</div>
+                <!-- === PORTADAS / NOTAS DE LANZAMIENTO (botones-imagen) === -->
+                <div class="libros-grid">
+                    <button class="libro-cover-btn" type="button"
+                            onclick="toggleLibro('libro-herencias', 'libro-cuando-nadie')"
+                            aria-label="Herencias invisibles">
+                        <img id="cover-herencias" alt="Herencias invisibles">
+                    </button>
+                    <button class="libro-cover-btn" type="button"
+                            onclick="toggleLibro('libro-cuando-nadie', 'libro-herencias')"
+                            aria-label="Cuando nadie está mirando">
+                        <img id="cover-cuando-nadie" alt="Cuando nadie está mirando">
+                    </button>
+                </div>
 
-                    <div class="obra-dedicatoria" data-i18n="dedication"></div>
+                <!-- === MARCO: HERENCIAS INVISIBLES === -->
+                <div class="marco-contenedor" id="libro-herencias">
+                    <div class="marco-antiguo">
+                        <span class="runas r1">ᛉ ᚨ</span>
+                        <span class="runas r2">ᚠ ᛗ</span>
+                        <span class="runas r3">ᚢ</span>
+                        <span class="runas r4">ᛏ</span>
 
-                    <div class="obra-info" data-i18n="book_info"></div>
+                        <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
+                        <div class="obra-autor">Julien Villamizar Arriaga</div>
+                        <div class="obra-fecha" data-i18n="book_date">Noviembre de 2025</div>
 
-                    <button class="btn-pdf" id="btn-read" onclick="mostrarPDF()" data-i18n="btn_read">Leer la historia</button>
+                        <div class="obra-dedicatoria" data-i18n="dedication"></div>
 
-                    <div class="pdf-viewer-container" id="pdf-viewer-container">
-                        <div class="pdf-scroll-area" id="pdf-scroll" oncontextmenu="return false;">
-                            <div class="pdf-status" id="pdf-status" data-i18n="pdf_loading">Cargando…</div>
+                        <div class="obra-info" data-i18n="herencias_info"></div>
+
+                        <button class="btn-pdf" type="button"
+                                onclick="mostrarPDF('pdf-viewer-herencias')"
+                                data-i18n="btn_read">Leer la historia</button>
+
+                        <a class="enlace-editorial"
+                           href="https://itabooks.com/herencias-invisibles-27-voces-que-aun-nos-habitan/"
+                           target="_blank" rel="noopener noreferrer"
+                           data-i18n="link_herencias">Ver en Ita Editorial</a>
+
+                        <div class="pdf-viewer-container" id="pdf-viewer-herencias">
+                            <div class="pdf-scroll-area">
+                                <div class="pdf-status" data-i18n="pdf_loading">Cargando…</div>
+                            </div>
                         </div>
                     </div>
                 </div>
+
+                <!-- === MARCO: CUANDO NADIE ESTÁ MIRANDO === -->
+                <div class="marco-contenedor" id="libro-cuando-nadie">
+                    <div class="marco-antiguo">
+                        <span class="runas r1">ᛉ ᚨ</span>
+                        <span class="runas r2">ᚠ ᛗ</span>
+                        <span class="runas r3">ᚢ</span>
+                        <span class="runas r4">ᛏ</span>
+
+                        <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
+                        <div class="obra-autor">Julien Villamizar Arriaga</div>
+                        <div class="obra-fecha" data-i18n="book_date">Noviembre de 2025</div>
+
+                        <div class="obra-dedicatoria" data-i18n="dedication"></div>
+
+                        <div class="obra-info" data-i18n="cuando_nadie_info"></div>
+
+                        <button class="btn-pdf" type="button"
+                                onclick="mostrarPDF('pdf-viewer-cuando-nadie')"
+                                data-i18n="btn_read">Leer la historia</button>
+
+                        <a class="enlace-editorial"
+                           href="https://itabooks.com/cuando-nadie-esta-mirando-26-voces-sin-testigos/"
+                           target="_blank" rel="noopener noreferrer"
+                           data-i18n="link_cuando_nadie">Ver en Ita Editorial</a>
+
+                        <div class="pdf-viewer-container" id="pdf-viewer-cuando-nadie">
+                            <div class="pdf-scroll-area">
+                                <div class="pdf-status" data-i18n="pdf_loading">Cargando…</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </div>
     </div>
@@ -611,11 +733,14 @@ Mi vida es la página en la que aprendo a ser humano, línea por línea.`,
             book_date: 'Noviembre de 2025',
             dedication: `"A mi madre, mi guerrera sin armadura,
 que me enseñó que los sueños valen la pena."`,
-            book_info: `<strong>Este es un borrador en proceso de revisión.</strong>
-Forma parte de la antología «Herencias Invisibles»,
-que será publicada por <strong>Ita Editorial</strong>.
-<span class="nota">Cualquier comentario o sugerencia es bienvenido.</span>
+            herencias_info: `<strong>Mi obra forma parte de Herencias invisibles</strong>, un libro que reúne a 27 autores y 27 textos sobre recuerdos, silencios y aquello que recibimos sin palabras.
+Hoy mi nombre comparte portada, lomo e ISBN con voces que también decidieron escribir sobre esas huellas que permanecen en nosotros, incluso cuando no sabemos exactamente de dónde vienen.
 <span class="pdf-lang-warning">El texto solo está disponible en español.</span>`,
+            cuando_nadie_info: `<strong>Mi obra forma parte de Cuando nadie está mirando</strong>, un libro que reúne a 26 autores y 26 textos sobre decisiones privadas, silencios, acciones ocultas y vidas que cambian cuando nadie está ahí para verlo.
+Hoy mi nombre comparte portada, lomo e ISBN con voces que también decidieron escribir sobre aquello que ocurre lejos de la mirada de los demás.
+<span class="pdf-lang-warning">El texto solo está disponible en español.</span>`,
+            link_herencias: 'Ver en Ita Editorial',
+            link_cuando_nadie: 'Ver en Ita Editorial',
             btn_read: 'Leer la historia',
             footer: '© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.',
             pdf_loading: 'Cargando…',
@@ -650,11 +775,14 @@ My life is the page on which I learn to be human, line by line.`,
             book_date: 'November 2025',
             dedication: `"To my mother, my warrior without armor,
 who taught me that dreams are worth the fight."`,
-            book_info: `<strong>This is a draft currently undergoing revision.</strong>
-It belongs to the anthology 'Invisible Inheritances,'
-which will be published by <strong>Ita Editorial</strong>.
-<span class="nota">Any comment or suggestion is warmly welcomed.</span>
+            herencias_info: `<strong>My work is part of <em>Herencias invisibles</em></strong> (Invisible Inheritances), a book that brings together 27 authors and 27 texts about memories, silences, and what we receive without words.
+Today my name shares a cover, spine, and ISBN with voices that also chose to write about those traces that remain in us, even when we don't know exactly where they come from.
 <span class="pdf-lang-warning">The text is only available in Spanish.</span>`,
+            cuando_nadie_info: `<strong>My work is part of <em>Cuando nadie está mirando</em></strong> (When No One Is Watching), a book that brings together 26 authors and 26 texts about private decisions, silences, hidden actions, and lives that change when no one is there to see it.
+Today my name shares a cover, spine, and ISBN with voices that also chose to write about what happens far from others' gaze.
+<span class="pdf-lang-warning">The text is only available in Spanish.</span>`,
+            link_herencias: 'View at Ita Editorial',
+            link_cuando_nadie: 'View at Ita Editorial',
             btn_read: 'Read the story',
             footer: '© 2026 Julien Villamizar Arriaga. All rights reserved.',
             pdf_loading: 'Loading…',
@@ -689,11 +817,14 @@ Ma vie est la page sur laquelle j'apprends à être humain, ligne après ligne.`
             book_date: 'Novembre 2025',
             dedication: `« À ma mère, ma guerrière sans armure,
 qui m'a appris que les rêves valent la peine. »`,
-            book_info: `<strong>Ceci est un manuscrit en cours de révision.</strong>
-Il fait partie de l'anthologie « Héritages Invisibles »,
-qui sera publiée par <strong>Ita Editorial</strong>.
-<span class="nota">Tout commentaire ou suggestion est chaleureusement bienvenu.</span>
+            herencias_info: `<strong>Mon œuvre fait partie de <em>Herencias invisibles</em></strong> (Héritages invisibles), un livre qui réunit 27 auteurs et 27 textes sur les souvenirs, les silences et ce que nous recevons sans mots.
+Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui ont aussi choisi d'écrire sur ces empreintes qui demeurent en nous, même lorsque nous ne savons pas exactement d'où elles viennent.
 <span class="pdf-lang-warning">Le texte n'est disponible qu'en espagnol.</span>`,
+            cuando_nadie_info: `<strong>Mon œuvre fait partie de <em>Cuando nadie está mirando</em></strong> (Quand personne ne regarde), un livre qui réunit 26 auteurs et 26 textes sur les décisions privées, les silences, les actions cachées et les vies qui changent quand personne n'est là pour le voir.
+Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui ont aussi choisi d'écrire sur ce qui se passe loin du regard des autres.
+<span class="pdf-lang-warning">Le texte n'est disponible qu'en espagnol.</span>`,
+            link_herencias: 'Voir chez Ita Editorial',
+            link_cuando_nadie: 'Voir chez Ita Editorial',
             btn_read: "Lire l'histoire",
             footer: '© 2026 Julien Villamizar Arriaga. Tous droits réservés.',
             pdf_loading: 'Chargement…',
@@ -765,7 +896,7 @@ qui sera publiée par <strong>Ita Editorial</strong>.
     });
 
     /* =========================================================
-       NAVEGACIÓN Y TOGGLE
+       NAVEGACIÓN Y TOGGLES
        ========================================================= */
     function mostrarSeccion(id) {
         document.querySelectorAll('.seccion').forEach(s => s.classList.remove('activa'));
@@ -777,6 +908,7 @@ qui sera publiée par <strong>Ita Editorial</strong>.
         if (btn) btn.classList.add('activo');
     }
 
+    /* Nivel 1: "Primer intento" → muestra las dos portadas */
     function toggleObra(btn) {
         const contenedor = btn.nextElementSibling;
         if (!contenedor || !contenedor.classList.contains('marco-contenedor')) return;
@@ -787,36 +919,59 @@ qui sera publiée par <strong>Ita Editorial</strong>.
             : i18n[currentLang].book_button;
     }
 
+    /* Nivel 2: portada pulsada → abre su marco y cierra el otro */
+    function toggleLibro(frameId, otherFrameId) {
+        const target = document.getElementById(frameId);
+        const other = document.getElementById(otherFrameId);
+        if (!target) return;
+        const willOpen = !target.classList.contains('abierto');
+        if (other) other.classList.remove('abierto');
+        target.classList.toggle('abierto', willOpen);
+        if (willOpen) {
+            // Pequeño retardo para que el marco termine de expandirse antes del scroll
+            setTimeout(() => {
+                target.scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }, 320);
+        }
+    }
+
     /* =========================================================
-       VISOR PDF INLINE
+       VISOR PDF (compartido entre los dos marcos)
        ========================================================= */
-    let pdfLoaded = false;
-    let pdfLoading = false;
+    let pdfDocPromise = null;
 
-    async function mostrarPDF() {
-        const container = document.getElementById('pdf-viewer-container');
-        const scrollArea = document.getElementById('pdf-scroll');
-        const statusEl = document.getElementById('pdf-status');
+    function getPdfDoc() {
+        if (!pdfDocPromise) {
+            pdfDocPromise = pdfjsLib.getDocument('pdf/Desobediencia.pdf').promise;
+        }
+        return pdfDocPromise;
+    }
 
+    async function mostrarPDF(containerId) {
+        const container = document.getElementById(containerId);
+        if (!container) return;
         container.classList.add('visible');
         container.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
-        if (pdfLoaded || pdfLoading) return;
+        const scrollArea = container.querySelector('.pdf-scroll-area');
+        if (!scrollArea) return;
+
+        if (container.dataset.loaded === '1' || container.dataset.loading === '1') return;
 
         if (!window.pdfjsLib) {
-            statusEl.textContent = i18n[currentLang].pdf_error;
-            statusEl.classList.add('pdf-error');
+            scrollArea.innerHTML =
+                `<div class="pdf-status pdf-error">${i18n[currentLang].pdf_error}</div>`;
             return;
         }
 
-        pdfLoading = true;
-        statusEl.textContent = i18n[currentLang].pdf_loading;
+        container.dataset.loading = '1';
+        scrollArea.innerHTML =
+            `<div class="pdf-status">${i18n[currentLang].pdf_loading}</div>`;
 
         try {
-            const loadingTask = pdfjsLib.getDocument('pdf/Desobediencia.pdf');
-            const pdf = await loadingTask.promise;
-
+            const pdf = await getPdfDoc();
             scrollArea.innerHTML = '';
+
             const outputScale = window.devicePixelRatio || 1;
 
             for (let num = 1; num <= pdf.numPages; num++) {
@@ -843,16 +998,35 @@ qui sera publiée par <strong>Ita Editorial</strong>.
                 }).promise;
             }
 
-            pdfLoaded = true;
+            container.dataset.loaded = '1';
         } catch (err) {
             console.error('Error cargando el PDF:', err);
             scrollArea.innerHTML =
-                '<div class="pdf-status pdf-error">' +
-                i18n[currentLang].pdf_error +
-                '</div>';
+                `<div class="pdf-status pdf-error">${i18n[currentLang].pdf_error}</div>`;
         } finally {
-            pdfLoading = false;
+            container.dataset.loading = '0';
         }
+    }
+
+    /* =========================================================
+       CARGA DE IMÁGENES (con fallback de extensión)
+       ========================================================= */
+    function cargarImagenConExtensiones(imgId, baseName) {
+        const img = document.getElementById(imgId);
+        if (!img) return;
+        const extensiones = ['.png', '.jpg', '.jpeg', '.webp', '.avif'];
+        const nombreCodificado = encodeURIComponent(baseName);
+        let i = 0;
+        function intentar() {
+            if (i >= extensiones.length) {
+                img.alt = (img.alt || 'Imagen') + ' (no encontrada)';
+                img.style.opacity = '0.25';
+                return;
+            }
+            img.src = 'img/' + nombreCodificado + extensiones[i];
+            img.onerror = () => { i++; intentar(); };
+        }
+        intentar();
     }
 
     /* =========================================================
@@ -863,30 +1037,21 @@ qui sera publiée par <strong>Ita Editorial</strong>.
         try { savedLang = localStorage.getItem('lang') || 'es'; } catch (e) {}
         applyLanguage(savedLang);
 
-        function cargarImagen(idImg, nombre) {
-            const img = document.getElementById(idImg);
-            if (!img) return;
-            const extensiones = ['.png', '.jpg', '.jpeg', '.webp'];
-            let i = 0;
-            function intentar() {
-                if (i >= extensiones.length) {
-                    img.alt = 'Imagen no disponible: ' + nombre;
-                    return;
-                }
-                img.src = 'img/' + nombre + extensiones[i];
-                img.onerror = () => { i++; intentar(); };
-            }
-            intentar();
-        }
-        cargarImagen('logo-home', 'Home');
+        // Logo
+        cargarImagenConExtensiones('logo-home', 'Home');
 
-        const scroller = document.getElementById('pdf-scroll');
-        if (scroller) {
+        // Portadas de las dos antologías
+        cargarImagenConExtensiones('cover-herencias', 'Nota de lanzamiento Herencias invisibles');
+        cargarImagenConExtensiones('cover-cuando-nadie', 'Nota de lanzamiento Cuando nadie está mirando');
+
+        // Anti-copia en los visores PDF
+        document.querySelectorAll('.pdf-scroll-area').forEach(scroller => {
             scroller.addEventListener('copy', e => e.preventDefault());
             scroller.addEventListener('cut', e => e.preventDefault());
             scroller.addEventListener('dragstart', e => e.preventDefault());
             scroller.addEventListener('selectstart', e => e.preventDefault());
-        }
+            scroller.addEventListener('contextmenu', e => e.preventDefault());
+        });
     });
     </script>
 </body>
