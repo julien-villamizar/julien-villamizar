@@ -294,34 +294,147 @@
 
         /* ===== LIBROS ===== */
         .libros-lista { padding: 10px 0; }
-        .obra-item {
-            display: block;
+
+        /* ==== Botón / tarjeta de obra (NUEVO DISEÑO) ==== */
+        .obra-toggle {
+            position: relative;
+            display: flex;
+            align-items: center;
+            gap: 1.1rem;
             width: 100%;
-            max-width: 500px;
-            margin: 0 auto;
-            padding: 0.9rem 1.8rem;
-            background: transparent;
+            max-width: 540px;
+            margin: 0 auto 1.25rem;
+            padding: 1.15rem 1.5rem 1.15rem 1.35rem;
+            background: linear-gradient(135deg, rgba(18, 16, 12, 1) 0%, rgba(10, 9, 8, 1) 100%);
             border: 1px solid var(--border-strong);
-            border-radius: 6px;
-            color: var(--text);
-            font-family: var(--serif);
-            font-size: 1.1rem;
-            font-weight: 400;
-            font-style: italic;
-            letter-spacing: 0.02em;
+            border-radius: 12px;
             cursor: pointer;
-            transition: all 0.3s var(--ease);
-            text-align: center;
-            font-variation-settings: "opsz" 40;
+            text-align: left;
+            font-family: var(--ui);
+            overflow: hidden;
+            transition: transform 0.35s var(--ease),
+                        border-color 0.35s var(--ease),
+                        box-shadow 0.35s var(--ease),
+                        background 0.35s var(--ease);
         }
-        .obra-item:hover {
+
+        .obra-toggle::before {
+            content: "";
+            position: absolute;
+            left: 0;
+            top: 0;
+            bottom: 0;
+            width: 2px;
+            background: linear-gradient(180deg, transparent, var(--accent), transparent);
+            opacity: 0.4;
+            transition: opacity 0.35s var(--ease), width 0.35s var(--ease);
+        }
+
+        .obra-toggle::after {
+            content: "";
+            position: absolute;
+            inset: 0;
+            background: radial-gradient(500px circle at 50% 50%, rgba(201,169,97,0.07), transparent 60%);
+            opacity: 0;
+            transition: opacity 0.4s var(--ease);
+            pointer-events: none;
+        }
+
+        .obra-toggle:hover {
+            transform: translateY(-3px);
             border-color: var(--accent-line);
-            color: var(--accent);
-            background: var(--accent-soft);
+            box-shadow: 0 20px 45px -20px rgba(0,0,0,0.9),
+                        0 0 0 1px rgba(201,169,97,0.08),
+                        0 8px 20px -10px rgba(201,169,97,0.15);
         }
-        .obra-item:focus-visible {
+
+        .obra-toggle:hover::before { opacity: 1; width: 3px; }
+        .obra-toggle:hover::after { opacity: 1; }
+
+        .obra-toggle.open {
+            border-color: var(--accent-line);
+            background: linear-gradient(135deg, rgba(201,169,97,0.05) 0%, rgba(10, 9, 8, 1) 100%);
+        }
+        .obra-toggle.open::before { opacity: 1; width: 3px; }
+
+        .obra-toggle:focus-visible {
             outline: 1px solid var(--accent-line);
-            outline-offset: 2px;
+            outline-offset: 3px;
+        }
+
+        .obra-toggle-icon {
+            width: 40px;
+            height: 40px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            border-radius: 50%;
+            background: rgba(201,169,97,0.08);
+            border: 1px solid rgba(201,169,97,0.22);
+            color: var(--accent);
+            font-size: 1.15rem;
+            flex-shrink: 0;
+            transition: background 0.35s var(--ease),
+                        border-color 0.35s var(--ease),
+                        transform 0.6s var(--ease);
+        }
+
+        .obra-toggle:hover .obra-toggle-icon {
+            background: rgba(201,169,97,0.15);
+            border-color: rgba(201,169,97,0.4);
+            transform: rotate(45deg);
+        }
+
+        .obra-toggle.open .obra-toggle-icon {
+            background: rgba(201,169,97,0.16);
+            border-color: rgba(201,169,97,0.5);
+        }
+
+        .obra-toggle-content {
+            display: flex;
+            flex-direction: column;
+            gap: 3px;
+            flex: 1;
+            min-width: 0;
+        }
+
+        .obra-toggle-label {
+            font-size: 0.62rem;
+            letter-spacing: 0.24em;
+            text-transform: uppercase;
+            color: var(--text-dim);
+            font-weight: 500;
+            line-height: 1;
+        }
+
+        .obra-toggle-title {
+            font-family: var(--serif);
+            font-size: 1.2rem;
+            font-style: italic;
+            color: var(--text);
+            font-weight: 400;
+            letter-spacing: 0.01em;
+            line-height: 1.3;
+            font-variation-settings: "opsz" 40;
+            transition: color 0.3s var(--ease);
+        }
+
+        .obra-toggle:hover .obra-toggle-title {
+            color: var(--accent-bright);
+        }
+
+        .obra-toggle-arrow {
+            color: var(--text-dim);
+            font-size: 0.75rem;
+            flex-shrink: 0;
+            transition: transform 0.4s var(--ease), color 0.3s var(--ease);
+            line-height: 1;
+        }
+
+        .obra-toggle:hover .obra-toggle-arrow { color: var(--accent); }
+        .obra-toggle.open .obra-toggle-arrow {
+            transform: rotate(180deg);
+            color: var(--accent);
         }
 
         /* ===== COLAPSABLE ===== */
@@ -387,7 +500,6 @@
             margin: 0 auto;
             box-shadow: 0 20px 60px -20px rgba(0,0,0,0.7);
         }
-        /* Neutralizar decoraciones medievales del HTML original */
         .marco-antiguo::before,
         .marco-antiguo::after { content: none; display: none; }
         .marco-antiguo .runas { display: none; }
@@ -583,7 +695,15 @@
             .cabecera h1 { font-size: 1.9rem; }
             .cabecera .bio { font-size: 0.98rem; }
 
-            .obra-item { font-size: 0.98rem; padding: 0.8rem 1.4rem; }
+            .obra-toggle {
+                padding: 0.95rem 1.1rem 0.95rem 1rem;
+                gap: 0.85rem;
+                margin-bottom: 1rem;
+            }
+            .obra-toggle-icon { width: 34px; height: 34px; font-size: 1rem; }
+            .obra-toggle-title { font-size: 1.05rem; }
+            .obra-toggle-label { font-size: 0.58rem; letter-spacing: 0.2em; }
+
             .libros-grid { gap: 1rem; }
             .libro-cover-btn { flex: 1 1 100%; max-width: 340px; }
             .marco-antiguo { padding: 1.75rem 1.25rem; }
@@ -662,11 +782,21 @@
 
     <div id="books" class="seccion">
         <div class="libros-lista">
-            <button class="obra-item" id="book-toggle" onclick="toggleObra(this)" data-i18n="book_button">Primer intento</button>
+
+            <!-- === BOTÓN 1: PRIMER INTENTO === -->
+            <button class="obra-toggle" id="book-toggle" onclick="toggleObra(this)"
+                    aria-expanded="false" aria-controls="obra-desobediencia">
+                <span class="obra-toggle-icon" aria-hidden="true">✦</span>
+                <span class="obra-toggle-content">
+                    <span class="obra-toggle-label" data-i18n="book_label">Antología</span>
+                    <span class="obra-toggle-title" data-i18n="book_button">Primer intento</span>
+                </span>
+                <span class="obra-toggle-arrow" aria-hidden="true">▼</span>
+            </button>
 
             <div class="marco-contenedor" id="obra-desobediencia">
 
-                <!-- === PORTADAS / NOTAS DE LANZAMIENTO (botones-imagen) === -->
+                <!-- === PORTADAS / NOTAS DE LANZAMIENTO === -->
                 <div class="libros-grid">
                     <button class="libro-cover-btn" type="button"
                             onclick="toggleLibro('libro-herencias', 'libro-cuando-nadie')"
@@ -697,7 +827,7 @@
                         <div class="obra-info" data-i18n="herencias_info"></div>
 
                         <button class="btn-pdf" type="button"
-                                onclick="mostrarPDF('pdf-viewer-herencias')"
+                                onclick="mostrarPDF('pdf-viewer-herencias', 'pdf/Desobediencia.pdf')"
                                 data-i18n="btn_read">Leer la historia</button>
 
                         <a class="enlace-editorial"
@@ -730,7 +860,7 @@
                         <div class="obra-info" data-i18n="cuando_nadie_info"></div>
 
                         <button class="btn-pdf" type="button"
-                                onclick="mostrarPDF('pdf-viewer-cuando-nadie')"
+                                onclick="mostrarPDF('pdf-viewer-cuando-nadie', 'pdf/Desobediencia.pdf')"
                                 data-i18n="btn_read">Leer la historia</button>
 
                         <a class="enlace-editorial"
@@ -747,6 +877,40 @@
                 </div>
 
             </div>
+
+            <!-- === BOTÓN 2: CRÓNICAS DE NOSOTRAS === -->
+            <button class="obra-toggle" id="book-toggle-cronicas" onclick="toggleObra(this)"
+                    aria-expanded="false" aria-controls="obra-cronicas">
+                <span class="obra-toggle-icon" aria-hidden="true">✧</span>
+                <span class="obra-toggle-content">
+                    <span class="obra-toggle-label" data-i18n="cronicas_label">Cuento</span>
+                    <span class="obra-toggle-title" data-i18n="cronicas_button">Crónicas de nosotras</span>
+                </span>
+                <span class="obra-toggle-arrow" aria-hidden="true">▼</span>
+            </button>
+
+            <div class="marco-contenedor" id="obra-cronicas">
+                <div class="marco-antiguo">
+                    <div class="obra-titulo" data-i18n="cronicas_title">CRÓNICAS DE NOSOTRAS</div>
+                    <div class="obra-autor">Julien Villamizar Arriaga</div>
+                    <div class="obra-fecha" data-i18n="cronicas_date">Dos mil veintiséis</div>
+
+                    <div class="obra-dedicatoria" data-i18n="cronicas_dedication"></div>
+
+                    <div class="obra-info" data-i18n="cronicas_info"></div>
+
+                    <button class="btn-pdf" type="button"
+                            onclick="mostrarPDF('pdf-viewer-cronicas', 'pdf/Crónicas de nosotras.pdf')"
+                            data-i18n="btn_read">Leer la historia</button>
+
+                    <div class="pdf-viewer-container" id="pdf-viewer-cronicas">
+                        <div class="pdf-scroll-area">
+                            <div class="pdf-status" data-i18n="pdf_loading">Cargando…</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
@@ -789,8 +953,8 @@ donde antes solo había silencio.
 No busco la perfección:
 busco la verdad
 que se esconde bajo la piel de las palabras.`,
+            book_label: 'Antología',
             book_button: 'Primer intento',
-            book_button_open: 'Primer intento ▲',
             book_title: 'DESOBEDIENCIA',
             book_date: 'Noviembre de dos mil veinticinco',
             dedication: `"A mi madre, mi guerrera sin armadura,
@@ -803,6 +967,17 @@ Hoy mi nombre comparte portada, lomo e ISBN con voces que también decidieron es
 <span class="pdf-lang-warning">El texto solo está disponible en español.</span>`,
             link_herencias: 'Ver en Ita Editorial',
             link_cuando_nadie: 'Ver en Ita Editorial',
+
+            cronicas_label: 'Cuento',
+            cronicas_button: 'Crónicas de nosotras',
+            cronicas_title: 'CRÓNICAS DE NOSOTRAS',
+            cronicas_date: 'Dos mil veintiséis',
+            cronicas_dedication: `"A todas las que fuimos, somos y seremos.
+A las que contaron sus historias en voz baja
+para que nosotras pudiéramos contarlas en voz alta."`,
+            cronicas_info: `<strong>Crónicas de nosotras</strong> es un relato que rescata las voces que la historia oficial ha querido silenciar. Un tejido de memoria, cuerpo y resistencia donde lo íntimo se vuelve colectivo, y donde cada palabra es una forma de permanecer.
+<span class="pdf-lang-warning">El texto solo está disponible en español.</span>`,
+
             btn_read: 'Leer la historia',
             footer: '© 2026 Julien Villamizar Arriaga. Todos los derechos reservados.',
             pdf_loading: 'Cargando…',
@@ -838,8 +1013,8 @@ where once there was only silence.
 I do not seek perfection:
 I seek the truth
 that hides beneath the skin of words.`,
+            book_label: 'Anthology',
             book_button: 'First attempt',
-            book_button_open: 'First attempt ▲',
             book_title: 'DISOBEDIENCE',
             book_date: 'November twenty twenty-five',
             dedication: `"To my mother, my warrior without armor,
@@ -852,6 +1027,17 @@ Today my name shares a cover, spine, and ISBN with voices that also chose to wri
 <span class="pdf-lang-warning">The text is only available in Spanish.</span>`,
             link_herencias: 'View at Ita Editorial',
             link_cuando_nadie: 'View at Ita Editorial',
+
+            cronicas_label: 'Short story',
+            cronicas_button: 'Chronicles of Us',
+            cronicas_title: 'CHRONICLES OF US',
+            cronicas_date: 'Twenty twenty-six',
+            cronicas_dedication: `"To all of us who were, who are, and who will be.
+To those who told their stories in whispers
+so that we could tell them out loud."`,
+            cronicas_info: `<strong>Crónicas de nosotras</strong> (Chronicles of Us) is a story that reclaims the voices that official history has sought to silence. A weaving of memory, body, and resistance where the intimate becomes collective, and where every word is a way of enduring.
+<span class="pdf-lang-warning">The text is only available in Spanish.</span>`,
+
             btn_read: 'Read the story',
             footer: '© 2026 Julien Villamizar Arriaga. All rights reserved.',
             pdf_loading: 'Loading…',
@@ -887,8 +1073,8 @@ là où autrefois il n'y avait que silence.
 Je ne cherche pas la perfection :
 je cherche la vérité
 qui se cache sous la peau des mots.`,
+            book_label: 'Anthologie',
             book_button: 'Première tentative',
-            book_button_open: 'Première tentative ▲',
             book_title: 'DÉSOBÉISSANCE',
             book_date: 'Novembre deux mille vingt-cinq',
             dedication: `« À ma mère, ma guerrière sans armure,
@@ -901,6 +1087,17 @@ Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui
 <span class="pdf-lang-warning">Le texte n'est disponible qu'en espagnol.</span>`,
             link_herencias: 'Voir chez Ita Editorial',
             link_cuando_nadie: 'Voir chez Ita Editorial',
+
+            cronicas_label: 'Nouvelle',
+            cronicas_button: 'Chroniques de nous',
+            cronicas_title: 'CHRONIQUES DE NOUS',
+            cronicas_date: 'Deux mille vingt-six',
+            cronicas_dedication: `« À toutes celles que nous fûmes, que nous sommes et que nous serons.
+À celles qui ont raconté leurs histoires à voix basse
+pour que nous puissions les raconter à voix haute. »`,
+            cronicas_info: `<strong>Crónicas de nosotras</strong> (Chroniques de nous) est un récit qui réhabilite les voix que l'histoire officielle a voulu faire taire. Un tissage de mémoire, de corps et de résistance où l'intime devient collectif, et où chaque mot est une manière de perdurer.
+<span class="pdf-lang-warning">Le texte n'est disponible qu'en espagnol.</span>`,
+
             btn_read: "Lire l'histoire",
             footer: '© 2026 Julien Villamizar Arriaga. Tous droits réservés.',
             pdf_loading: 'Chargement…',
@@ -912,7 +1109,6 @@ Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui
        APLICAR IDIOMA
        ========================================================= */
     let currentLang = 'es';
-    let bookOpen = false;
 
     function applyLanguage(lang) {
         if (!i18n[lang]) lang = 'es';
@@ -930,9 +1126,6 @@ Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui
 
         document.documentElement.lang = lang;
         try { localStorage.setItem('lang', lang); } catch (e) {}
-
-        const btn = document.getElementById('book-toggle');
-        if (btn) btn.textContent = bookOpen ? dict.book_button_open : dict.book_button;
 
         const metaDesc = document.querySelector('meta[name="description"]');
         const metaOgDesc = document.querySelector('meta[property="og:description"]');
@@ -984,15 +1177,18 @@ Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui
         if (btn) btn.classList.add('activo');
     }
 
-    /* Nivel 1: "Primer intento" → muestra las dos portadas */
+    /* Toggle genérico: sirve para ambos botones de obra */
     function toggleObra(btn) {
         const contenedor = btn.nextElementSibling;
         if (!contenedor || !contenedor.classList.contains('marco-contenedor')) return;
-        contenedor.classList.toggle('abierto');
-        bookOpen = contenedor.classList.contains('abierto');
-        btn.textContent = bookOpen
-            ? i18n[currentLang].book_button_open
-            : i18n[currentLang].book_button;
+        const isOpen = contenedor.classList.toggle('abierto');
+        btn.classList.toggle('open', isOpen);
+        btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+        if (isOpen) {
+            setTimeout(() => {
+                contenedor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
+            }, 350);
+        }
     }
 
     /* Nivel 2: portada pulsada → abre su marco y cierra el otro */
@@ -1011,20 +1207,21 @@ Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui
     }
 
     /* =========================================================
-       VISOR PDF (compartido entre los dos marcos)
+       VISOR PDF (caché por fuente, soporta múltiples documentos)
        ========================================================= */
-    let pdfDocPromise = null;
+    const pdfDocCache = {};
 
-    function getPdfDoc() {
-        if (!pdfDocPromise) {
-            pdfDocPromise = pdfjsLib.getDocument('pdf/Desobediencia.pdf').promise;
+    function getPdfDoc(src) {
+        if (!src) return Promise.reject(new Error('Missing PDF source'));
+        if (!pdfDocCache[src]) {
+            pdfDocCache[src] = pdfjsLib.getDocument(encodeURI(src)).promise;
         }
-        return pdfDocPromise;
+        return pdfDocCache[src];
     }
 
-    async function mostrarPDF(containerId) {
+    async function mostrarPDF(containerId, src) {
         const container = document.getElementById(containerId);
-        if (!container) return;
+        if (!container || !src) return;
         container.classList.add('visible');
         container.scrollIntoView({ behavior: 'smooth', block: 'start' });
 
@@ -1044,7 +1241,7 @@ Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui
             `<div class="pdf-status">${i18n[currentLang].pdf_loading}</div>`;
 
         try {
-            const pdf = await getPdfDoc();
+            const pdf = await getPdfDoc(src);
             scrollArea.innerHTML = '';
 
             const outputScale = window.devicePixelRatio || 1;
