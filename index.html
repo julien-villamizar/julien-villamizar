@@ -293,9 +293,14 @@
         footer p { margin: 0; }
 
         /* ===== LIBROS ===== */
-        .libros-lista { padding: 10px 0; }
+        .libros-lista {
+            padding: 10px 0;
+            display: flex;
+            flex-direction: column;
+            gap: 0;
+        }
 
-        /* ==== Botón / tarjeta de obra (NUEVO DISEÑO) ==== */
+        /* ==== Botón / tarjeta de obra ==== */
         .obra-toggle {
             position: relative;
             display: flex;
@@ -783,7 +788,7 @@
     <div id="books" class="seccion">
         <div class="libros-lista">
 
-            <!-- === BOTÓN 1: PRIMER INTENTO === -->
+            <!-- ===== BOTÓN 1: PRIMER INTENTO (antología) ===== -->
             <button class="obra-toggle" id="book-toggle" onclick="toggleObra(this)"
                     aria-expanded="false" aria-controls="obra-desobediencia">
                 <span class="obra-toggle-icon" aria-hidden="true">✦</span>
@@ -796,7 +801,7 @@
 
             <div class="marco-contenedor" id="obra-desobediencia">
 
-                <!-- === PORTADAS / NOTAS DE LANZAMIENTO === -->
+                <!-- Portadas / notas de lanzamiento -->
                 <div class="libros-grid">
                     <button class="libro-cover-btn" type="button"
                             onclick="toggleLibro('libro-herencias', 'libro-cuando-nadie')"
@@ -810,20 +815,14 @@
                     </button>
                 </div>
 
-                <!-- === MARCO: HERENCIAS INVISIBLES === -->
+                <!-- Marco: Herencias invisibles -->
                 <div class="marco-contenedor" id="libro-herencias">
                     <div class="marco-antiguo">
-                        <span class="runas r1">ᛉ ᚨ</span>
-                        <span class="runas r2">ᚠ ᛗ</span>
-                        <span class="runas r3">ᚢ</span>
-                        <span class="runas r4">ᛏ</span>
-
                         <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
                         <div class="obra-autor">Julien Villamizar Arriaga</div>
                         <div class="obra-fecha" data-i18n="book_date">Noviembre de dos mil veinticinco</div>
 
                         <div class="obra-dedicatoria" data-i18n="dedication"></div>
-
                         <div class="obra-info" data-i18n="herencias_info"></div>
 
                         <button class="btn-pdf" type="button"
@@ -843,20 +842,14 @@
                     </div>
                 </div>
 
-                <!-- === MARCO: CUANDO NADIE ESTÁ MIRANDO === -->
+                <!-- Marco: Cuando nadie está mirando -->
                 <div class="marco-contenedor" id="libro-cuando-nadie">
                     <div class="marco-antiguo">
-                        <span class="runas r1">ᛉ ᚨ</span>
-                        <span class="runas r2">ᚠ ᛗ</span>
-                        <span class="runas r3">ᚢ</span>
-                        <span class="runas r4">ᛏ</span>
-
                         <div class="obra-titulo" data-i18n="book_title">DESOBEDIENCIA</div>
                         <div class="obra-autor">Julien Villamizar Arriaga</div>
                         <div class="obra-fecha" data-i18n="book_date">Noviembre de dos mil veinticinco</div>
 
                         <div class="obra-dedicatoria" data-i18n="dedication"></div>
-
                         <div class="obra-info" data-i18n="cuando_nadie_info"></div>
 
                         <button class="btn-pdf" type="button"
@@ -878,7 +871,7 @@
 
             </div>
 
-            <!-- === BOTÓN 2: CRÓNICAS DE NOSOTRAS === -->
+            <!-- ===== BOTÓN 2: CRÓNICAS DE NOSOTRAS (cuento) ===== -->
             <button class="obra-toggle" id="book-toggle-cronicas" onclick="toggleObra(this)"
                     aria-expanded="false" aria-controls="obra-cronicas">
                 <span class="obra-toggle-icon" aria-hidden="true">✧</span>
@@ -896,11 +889,11 @@
                     <div class="obra-fecha" data-i18n="cronicas_date">Dos mil veintiséis</div>
 
                     <div class="obra-dedicatoria" data-i18n="cronicas_dedication"></div>
-
                     <div class="obra-info" data-i18n="cronicas_info"></div>
 
+                    <!-- El array de rutas permite tanto con .pdf como sin extensión -->
                     <button class="btn-pdf" type="button"
-                            onclick="mostrarPDF('pdf-viewer-cronicas', 'pdf/Crónicas de nosotras.pdf')"
+                            onclick="mostrarPDF('pdf-viewer-cronicas', ['pdf/Crónicas de nosotras.pdf', 'pdf/Crónicas de nosotras'])"
                             data-i18n="btn_read">Leer la historia</button>
 
                     <div class="pdf-viewer-container" id="pdf-viewer-cronicas">
@@ -1177,13 +1170,16 @@ pour que nous puissions les raconter à voix haute. »`,
         if (btn) btn.classList.add('activo');
     }
 
-    /* Toggle genérico: sirve para ambos botones de obra */
+    /* Toggle de obra: usa aria-controls para localizar el marco destino */
     function toggleObra(btn) {
-        const contenedor = btn.nextElementSibling;
+        const targetId = btn.getAttribute('aria-controls');
+        const contenedor = targetId ? document.getElementById(targetId) : btn.nextElementSibling;
         if (!contenedor || !contenedor.classList.contains('marco-contenedor')) return;
+
         const isOpen = contenedor.classList.toggle('abierto');
         btn.classList.toggle('open', isOpen);
         btn.setAttribute('aria-expanded', isOpen ? 'true' : 'false');
+
         if (isOpen) {
             setTimeout(() => {
                 contenedor.scrollIntoView({ behavior: 'smooth', block: 'nearest' });
@@ -1191,7 +1187,7 @@ pour que nous puissions les raconter à voix haute. »`,
         }
     }
 
-    /* Nivel 2: portada pulsada → abre su marco y cierra el otro */
+    /* Toggle de portada: abre su marco y cierra el hermano */
     function toggleLibro(frameId, otherFrameId) {
         const target = document.getElementById(frameId);
         const other = document.getElementById(otherFrameId);
@@ -1207,16 +1203,27 @@ pour que nous puissions les raconter à voix haute. »`,
     }
 
     /* =========================================================
-       VISOR PDF (caché por fuente, soporta múltiples documentos)
+       VISOR PDF (acepta string o array de candidatos)
        ========================================================= */
     const pdfDocCache = {};
 
     function getPdfDoc(src) {
-        if (!src) return Promise.reject(new Error('Missing PDF source'));
-        if (!pdfDocCache[src]) {
-            pdfDocCache[src] = pdfjsLib.getDocument(encodeURI(src)).promise;
+        const candidates = Array.isArray(src) ? src : [src];
+        const key = candidates.join('|');
+        if (!pdfDocCache[key]) {
+            pdfDocCache[key] = (async () => {
+                let lastErr;
+                for (const candidate of candidates) {
+                    try {
+                        return await pdfjsLib.getDocument(encodeURI(candidate)).promise;
+                    } catch (e) {
+                        lastErr = e;
+                    }
+                }
+                throw lastErr || new Error('No PDF source worked');
+            })();
         }
-        return pdfDocCache[src];
+        return pdfDocCache[key];
     }
 
     async function mostrarPDF(containerId, src) {
