@@ -1,0 +1,54 @@
+name: Deploy site and game
+
+on:
+  push:
+    branches: [ "main" ]
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+
+      - name: Build the game
+        working-directory: ./juego
+        run: |
+          npm install
+          npm run build
+
+      - name: Assemble the final site
+        run: |
+          mkdir -p site
+          rsync -a \
+            --exclude='juego' \
+            --exclude='.git' \
+            --exclude='.github' \
+            --exclude='site' \
+            --exclude='node_modules' \
+            ./ site/
+          mkdir -p site/juego
+          cp -r juego/dist/* site/juego/
+          touch site/.nojekyll
+
+      - name: Upload artifact
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: './site'
+
+      - name: Deploy to GitHub Pages
+        id: deployment
+        uses: actions/deploy-pages@v4
