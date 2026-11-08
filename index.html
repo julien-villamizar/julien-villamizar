@@ -224,60 +224,6 @@
         }
         .seccion.activa { display: block; }
 
-        /* ===== HOME ===== */
-        #home {
-            padding-top: clamp(2.5rem, 7vh, 5rem);
-            padding-bottom: 3rem;
-        }
-        .cabecera { text-align: center; }
-        .cabecera img {
-            width: 108px;
-            height: 108px;
-            aspect-ratio: 1 / 1;
-            border-radius: 50%;
-            object-fit: cover;
-            margin: 0 auto 24px;
-            display: block;
-            padding: 4px;
-            background: var(--bg-elevated);
-            border: 1px solid var(--border-strong);
-            box-shadow:
-                0 0 0 4px var(--bg),
-                0 0 0 5px var(--border),
-                0 12px 40px rgba(0,0,0,0.5);
-        }
-        .cabecera h1 {
-            margin: 0 0 12px;
-            font-size: clamp(2rem, 5.5vw, 2.8rem);
-            font-family: var(--serif);
-            font-weight: 400;
-            line-height: 1.1;
-            letter-spacing: -0.015em;
-            color: var(--text);
-            font-variation-settings: "opsz" 144;
-        }
-        .cabecera h1::after {
-            content: "";
-            display: block;
-            width: 40px;
-            height: 1px;
-            background: var(--accent);
-            opacity: 0.6;
-            margin: 1.5rem auto;
-        }
-        .cabecera .bio {
-            margin: 20px auto 0;
-            white-space: pre-line;
-            line-height: 1.9;
-            display: inline-block;
-            text-align: center;
-            font-family: var(--body);
-            color: var(--text-muted);
-            max-width: 700px;
-            font-size: 1.02rem;
-            letter-spacing: 0.005em;
-        }
-
         /* ===== FOOTER ===== */
         footer {
             text-align: center;
@@ -685,9 +631,6 @@
             .lang-option { font-size: 0.8rem; padding: 8px 10px; }
 
             .seccion { padding: 0 1rem; }
-            .cabecera img { width: 88px; height: 88px; }
-            .cabecera h1 { font-size: 1.9rem; }
-            .cabecera .bio { font-size: 0.98rem; }
 
             .obra-item { scroll-margin-top: 84px; }
 
@@ -718,8 +661,7 @@
 </head>
 <body>
     <nav>
-        <button class="nav-text activo" id="btn-home" onclick="mostrarSeccion('home')" data-i18n="nav_home">Inicio</button>
-        <button class="nav-text" id="btn-books" onclick="mostrarSeccion('books')" data-i18n="nav_books">Historias</button>
+        <button class="nav-text activo" id="btn-books" onclick="mostrarSeccion('books')" data-i18n="nav_books">Historias</button>
 
         <div class="lang-switcher" id="lang-switcher">
             <button class="lang-main" id="lang-main" aria-label="Cambiar idioma" title="Cambiar idioma">
@@ -767,15 +709,7 @@
         </div>
     </nav>
 
-    <div id="home" class="seccion activa">
-        <div class="cabecera">
-            <img id="logo-home" alt="Logo de Julien Villamizar">
-            <h1>Julien Villamizar Arriaga</h1>
-            <div class="bio" data-i18n="bio"></div>
-        </div>
-    </div>
-
-    <div id="books" class="seccion">
+    <div id="books" class="seccion activa">
         <div class="libros-lista">
 
             <!-- ===== OBRA 1: LIBRO ANTOLÓGICO ===== -->
@@ -907,33 +841,6 @@
         es: {
             nav_home: 'Inicio',
             nav_books: 'Historias',
-            bio: `Nací entre montañas que respiran,
-entre calles que gritan
-y un idioma que baila cuando se habla.
-
-No me gustaban los libros:
-eran jaulas de letras ajenas.
-Hasta que un cómic cayó como un rayo
-sobre tierra fértil.
-
-Aprendí a leer sin descanso.
-Cada página,
-una ventana rota
-a un mundo que tenía que habitar.
-
-A los doce soñé, despierto e insomne,
-con escribir mi propio libro.
-A los catorce hice un pacto
-con mi propia voz.
-
-Escribo desde la honestidad radical,
-desde la tierra que me hizo,
-para tender puentes
-donde antes solo había silencio.
-
-No busco la perfección:
-busco la verdad
-que se esconde bajo la piel de las palabras.`,
             book_label: 'Libro antológico',
             book_title: 'DESOBEDIENCIA',
             dedication: `"A mi madre, mi guerrera sin armadura,
@@ -962,33 +869,6 @@ a esas guerreras con ojos de poeta."`,
         en: {
             nav_home: 'Home',
             nav_books: 'Stories',
-            bio: `I was born among mountains that breathe,
-among streets that scream
-and a language that dances when spoken.
-
-I did not like books:
-they were cages of foreign letters.
-Until a comic fell like lightning
-upon fertile ground.
-
-I learned to read without rest.
-Every page,
-a broken window
-onto a world I had to inhabit.
-
-At twelve I dreamed, awake and sleepless,
-of writing my own book.
-At fourteen I made a pact
-with my own voice.
-
-I write from radical honesty,
-from the land that made me,
-to build bridges
-where once there was only silence.
-
-I do not seek perfection:
-I seek the truth
-that hides beneath the skin of words.`,
             book_label: 'Anthology book',
             book_title: 'DISOBEDIENCE',
             dedication: `"To my mother, my warrior without armor,
@@ -1017,33 +897,6 @@ to those warriors with the eyes of a poet."`,
         fr: {
             nav_home: 'Accueil',
             nav_books: 'Histoires',
-            bio: `Je suis né parmi des montagnes qui respirent,
-parmi des rues qui crient
-et une langue qui danse lorsqu'on la parle.
-
-Je n'aimais pas les livres :
-c'étaient des cages de lettres étrangères.
-Jusqu'à ce qu'une bande dessinée tombe comme la foudre
-sur une terre fertile.
-
-J'ai appris à lire sans relâche.
-Chaque page,
-une fenêtre brisée
-sur un monde que je devais habiter.
-
-À douze ans j'ai rêvé, éveillé et insomnieux,
-d'écrire mon propre livre.
-À quatorze ans j'ai fait un pacte
-avec ma propre voix.
-
-J'écris depuis l'honnêteté radicale,
-depuis la terre qui m'a fait,
-pour jeter des ponts
-là où autrefois il n'y avait que silence.
-
-Je ne cherche pas la perfection :
-je cherche la vérité
-qui se cache sous la peau des mots.`,
             book_label: 'Livre anthologique',
             book_title: 'DÉSOBÉISSANCE',
             dedication: `« À ma mère, ma guerrière sans armure,
@@ -1329,7 +1182,6 @@ Aujourd'hui, mon nom partage une couverture, un dos et un ISBN avec des voix qui
         try { savedLang = localStorage.getItem('lang') || 'es'; } catch (e) {}
         applyLanguage(savedLang);
 
-        cargarImagenConExtensiones('logo-home', 'Home');
         cargarImagenConExtensiones('cover-herencias', 'Nota de lanzamiento Herencias invisibles');
         cargarImagenConExtensiones('cover-cuando-nadie', 'Nota de lanzamiento Cuando nadie está mirando');
 
